@@ -154,6 +154,14 @@ model CollectionEntry {
   @@index([collectionId, locale, status])
 }
 
+// ─── Enums ────────────────────────────────────────────────────────────
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
 // ─── Post Types ───────────────────────────────────────────────────────
 
 model PostType {
