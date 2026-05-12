@@ -1,7 +1,6 @@
 'use client'
 
 import type { FieldType, SchemaActionState, SchemaField } from '@/lib/actions/collections'
-import { updateCollectionSchemaAction } from '@/lib/actions/collections'
 import type { LucideIcon } from 'lucide-react'
 import {
   AlignLeft,
@@ -81,23 +80,23 @@ interface SiblingCollection {
 }
 
 interface Props {
-  collectionId: string
+  saveAction: (prev: SchemaActionState, formData: FormData) => Promise<SchemaActionState>
   initialSchema: SchemaField[]
-  siblingCollections: SiblingCollection[]
+  siblingCollections?: SiblingCollection[]
 }
 
-export default function SchemaBuilder({ collectionId, initialSchema, siblingCollections }: Props) {
+export default function SchemaBuilder({
+  saveAction,
+  initialSchema,
+  siblingCollections = [],
+}: Props) {
   const [fields, setFields] = useState<SchemaField[]>(initialSchema)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [showTypePicker, setShowTypePicker] = useState(false)
   const [dirty, setDirty] = useState(false)
   const schemaRef = useRef<HTMLInputElement>(null)
 
-  const boundAction = updateCollectionSchemaAction.bind(null, collectionId)
-  const [state, formAction, pending] = useActionState<SchemaActionState, FormData>(
-    boundAction,
-    null,
-  )
+  const [state, formAction, pending] = useActionState<SchemaActionState, FormData>(saveAction, null)
 
   useEffect(() => {
     if (state && 'success' in state) setDirty(false)

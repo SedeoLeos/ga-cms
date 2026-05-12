@@ -4,8 +4,9 @@ import { prisma } from '@/lib/db/client'
 import { FieldSchemaZ } from '@/lib/schema/fields'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
+import type { SchemaActionState } from './collections'
 
-const CreateCollectionSchema = z.object({
+const CreatePostTypeSchema = z.object({
   siteId: z.string().min(1, 'Site requis'),
   name: z.string().min(1, 'Le nom est requis').max(100),
   slug: z
@@ -16,12 +17,12 @@ const CreateCollectionSchema = z.object({
   description: z.string().max(500).optional(),
 })
 
-export type CollectionActionState = { error: string } | { success: true; id: string } | null
+export type PostTypeActionState = { error: string } | { success: true; id: string } | null
 
-export async function createCollectionAction(
-  _prev: CollectionActionState,
+export async function createPostTypeAction(
+  _prev: PostTypeActionState,
   formData: FormData,
-): Promise<CollectionActionState> {
+): Promise<PostTypeActionState> {
   const raw = {
     siteId: formData.get('siteId') as string,
     name: formData.get('name') as string,
@@ -29,57 +30,30 @@ export async function createCollectionAction(
     description: (formData.get('description') as string) || undefined,
   }
 
-  const result = CreateCollectionSchema.safeParse(raw)
+  const result = CreatePostTypeSchema.safeParse(raw)
   if (!result.success) return { error: result.error.errors[0]?.message ?? 'Données invalides.' }
 
   try {
-    const col = await prisma.collection.create({
+    const pt = await prisma.postType.create({
       data: { ...result.data, schema: [] },
       select: { id: true },
     })
-    revalidatePath('/admin/collections')
+    revalidatePath('/admin/post-types')
     revalidatePath('/admin')
-    return { success: true, id: col.id }
+    return { success: true, id: pt.id }
   } catch {
-    return { error: 'Une collection avec cet identifiant existe déjà sur ce site.' }
+    return { error: 'Un post type avec cet identifiant existe déjà sur ce site.' }
   }
 }
 
-export async function deleteCollectionAction(collectionId: string): Promise<void> {
-  await prisma.collection.delete({ where: { id: collectionId } })
-  revalidatePath('/admin/collections')
+export async function deletePostTypeAction(postTypeId: string): Promise<void> {
+  await prisma.postType.delete({ where: { id: postTypeId } })
+  revalidatePath('/admin/post-types')
   revalidatePath('/admin')
 }
 
-// ─── Schema Builder ───────────────────────────────────────────────────────────
-
-export type FieldType =
-  | 'text'
-  | 'textarea'
-  | 'richtext'
-  | 'number'
-  | 'boolean'
-  | 'date'
-  | 'select'
-  | 'media'
-  | 'relation'
-
-export interface SchemaField {
-  id: string
-  type: FieldType
-  name: string
-  key: string
-  required: boolean
-  description?: string
-  options?: string[]
-  multiple?: boolean
-  relatedCollectionId?: string
-}
-
-export type SchemaActionState = { error: string } | { success: true } | null
-
-export async function updateCollectionSchemaAction(
-  collectionId: string,
+export async function updatePostTypeSchemaAction(
+  postTypeId: string,
   _prev: SchemaActionState,
   formData: FormData,
 ): Promise<SchemaActionState> {
@@ -98,10 +72,10 @@ export async function updateCollectionSchemaAction(
   if (new Set(keys).size !== keys.length)
     return { error: 'Les clés de champs doivent être uniques.' }
 
-  await prisma.collection.update({
-    where: { id: collectionId },
+  await prisma.postType.update({
+    where: { id: postTypeId },
     data: { schema: result.data as object[] },
   })
-  revalidatePath(`/admin/collections/${collectionId}`)
+  revalidatePath(`/admin/post-types/${postTypeId}`)
   return { success: true }
 }

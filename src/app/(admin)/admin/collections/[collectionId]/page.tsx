@@ -1,5 +1,6 @@
 import SchemaBuilder from '@/components/admin/collections/SchemaBuilder'
 import type { SchemaField } from '@/lib/actions/collections'
+import { updateCollectionSchemaAction } from '@/lib/actions/collections'
 import { prisma } from '@/lib/db/client'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -85,7 +86,7 @@ async function CollectionSchemaContent({ params }: Props) {
       </div>
 
       <SchemaBuilder
-        collectionId={collection.id}
+        saveAction={updateCollectionSchemaAction.bind(null, collection.id)}
         initialSchema={(collection.schema as unknown as SchemaField[]) ?? []}
         siblingCollections={collection.site.collections}
       />
