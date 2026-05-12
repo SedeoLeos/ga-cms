@@ -1,19 +1,49 @@
+import { prisma } from '@/lib/db/client'
 import { FileText, Globe, Image, Layers } from 'lucide-react'
 import type { Metadata } from 'next'
+import Link from 'next/link'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = { title: 'Dashboard' }
 
-const STATS = [
-  { label: 'Sites', value: '—', icon: Globe, color: '#4353ff' },
-  { label: 'Pages', value: '—', icon: FileText, color: '#22c55e' },
-  { label: 'Collections', value: '—', icon: Layers, color: '#f59e0b' },
-  { label: 'Media files', value: '—', icon: Image, color: '#a855f7' },
-]
-
 export default function DashboardPage() {
   return (
+    <Suspense>
+      <DashboardContent />
+    </Suspense>
+  )
+}
+
+async function DashboardContent() {
+  const [siteCount, pageCount, collectionCount, mediaCount] = await Promise.all([
+    prisma.site.count(),
+    prisma.page.count(),
+    prisma.collection.count(),
+    prisma.mediaFile.count(),
+  ])
+
+  const STATS = [
+    { label: 'Sites', value: siteCount, icon: Globe, color: '#4353ff', href: '/admin/sites' },
+    { label: 'Pages', value: pageCount, icon: FileText, color: '#22c55e', href: '/admin/pages' },
+    {
+      label: 'Collections',
+      value: collectionCount,
+      icon: Layers,
+      color: '#f59e0b',
+      href: '/admin/collections',
+    },
+    {
+      label: 'Médias',
+      value: mediaCount,
+      icon: Image,
+      color: '#a855f7',
+      href: '/admin/media',
+    },
+  ]
+
+  return (
     <div style={{ padding: 32, maxWidth: 900 }}>
-      {/* Header */}
+      {/* En-tête */}
       <div style={{ marginBottom: 28 }}>
         <h1
           style={{
@@ -27,11 +57,11 @@ export default function DashboardPage() {
           Dashboard
         </h1>
         <p style={{ margin: '4px 0 0', fontSize: 13, color: '#5a5a78' }}>
-          Welcome back. Here's an overview of your workspace.
+          Bienvenue. Voici un aperçu de votre espace de travail.
         </p>
       </div>
 
-      {/* Stats grid */}
+      {/* Stats */}
       <div
         style={{
           display: 'grid',
@@ -43,43 +73,46 @@ export default function DashboardPage() {
         {STATS.map((stat) => {
           const Icon = stat.icon
           return (
-            <div
-              key={stat.label}
-              style={{
-                background: '#13131c',
-                border: '1px solid #1f1f2e',
-                borderRadius: 8,
-                padding: '16px 18px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 12,
-              }}
-            >
+            <Link key={stat.label} href={stat.href} style={{ textDecoration: 'none' }}>
               <div
+                className="stat-card"
                 style={{
-                  width: 32,
-                  height: 32,
+                  background: '#13131c',
+                  border: '1px solid #1f1f2e',
                   borderRadius: 8,
-                  background: `${stat.color}18`,
+                  padding: '16px 18px',
                   display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  flexDirection: 'column',
+                  gap: 12,
+                  transition: 'border-color 0.15s',
                 }}
               >
-                <Icon size={16} strokeWidth={1.5} color={stat.color} />
-              </div>
-              <div>
-                <div style={{ fontSize: 22, fontWeight: 700, color: '#e8e8f0', lineHeight: 1 }}>
-                  {stat.value}
+                <div
+                  style={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: 8,
+                    background: `${stat.color}18`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Icon size={16} strokeWidth={1.5} color={stat.color} />
                 </div>
-                <div style={{ fontSize: 12, color: '#5a5a78', marginTop: 4 }}>{stat.label}</div>
+                <div>
+                  <div style={{ fontSize: 22, fontWeight: 700, color: '#e8e8f0', lineHeight: 1 }}>
+                    {stat.value}
+                  </div>
+                  <div style={{ fontSize: 12, color: '#5a5a78', marginTop: 4 }}>{stat.label}</div>
+                </div>
               </div>
-            </div>
+            </Link>
           )
         })}
       </div>
 
-      {/* Quick actions */}
+      {/* Actions rapides */}
       <div>
         <h2
           style={{
@@ -91,17 +124,18 @@ export default function DashboardPage() {
             letterSpacing: '0.05em',
           }}
         >
-          Quick actions
+          Actions rapides
         </h2>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           {[
-            { label: 'New site', href: '/admin/sites/new' },
-            { label: 'New page', href: '/admin/pages/new' },
-            { label: 'Upload media', href: '/admin/media' },
+            { label: 'Nouveau site', href: '/admin/sites' },
+            { label: 'Nouvelle page', href: '/admin/pages' },
+            { label: 'Ajouter un média', href: '/admin/media' },
           ].map((action) => (
-            <a
+            <Link
               key={action.href}
               href={action.href}
+              className="admin-quick-action"
               style={{
                 height: 32,
                 padding: '0 14px',
@@ -114,10 +148,9 @@ export default function DashboardPage() {
                 display: 'inline-flex',
                 alignItems: 'center',
               }}
-              className="admin-quick-action"
             >
               {action.label}
-            </a>
+            </Link>
           ))}
         </div>
       </div>
