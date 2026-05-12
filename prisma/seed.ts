@@ -1,22 +1,38 @@
-import { PrismaClient } from '@prisma/client'
-import bcrypt from 'bcryptjs'
+import { existsSync, readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 
-const prisma = new PrismaClient()
+// Charge .env.local SYNCHRONÉMENT avant tout import dépendant de l'env
+for (const file of ['.env.local', '.env']) {
+  const path = resolve(process.cwd(), file)
+  if (existsSync(path)) {
+    for (const line of readFileSync(path, 'utf8').split('\n')) {
+      const match = line.match(/^([^#=\s][^=]*)\s*=\s*(.*)$/)
+      if (match) {
+        const key = (match[1] ?? '').trim()
+        const val = (match[2] ?? '').trim().replace(/^["']|["']$/g, '')
+        if (!process.env[key]) process.env[key] = val
+      }
+    }
+    break
+  }
+}
 
+// Imports dynamiques — s'exécutent APRÈS le chargement de l'env
 async function main() {
-  console.log('Seeding database...')
+  const { prisma } = await import('../src/lib/db/client')
+  const { default: bcrypt } = await import('bcryptjs')
 
-  const passwordHash = await bcrypt.hash('password123', 12)
+  const email = process.argv[2] ?? 'admin@tatomir.local'
+  const password = process.argv[3] ?? 'admin'
+
+  console.log(`[seed] Création de l'admin : ${email}`)
+
+  const passwordHash = await bcrypt.hash(password, 12)
 
   const user = await prisma.user.upsert({
-    where: { email: 'admin@tatomir.local' },
-    update: {},
-    create: {
-      email: 'admin@tatomir.local',
-      name: 'Admin',
-      passwordHash,
-      locale: 'en',
-    },
+    where: { email },
+    update: { passwordHash },
+    create: { email, name: 'Admin', passwordHash, locale: 'en' },
   })
 
   const site = await prisma.site.upsert({
@@ -27,13 +43,10 @@ async function main() {
       slug: 'my-site',
       locales: ['en', 'fr'],
       defaultLocale: 'en',
-      memberships: {
-        create: { userId: user.id, role: 'OWNER' },
-      },
+      memberships: { create: { userId: user.id, role: 'OWNER' } },
     },
   })
 
-  // Seed built-in post types
   const builtInPostTypes = [
     { name: 'Blog', slug: 'blog-post', icon: 'BookOpen', hasRss: true },
     { name: 'Portfolio', slug: 'portfolio', icon: 'Briefcase', hasRss: false },
@@ -48,19 +61,10 @@ async function main() {
     await prisma.postType.upsert({
       where: { siteId_slug: { siteId: site.id, slug: pt.slug } },
       update: {},
-      create: {
-        siteId: site.id,
-        name: pt.name,
-        slug: pt.slug,
-        icon: pt.icon,
-        isBuiltIn: true,
-        hasRss: pt.hasRss,
-        schema: [],
-      },
+      create: { siteId: site.id, ...pt, isBuiltIn: true, schema: [] },
     })
   }
 
-  // Default home page
   await prisma.page.upsert({
     where: { siteId_slug_locale: { siteId: site.id, slug: 'index', locale: 'en' } },
     update: {},
@@ -74,12 +78,11 @@ async function main() {
     },
   })
 
-  console.log(`Seeded: user=${user.email}, site=${site.slug}`)
+  console.log(`[seed] OK — user=${user.email}, site=${site.slug}`)
+  await prisma.$disconnect()
 }
 
-main()
-  .catch((e) => {
-    console.error(e)
-    process.exit(1)
-  })
-  .finally(() => prisma.$disconnect())
+main().catch((e) => {
+  console.error(e)
+  process.exit(1)
+})

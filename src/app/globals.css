@@ -101,6 +101,13 @@ body {
   color: #d0d0f0 !important;
 }
 
+/* ─── Site settings ─────────────────────────────────────────────────── */
+.delete-site-confirm-btn:hover {
+  background: #2a1010 !important;
+  border-color: #6a2020 !important;
+  color: #ff8080 !important;
+}
+
 /* ─── Sites list ────────────────────────────────────────────────────── */
 .site-row:hover {
   background: #161620;
