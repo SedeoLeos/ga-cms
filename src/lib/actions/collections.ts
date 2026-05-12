@@ -49,3 +49,84 @@ export async function deleteCollectionAction(collectionId: string): Promise<void
   revalidatePath('/admin/collections')
   revalidatePath('/admin')
 }
+
+// ─── Schema Builder ───────────────────────────────────────────────────────────
+
+export type FieldType =
+  | 'text'
+  | 'textarea'
+  | 'richtext'
+  | 'number'
+  | 'boolean'
+  | 'date'
+  | 'select'
+  | 'media'
+  | 'relation'
+
+export interface SchemaField {
+  id: string
+  type: FieldType
+  name: string
+  key: string
+  required: boolean
+  description?: string
+  options?: string[]
+  multiple?: boolean
+  relatedCollectionId?: string
+}
+
+const FieldSchemaZ = z.object({
+  id: z.string().min(1),
+  type: z.enum([
+    'text',
+    'textarea',
+    'richtext',
+    'number',
+    'boolean',
+    'date',
+    'select',
+    'media',
+    'relation',
+  ]),
+  name: z.string().min(1, 'Le nom du champ est requis').max(100),
+  key: z
+    .string()
+    .min(1, 'La clé est requise')
+    .max(60)
+    .regex(/^[a-z][a-z0-9_]*$/, 'Clé : commence par une lettre, puis minuscules/chiffres/_'),
+  required: z.boolean(),
+  description: z.string().max(500).optional(),
+  options: z.array(z.string()).max(200).optional(),
+  multiple: z.boolean().optional(),
+  relatedCollectionId: z.string().optional(),
+})
+
+export type SchemaActionState = { error: string } | { success: true } | null
+
+export async function updateCollectionSchemaAction(
+  collectionId: string,
+  _prev: SchemaActionState,
+  formData: FormData,
+): Promise<SchemaActionState> {
+  const raw = formData.get('schema') as string
+  let parsed: unknown
+  try {
+    parsed = JSON.parse(raw)
+  } catch {
+    return { error: 'Schéma JSON invalide.' }
+  }
+
+  const result = z.array(FieldSchemaZ).safeParse(parsed)
+  if (!result.success) return { error: result.error.errors[0]?.message ?? 'Schéma invalide.' }
+
+  const keys = result.data.map((f) => f.key)
+  if (new Set(keys).size !== keys.length)
+    return { error: 'Les clés de champs doivent être uniques.' }
+
+  await prisma.collection.update({
+    where: { id: collectionId },
+    data: { schema: result.data as object[] },
+  })
+  revalidatePath(`/admin/collections/${collectionId}`)
+  return { success: true }
+}
