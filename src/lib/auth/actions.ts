@@ -16,7 +16,8 @@ export async function loginAction(_prev: LoginState, formData: FormData): Promis
       body: { email, password },
       headers: await headers(),
     })
-  } catch {
+  } catch (e) {
+    console.error('[loginAction] signInEmail failed', e)
     return { error: 'Email ou mot de passe incorrect.' }
   }
 

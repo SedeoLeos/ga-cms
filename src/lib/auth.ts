@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/db/client'
 import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
+import { nextCookies } from 'better-auth/next-js'
 
 type SupportedProvider = 'postgresql' | 'mysql' | 'sqlite'
 
@@ -22,4 +23,9 @@ export const auth = betterAuth({
     // directement en BDD, ce qui est fiable.
   },
   trustedOrigins: [process.env.BETTER_AUTH_URL ?? 'http://localhost:3000'],
+  // CRITIQUE : sans ce plugin, auth.api.signInEmail() appelé depuis une
+  // server action crée la session en BDD mais ne renvoie PAS le cookie
+  // Set-Cookie au navigateur → boucle de redirection infinie sur login.
+  // Doit rester le dernier plugin (il intercepte les headers de réponse).
+  plugins: [nextCookies()],
 })
