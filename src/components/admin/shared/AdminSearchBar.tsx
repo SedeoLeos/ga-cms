@@ -52,7 +52,7 @@ export default function AdminSearchBar({
         <Search
           size={13}
           strokeWidth={1.5}
-          color="#4a4a68"
+          color="#52525b"
           style={{ position: 'absolute', left: 9, top: '50%', transform: 'translateY(-50%)' }}
         />
         <input
@@ -66,10 +66,10 @@ export default function AdminSearchBar({
             paddingLeft: 30,
             paddingRight: search ? 28 : 10,
             background: '#1a1a26',
-            border: '1px solid #2a2a3e',
+            border: '1px solid #27272a',
             borderRadius: 6,
             fontSize: 12,
-            color: '#e8e8f0',
+            color: '#f4f4f5',
             outline: 'none',
             boxSizing: 'border-box',
           }}
@@ -86,7 +86,7 @@ export default function AdminSearchBar({
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              color: '#4a4a68',
+              color: '#52525b',
               padding: 0,
               display: 'flex',
             }}
@@ -104,10 +104,10 @@ export default function AdminSearchBar({
             height: 32,
             padding: '0 8px',
             background: '#1a1a26',
-            border: '1px solid #2a2a3e',
+            border: '1px solid #27272a',
             borderRadius: 6,
             fontSize: 12,
-            color: status ? '#e8e8f0' : '#4a4a68',
+            color: status ? '#f4f4f5' : '#52525b',
             outline: 'none',
             cursor: 'pointer',
           }}

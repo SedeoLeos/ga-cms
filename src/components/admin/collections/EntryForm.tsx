@@ -34,12 +34,12 @@ const FIELD_ICON: Record<FieldType, LucideIcon> = {
 
 const INPUT_S: React.CSSProperties = {
   width: '100%',
-  background: '#1e1e2e',
-  border: '1px solid #2a2a3e',
+  background: '#1c1c1f',
+  border: '1px solid #27272a',
   borderRadius: 6,
   padding: '0 10px',
   fontSize: 13,
-  color: '#e8e8f0',
+  color: '#f4f4f5',
   outline: 'none',
   boxSizing: 'border-box',
   height: 34,
@@ -49,12 +49,12 @@ const LABEL_S: React.CSSProperties = {
   display: 'block',
   fontSize: 12,
   fontWeight: 500,
-  color: '#8a8aa8',
+  color: '#a1a1aa',
   marginBottom: 6,
 }
 
 const STATUS_META: Record<string, { label: string; color: string; bg: string }> = {
-  DRAFT: { label: 'Brouillon', color: '#5a5a78', bg: '#1e1e2e' },
+  DRAFT: { label: 'Brouillon', color: '#71717a', bg: '#1c1c1f' },
   PUBLISHED: { label: 'Publié', color: '#4ade80', bg: '#0e2e1a' },
   ARCHIVED: { label: 'Archivé', color: '#a07840', bg: '#1e1a0e' },
 }
@@ -130,7 +130,7 @@ export default function EntryForm({
     })
   }
 
-  const sm = STATUS_META[status] ?? { label: 'Brouillon', color: '#5a5a78', bg: '#1e1e2e' }
+  const sm = STATUS_META[status] ?? { label: 'Brouillon', color: '#71717a', bg: '#1c1c1f' }
 
   return (
     <div style={{ display: 'flex', gap: 24, alignItems: 'flex-start' }}>
@@ -150,7 +150,7 @@ export default function EntryForm({
               margin: 0,
               fontSize: 18,
               fontWeight: 600,
-              color: '#e8e8f0',
+              color: '#f4f4f5',
               letterSpacing: '-0.01em',
             }}
           >
@@ -172,8 +172,8 @@ export default function EntryForm({
             style={{
               height: 32,
               padding: '0 14px',
-              background: dirty && !pending ? '#4353ff' : '#1a1a26',
-              border: `1px solid ${dirty && !pending ? 'transparent' : '#2a2a3e'}`,
+              background: dirty && !pending ? '#2563eb' : '#1a1a26',
+              border: `1px solid ${dirty && !pending ? 'transparent' : '#27272a'}`,
               borderRadius: 6,
               fontSize: 13,
               fontWeight: 500,
@@ -197,7 +197,7 @@ export default function EntryForm({
         {schema.length === 0 ? (
           <div
             style={{
-              background: '#13131c',
+              background: '#111113',
               border: '1px solid #1f1f2e',
               borderRadius: 10,
               padding: '40px 24px',
@@ -211,7 +211,7 @@ export default function EntryForm({
         ) : (
           <div
             style={{
-              background: '#13131c',
+              background: '#111113',
               border: '1px solid #1f1f2e',
               borderRadius: 10,
               padding: 20,
@@ -237,7 +237,7 @@ export default function EntryForm({
         {/* Status card */}
         <div
           style={{
-            background: '#13131c',
+            background: '#111113',
             border: '1px solid #1f1f2e',
             borderRadius: 10,
             padding: 16,
@@ -299,10 +299,10 @@ export default function EntryForm({
                 style={{
                   height: 30,
                   background: 'none',
-                  border: '1px solid #2a2a3e',
+                  border: '1px solid #27272a',
                   borderRadius: 5,
                   fontSize: 12,
-                  color: '#8a8aa8',
+                  color: '#a1a1aa',
                   cursor: statusPending ? 'not-allowed' : 'pointer',
                 }}
               >
@@ -317,10 +317,10 @@ export default function EntryForm({
                 style={{
                   height: 30,
                   background: 'none',
-                  border: '1px solid #2a2a3e',
+                  border: '1px solid #27272a',
                   borderRadius: 5,
                   fontSize: 12,
-                  color: '#5a5a78',
+                  color: '#71717a',
                   cursor: statusPending ? 'not-allowed' : 'pointer',
                 }}
               >
@@ -335,10 +335,10 @@ export default function EntryForm({
                 style={{
                   height: 30,
                   background: 'none',
-                  border: '1px solid #2a2a3e',
+                  border: '1px solid #27272a',
                   borderRadius: 5,
                   fontSize: 12,
-                  color: '#8a8aa8',
+                  color: '#a1a1aa',
                   cursor: statusPending ? 'not-allowed' : 'pointer',
                 }}
               >
@@ -352,7 +352,7 @@ export default function EntryForm({
         {siteLocales.length > 1 && (
           <div
             style={{
-              background: '#13131c',
+              background: '#111113',
               border: '1px solid #1f1f2e',
               borderRadius: 10,
               padding: 16,
@@ -382,12 +382,12 @@ export default function EntryForm({
                   style={{
                     height: 26,
                     padding: '0 10px',
-                    background: locale === code ? '#4353ff' : '#1a1a26',
-                    border: `1px solid ${locale === code ? '#4353ff' : '#2a2a3e'}`,
+                    background: locale === code ? '#2563eb' : '#1a1a26',
+                    border: `1px solid ${locale === code ? '#2563eb' : '#27272a'}`,
                     borderRadius: 4,
                     fontSize: 11,
                     fontFamily: 'ui-monospace, monospace',
-                    color: locale === code ? '#fff' : '#5a5a78',
+                    color: locale === code ? '#fff' : '#71717a',
                     cursor: 'pointer',
                   }}
                 >
@@ -401,7 +401,7 @@ export default function EntryForm({
         {/* Dates card */}
         <div
           style={{
-            background: '#13131c',
+            background: '#111113',
             border: '1px solid #1f1f2e',
             borderRadius: 10,
             padding: 16,
@@ -409,11 +409,11 @@ export default function EntryForm({
         >
           <div style={{ marginBottom: 8 }}>
             <p style={{ margin: '0 0 2px', fontSize: 11, color: '#3e3e52' }}>Créé le</p>
-            <p style={{ margin: 0, fontSize: 12, color: '#5a5a78' }}>{createdAt}</p>
+            <p style={{ margin: 0, fontSize: 12, color: '#71717a' }}>{createdAt}</p>
           </div>
           <div>
             <p style={{ margin: '0 0 2px', fontSize: 11, color: '#3e3e52' }}>Modifié le</p>
-            <p style={{ margin: 0, fontSize: 12, color: '#5a5a78' }}>{updatedAt}</p>
+            <p style={{ margin: 0, fontSize: 12, color: '#71717a' }}>{updatedAt}</p>
           </div>
         </div>
       </div>
@@ -437,10 +437,10 @@ function FieldInput({
     <div>
       {field.type !== 'boolean' && (
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
-          <Icon size={12} strokeWidth={1.5} color="#4a4a68" />
+          <Icon size={12} strokeWidth={1.5} color="#52525b" />
           <label htmlFor={inputId} style={LABEL_S}>
             {field.name}
-            {field.required && <span style={{ color: '#4353ff', marginLeft: 3 }}>*</span>}
+            {field.required && <span style={{ color: '#2563eb', marginLeft: 3 }}>*</span>}
           </label>
         </div>
       )}
@@ -512,10 +512,10 @@ function FieldInput({
           htmlFor={inputId}
           style={{ display: 'inline-flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}
         >
-          <Icon size={12} strokeWidth={1.5} color="#4a4a68" />
-          <span style={{ fontSize: 12, fontWeight: 500, color: '#8a8aa8' }}>
+          <Icon size={12} strokeWidth={1.5} color="#52525b" />
+          <span style={{ fontSize: 12, fontWeight: 500, color: '#a1a1aa' }}>
             {field.name}
-            {field.required && <span style={{ color: '#4353ff', marginLeft: 3 }}>*</span>}
+            {field.required && <span style={{ color: '#2563eb', marginLeft: 3 }}>*</span>}
           </span>
           <input
             id={inputId}
@@ -525,7 +525,7 @@ function FieldInput({
             style={{ width: 14, height: 14, cursor: 'pointer' }}
           />
           {field.description && (
-            <span style={{ fontSize: 12, color: '#5a5a78' }}>{field.description}</span>
+            <span style={{ fontSize: 12, color: '#71717a' }}>{field.description}</span>
           )}
         </label>
       )}

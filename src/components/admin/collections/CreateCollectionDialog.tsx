@@ -18,12 +18,12 @@ function slugify(s: string): string {
 const INPUT_STYLE: React.CSSProperties = {
   width: '100%',
   height: 34,
-  background: '#1e1e2e',
-  border: '1px solid #2a2a3e',
+  background: '#1c1c1f',
+  border: '1px solid #27272a',
   borderRadius: 6,
   padding: '0 10px',
   fontSize: 13,
-  color: '#e8e8f0',
+  color: '#f4f4f5',
   outline: 'none',
   boxSizing: 'border-box',
 }
@@ -32,7 +32,7 @@ const LABEL_STYLE: React.CSSProperties = {
   display: 'block',
   fontSize: 12,
   fontWeight: 500,
-  color: '#8a8aa8',
+  color: '#a1a1aa',
   marginBottom: 6,
 }
 
@@ -88,7 +88,7 @@ export default function CreateCollectionDialog() {
         style={{
           height: 32,
           padding: '0 14px',
-          background: '#4353ff',
+          background: '#2563eb',
           border: 'none',
           borderRadius: 6,
           fontSize: 13,
@@ -122,8 +122,8 @@ export default function CreateCollectionDialog() {
           transform: 'translate(-50%, -50%)',
           zIndex: 101,
           width: 440,
-          background: '#16161f',
-          border: '1px solid #2a2a3e',
+          background: '#18181b',
+          border: '1px solid #27272a',
           borderRadius: 12,
           padding: 24,
           boxShadow: '0 24px 64px rgba(0,0,0,0.6)',
@@ -137,7 +137,7 @@ export default function CreateCollectionDialog() {
             marginBottom: 20,
           }}
         >
-          <h2 style={{ margin: 0, fontSize: 15, fontWeight: 600, color: '#e8e8f0' }}>
+          <h2 style={{ margin: 0, fontSize: 15, fontWeight: 600, color: '#f4f4f5' }}>
             Nouvelle collection
           </h2>
           <button
@@ -155,7 +155,7 @@ export default function CreateCollectionDialog() {
               justifyContent: 'center',
               borderRadius: 5,
               padding: 0,
-              color: '#4a4a68',
+              color: '#52525b',
             }}
           >
             <X size={14} />
@@ -232,10 +232,10 @@ export default function CreateCollectionDialog() {
                 height: 32,
                 padding: '0 14px',
                 background: 'none',
-                border: '1px solid #2a2a3e',
+                border: '1px solid #27272a',
                 borderRadius: 6,
                 fontSize: 13,
-                color: '#8a8aa8',
+                color: '#a1a1aa',
                 cursor: 'pointer',
               }}
             >
@@ -247,12 +247,12 @@ export default function CreateCollectionDialog() {
               style={{
                 height: 32,
                 padding: '0 16px',
-                background: pending ? '#2a2a4e' : '#4353ff',
+                background: pending ? 'rgba(37,99,235,0.12)' : '#2563eb',
                 border: 'none',
                 borderRadius: 6,
                 fontSize: 13,
                 fontWeight: 500,
-                color: pending ? '#6a6a90' : '#fff',
+                color: pending ? '#71717a' : '#fff',
                 cursor: pending ? 'not-allowed' : 'pointer',
                 display: 'inline-flex',
                 alignItems: 'center',

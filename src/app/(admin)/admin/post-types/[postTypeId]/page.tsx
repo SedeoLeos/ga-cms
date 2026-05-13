@@ -58,12 +58,12 @@ async function PostTypeSchemaContent({ params }: Props) {
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
         <Link
           href="/admin/post-types"
-          style={{ fontSize: 13, color: '#4a4a68', textDecoration: 'none' }}
+          style={{ fontSize: 13, color: '#52525b', textDecoration: 'none' }}
         >
           Post Types
         </Link>
         <span style={{ fontSize: 13, color: '#2e2e42' }}>/</span>
-        <span style={{ fontSize: 13, color: '#e8e8f0' }}>{postType.name}</span>
+        <span style={{ fontSize: 13, color: '#f4f4f5' }}>{postType.name}</span>
       </div>
 
       <div
@@ -81,13 +81,13 @@ async function PostTypeSchemaContent({ params }: Props) {
               margin: 0,
               fontSize: 20,
               fontWeight: 600,
-              color: '#e8e8f0',
+              color: '#f4f4f5',
               letterSpacing: '-0.01em',
             }}
           >
             {postType.name}
           </h1>
-          <p style={{ margin: '4px 0 0', fontSize: 13, color: '#5a5a78' }}>
+          <p style={{ margin: '4px 0 0', fontSize: 13, color: '#71717a' }}>
             {postType.description ?? `/${postType.slug}`}
           </p>
         </div>
@@ -100,10 +100,10 @@ async function PostTypeSchemaContent({ params }: Props) {
                 display: 'inline-flex',
                 alignItems: 'center',
                 background: '#1a1a26',
-                border: '1px solid #2a2a3e',
+                border: '1px solid #27272a',
                 borderRadius: 4,
                 fontSize: 11,
-                color: '#5a5a78',
+                color: '#71717a',
               }}
             >
               archive
@@ -117,10 +117,10 @@ async function PostTypeSchemaContent({ params }: Props) {
                 display: 'inline-flex',
                 alignItems: 'center',
                 background: '#1a1a26',
-                border: '1px solid #2a2a3e',
+                border: '1px solid #27272a',
                 borderRadius: 4,
                 fontSize: 11,
-                color: '#5a5a78',
+                color: '#71717a',
               }}
             >
               rss
@@ -133,11 +133,11 @@ async function PostTypeSchemaContent({ params }: Props) {
                 padding: '0 8px',
                 display: 'inline-flex',
                 alignItems: 'center',
-                background: '#1e1e2e',
-                border: '1px solid #2a2a3e',
+                background: '#1c1c1f',
+                border: '1px solid #27272a',
                 borderRadius: 4,
                 fontSize: 11,
-                color: '#4a4a68',
+                color: '#52525b',
               }}
             >
               built-in

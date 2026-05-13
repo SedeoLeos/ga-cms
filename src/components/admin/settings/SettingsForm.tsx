@@ -11,10 +11,10 @@ import { useActionState, useEffect, useRef, useState } from 'react'
 const INPUT_S: React.CSSProperties = {
   height: 34,
   padding: '0 10px',
-  background: '#16161f',
-  border: '1px solid #2a2a3e',
+  background: '#18181b',
+  border: '1px solid #27272a',
   borderRadius: 6,
-  color: '#e8e8f0',
+  color: '#f4f4f5',
   fontSize: 13,
   outline: 'none',
   width: '100%',
@@ -31,12 +31,12 @@ const LABEL_S: React.CSSProperties = {
 
 const HINT_S: React.CSSProperties = {
   fontSize: 11,
-  color: '#4a4a68',
+  color: '#52525b',
   marginTop: 4,
 }
 
 const SECTION_S: React.CSSProperties = {
-  background: '#13131c',
+  background: '#111113',
   border: '1px solid #1f1f2e',
   borderRadius: 10,
   overflow: 'hidden',
@@ -54,7 +54,7 @@ const SECTION_HEADER_S: React.CSSProperties = {
 const SECTION_TITLE_S: React.CSSProperties = {
   fontSize: 13,
   fontWeight: 600,
-  color: '#c8c8e0',
+  color: '#e4e4e7',
   letterSpacing: '-0.01em',
   margin: 0,
 }
@@ -136,11 +136,11 @@ function LocalesEditor({
                 gap: 4,
                 height: 28,
                 padding: '0 8px 0 10px',
-                background: isDefault ? '#1a1f4a' : '#1a1a28',
-                border: `1px solid ${isDefault ? '#2d3580' : '#2a2a3e'}`,
+                background: isDefault ? 'rgba(37,99,235,0.1)' : '#18181b',
+                border: `1px solid ${isDefault ? '#1d4ed8' : '#27272a'}`,
                 borderRadius: 6,
                 fontSize: 12,
-                color: isDefault ? '#8090f0' : '#c8c8e0',
+                color: isDefault ? '#60a5fa' : '#e4e4e7',
                 fontWeight: isDefault ? 600 : 400,
               }}
             >
@@ -148,7 +148,7 @@ function LocalesEditor({
               <span
                 style={{
                   fontSize: 10,
-                  color: isDefault ? '#6070c8' : '#4a4a68',
+                  color: isDefault ? '#6070c8' : '#52525b',
                   fontFamily: 'monospace',
                 }}
               >
@@ -158,8 +158,8 @@ function LocalesEditor({
                 <span
                   style={{
                     fontSize: 9,
-                    background: '#2d3580',
-                    color: '#8090f0',
+                    background: '#1d4ed8',
+                    color: '#60a5fa',
                     borderRadius: 3,
                     padding: '1px 4px',
                     marginLeft: 2,
@@ -219,10 +219,10 @@ function LocalesEditor({
               height: 28,
               padding: '0 8px',
               background: 'none',
-              border: '1px dashed #2a2a3e',
+              border: '1px dashed #27272a',
               borderRadius: 6,
               fontSize: 12,
-              color: '#4a4a68',
+              color: '#52525b',
               cursor: 'pointer',
             }}
           >
@@ -240,11 +240,11 @@ function LocalesEditor({
             style={{
               height: 28,
               padding: '0 6px',
-              background: '#16161f',
-              border: '1px solid #4353ff',
+              background: '#18181b',
+              border: '1px solid #2563eb',
               borderRadius: 6,
               fontSize: 12,
-              color: '#e8e8f0',
+              color: '#f4f4f5',
               outline: 'none',
               cursor: 'pointer',
             }}
@@ -481,7 +481,7 @@ export default function SettingsForm({ initial }: Props) {
           style={{
             height: 34,
             padding: '0 18px',
-            background: pending ? '#2d3580' : '#4353ff',
+            background: pending ? '#1d4ed8' : '#2563eb',
             border: 'none',
             borderRadius: 6,
             color: '#fff',

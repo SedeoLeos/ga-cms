@@ -8,10 +8,10 @@ import { useActionState, useState } from 'react'
 const INPUT: React.CSSProperties = {
   height: 34,
   padding: '0 10px',
-  background: '#111118',
-  border: '1px solid #252535',
+  background: '#18181b',
+  border: '1px solid #27272a',
   borderRadius: 7,
-  color: '#e8e8f0',
+  color: '#f4f4f5',
   fontSize: 13,
   outline: 'none',
   width: '100%',
@@ -23,7 +23,7 @@ const LABEL: React.CSSProperties = {
   display: 'block',
   fontSize: 11,
   fontWeight: 500,
-  color: '#4e4e70',
+  color: '#52525b',
   marginBottom: 5,
   letterSpacing: '0.02em',
   textTransform: 'uppercase',
@@ -43,11 +43,11 @@ export default function SetupForm() {
             alignItems: 'center',
             gap: 8,
             padding: '9px 12px',
-            background: '#1e0e0e',
-            border: '1px solid #4a1e1e',
+            background: '#1c0a0a',
+            border: '1px solid #7f1d1d',
             borderRadius: 7,
             fontSize: 12,
-            color: '#ff7070',
+            color: '#fca5a5',
           }}
         >
           <AlertCircle size={13} strokeWidth={1.5} style={{ flexShrink: 0 }} />
@@ -122,7 +122,7 @@ export default function SetupForm() {
               border: 'none',
               cursor: 'pointer',
               padding: 0,
-              color: '#3e3e58',
+              color: '#3f3f46',
             }}
           >
             {showPwd ? <EyeOff size={13} strokeWidth={1.5} /> : <Eye size={13} strokeWidth={1.5} />}
@@ -161,7 +161,7 @@ export default function SetupForm() {
               border: 'none',
               cursor: 'pointer',
               padding: 0,
-              color: '#3e3e58',
+              color: '#3f3f46',
             }}
           >
             {showConfirm ? (
@@ -180,10 +180,10 @@ export default function SetupForm() {
         style={{
           height: 34,
           marginTop: 6,
-          background: pending ? '#1e204a' : '#4353ff',
+          background: pending ? 'rgba(37,99,235,0.08)' : '#2563eb',
           border: 'none',
           borderRadius: 7,
-          color: pending ? '#5060a0' : '#fff',
+          color: pending ? '#60a5fa' : '#fff',
           fontSize: 13,
           fontWeight: 600,
           cursor: pending ? 'not-allowed' : 'pointer',

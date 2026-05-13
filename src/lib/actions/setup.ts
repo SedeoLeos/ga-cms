@@ -50,6 +50,69 @@ export async function setupAction(
       update: {},
       create: { name: 'Mon Site', locales: '["fr"]', defaultLocale: 'fr' },
     })
+
+    const homePageData = {
+      content: [
+        {
+          type: 'Hero',
+          props: {
+            id: 'hero-home',
+            title: 'Bienvenue',
+            subtitle:
+              "Découvrez notre plateforme et tout ce qu'elle peut faire pour vous. Rapide, sécurisée et facile à prendre en main.",
+            align: 'center',
+            background: '#ffffff',
+            minHeight: '70vh',
+            ctaLabel: 'Découvrir',
+            ctaHref: '#features',
+          },
+        },
+        {
+          type: 'Features',
+          props: {
+            id: 'features-home',
+            title: 'Pourquoi nous choisir ?',
+            subtitle: 'Des fonctionnalités pensées pour vous simplifier la vie.',
+            columns: '3',
+            background: '#f9fafb',
+            items: [
+              {
+                icon: '⚡',
+                title: 'Rapide',
+                description:
+                  'Une interface optimisée pour des performances maximales, quelle que soit la taille de votre contenu.',
+              },
+              {
+                icon: '🔒',
+                title: 'Sécurisé',
+                description:
+                  'Authentification robuste, contrôle des accès et données protégées à chaque étape.',
+              },
+              {
+                icon: '🛠️',
+                title: 'Simple à utiliser',
+                description:
+                  'Prise en main immédiate grâce à une interface claire, sans compromis sur la puissance.',
+              },
+            ],
+          },
+        },
+      ],
+      root: { props: {} },
+    }
+
+    await prisma.page.upsert({
+      where: { slug_locale: { slug: 'index', locale: 'fr' } },
+      update: {},
+      create: {
+        title: 'Accueil',
+        slug: 'index',
+        locale: 'fr',
+        status: 'PUBLISHED',
+        draftJson: homePageData,
+        publishedJson: homePageData,
+      },
+    })
   } catch (e) {
     const msg = e instanceof Error ? e.message : ''
     if (msg.includes('already exists') || msg.includes('unique')) {

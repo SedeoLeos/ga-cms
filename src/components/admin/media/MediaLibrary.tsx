@@ -43,11 +43,11 @@ function formatBytes(n: number): string {
 }
 
 function FileIcon({ mimeType }: { mimeType: string }) {
-  if (mimeType.startsWith('video/')) return <Film size={24} strokeWidth={1} color="#5a5a78" />
-  if (mimeType.startsWith('audio/')) return <Music size={24} strokeWidth={1} color="#5a5a78" />
+  if (mimeType.startsWith('video/')) return <Film size={24} strokeWidth={1} color="#71717a" />
+  if (mimeType.startsWith('audio/')) return <Music size={24} strokeWidth={1} color="#71717a" />
   if (mimeType.includes('pdf') || mimeType.includes('text'))
-    return <FileText size={24} strokeWidth={1} color="#5a5a78" />
-  return <File size={24} strokeWidth={1} color="#5a5a78" />
+    return <FileText size={24} strokeWidth={1} color="#71717a" />
+  return <File size={24} strokeWidth={1} color="#71717a" />
 }
 
 function FileCard({
@@ -66,8 +66,8 @@ function FileCard({
       type="button"
       onClick={onClick}
       style={{
-        background: selected ? '#1a1a3a' : '#13131c',
-        border: `1px solid ${selected ? '#4353ff' : '#1f1f2e'}`,
+        background: selected ? '#1a1a3a' : '#111113',
+        border: `1px solid ${selected ? '#2563eb' : '#1f1f2e'}`,
         borderRadius: 8,
         overflow: 'hidden',
         cursor: 'pointer',
@@ -101,7 +101,7 @@ function FileCard({
         <div
           style={{
             fontSize: 11,
-            color: '#c8c8e0',
+            color: '#e4e4e7',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
@@ -288,7 +288,7 @@ export default function MediaLibrary({
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
-                color: '#4a4a68',
+                color: '#52525b',
                 padding: 2,
                 display: 'flex',
               }}
@@ -310,12 +310,12 @@ export default function MediaLibrary({
               placeholder="Nom du dossier"
               style={{
                 width: '100%',
-                background: '#1e1e2e',
-                border: '1px solid #2a2a3e',
+                background: '#1c1c1f',
+                border: '1px solid #27272a',
                 borderRadius: 4,
                 padding: '4px 8px',
                 fontSize: 12,
-                color: '#e8e8f0',
+                color: '#f4f4f5',
                 outline: 'none',
                 boxSizing: 'border-box',
               }}
@@ -335,7 +335,7 @@ export default function MediaLibrary({
               textAlign: 'left',
               cursor: 'pointer',
               fontSize: 12,
-              color: activeFolderId === null ? '#c8c8e0' : '#5a5a78',
+              color: activeFolderId === null ? '#e4e4e7' : '#71717a',
               display: 'flex',
               alignItems: 'center',
               gap: 6,
@@ -365,7 +365,7 @@ export default function MediaLibrary({
                   textAlign: 'left',
                   cursor: 'pointer',
                   fontSize: 12,
-                  color: activeFolderId === f.id ? '#c8c8e0' : '#5a5a78',
+                  color: activeFolderId === f.id ? '#e4e4e7' : '#71717a',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
@@ -386,7 +386,7 @@ export default function MediaLibrary({
                     background: 'none',
                     border: 'none',
                     cursor: 'pointer',
-                    color: '#2a2a3e',
+                    color: '#27272a',
                     padding: '2px 4px',
                     display: 'flex',
                     flexShrink: 0,
@@ -416,7 +416,7 @@ export default function MediaLibrary({
             style={{
               width: '100%',
               height: 32,
-              background: uploading ? '#1a1a26' : '#4353ff',
+              background: uploading ? '#1a1a26' : '#2563eb',
               border: 'none',
               borderRadius: 6,
               fontSize: 12,
@@ -494,7 +494,7 @@ export default function MediaLibrary({
               justifyContent: 'space-between',
             }}
           >
-            <span style={{ fontSize: 12, fontWeight: 500, color: '#8a8aa8' }}>Détails</span>
+            <span style={{ fontSize: 12, fontWeight: 500, color: '#a1a1aa' }}>Détails</span>
             <button
               type="button"
               onClick={() => setActiveFile(null)}
@@ -502,7 +502,7 @@ export default function MediaLibrary({
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
-                color: '#4a4a68',
+                color: '#52525b',
                 padding: 2,
                 display: 'flex',
               }}
@@ -534,7 +534,7 @@ export default function MediaLibrary({
                 margin: '0 0 2px',
                 fontSize: 11,
                 fontWeight: 500,
-                color: '#c8c8e0',
+                color: '#e4e4e7',
                 wordBreak: 'break-all',
               }}
             >
@@ -550,7 +550,7 @@ export default function MediaLibrary({
             <div style={{ marginBottom: 10 }}>
               <label
                 htmlFor="ml-alt"
-                style={{ display: 'block', fontSize: 11, color: '#5a5a78', marginBottom: 4 }}
+                style={{ display: 'block', fontSize: 11, color: '#71717a', marginBottom: 4 }}
               >
                 Texte alt
               </label>
@@ -561,12 +561,12 @@ export default function MediaLibrary({
                 onChange={(e) => setAltValue(e.target.value)}
                 style={{
                   width: '100%',
-                  background: '#1e1e2e',
-                  border: '1px solid #2a2a3e',
+                  background: '#1c1c1f',
+                  border: '1px solid #27272a',
                   borderRadius: 4,
                   padding: '5px 8px',
                   fontSize: 12,
-                  color: '#e8e8f0',
+                  color: '#f4f4f5',
                   outline: 'none',
                   boxSizing: 'border-box',
                 }}
@@ -581,10 +581,10 @@ export default function MediaLibrary({
                 width: '100%',
                 height: 28,
                 background: '#1a1a3e',
-                border: '1px solid #2a2a4e',
+                border: '1px solid rgba(37,99,235,0.12)',
                 borderRadius: 4,
                 fontSize: 12,
-                color: '#8090f0',
+                color: '#60a5fa',
                 cursor: metaPending ? 'not-allowed' : 'pointer',
                 marginBottom: 8,
               }}
@@ -604,7 +604,7 @@ export default function MediaLibrary({
                 style={{
                   margin: 0,
                   fontSize: 10,
-                  color: '#5a5a78',
+                  color: '#71717a',
                   fontFamily: 'ui-monospace, monospace',
                   wordBreak: 'break-all',
                 }}

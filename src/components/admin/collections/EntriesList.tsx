@@ -15,14 +15,14 @@ export type EntryRow = {
 }
 
 const STATUS_STYLES: Record<string, { bg: string; color: string; label: string }> = {
-  DRAFT: { bg: '#1e1e2e', color: '#5a5a78', label: 'Brouillon' },
+  DRAFT: { bg: '#1c1c1f', color: '#71717a', label: 'Brouillon' },
   PUBLISHED: { bg: '#0e2e1a', color: '#4ade80', label: 'Publié' },
   ARCHIVED: { bg: '#1e1a0e', color: '#a07840', label: 'Archivé' },
 }
 
 function EntryRowItem({ entry, showLocale }: { entry: EntryRow; showLocale: boolean }) {
   const [pending, start] = useTransition()
-  const s = STATUS_STYLES[entry.status] ?? { bg: '#1e1e2e', color: '#5a5a78', label: 'Brouillon' }
+  const s = STATUS_STYLES[entry.status] ?? { bg: '#1c1c1f', color: '#71717a', label: 'Brouillon' }
 
   function handleDelete() {
     if (!window.confirm('Supprimer cette entrée ? Cette action est irréversible.')) return
@@ -49,7 +49,7 @@ function EntryRowItem({ entry, showLocale }: { entry: EntryRow; showLocale: bool
         style={{
           fontSize: 13,
           fontWeight: 500,
-          color: '#e8e8f0',
+          color: '#f4f4f5',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
@@ -62,7 +62,7 @@ function EntryRowItem({ entry, showLocale }: { entry: EntryRow; showLocale: bool
         <span
           style={{
             fontSize: 11,
-            color: '#5a5a78',
+            color: '#71717a',
             fontFamily: 'ui-monospace, monospace',
           }}
         >
@@ -101,7 +101,7 @@ function EntryRowItem({ entry, showLocale }: { entry: EntryRow; showLocale: bool
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: 5,
-            color: '#4a4a68',
+            color: '#52525b',
           }}
         >
           <Edit2 size={13} strokeWidth={1.5} />
@@ -122,7 +122,7 @@ function EntryRowItem({ entry, showLocale }: { entry: EntryRow; showLocale: bool
             background: 'none',
             border: 'none',
             cursor: pending ? 'not-allowed' : 'pointer',
-            color: '#4a4a68',
+            color: '#52525b',
             padding: 0,
           }}
         >
@@ -148,7 +148,7 @@ export default function EntriesList({ entries, showLocale }: Props) {
   return (
     <div
       style={{
-        background: '#13131c',
+        background: '#111113',
         border: '1px solid #1f1f2e',
         borderRadius: 10,
         overflow: 'hidden',
@@ -156,7 +156,7 @@ export default function EntriesList({ entries, showLocale }: Props) {
     >
       {entries.length === 0 ? (
         <div style={{ padding: '60px 32px', textAlign: 'center' }}>
-          <p style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 500, color: '#5a5a78' }}>
+          <p style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 500, color: '#71717a' }}>
             Aucune entrée pour l'instant
           </p>
           <p style={{ margin: 0, fontSize: 12, color: '#3a3a50' }}>

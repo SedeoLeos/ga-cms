@@ -62,8 +62,8 @@ export default function AdminSidebar({ userName, userEmail, siteName = 'Mon Site
       style={{
         width: 232,
         height: '100vh',
-        background: '#0a0a0f',
-        borderRight: '1px solid rgba(255,255,255,0.05)',
+        background: '#09090b',
+        borderRight: '1px solid rgba(255,255,255,0.06)',
         display: 'flex',
         flexDirection: 'column',
         flexShrink: 0,
@@ -88,7 +88,7 @@ export default function AdminSidebar({ userName, userEmail, siteName = 'Mon Site
           style={{
             width: 26,
             height: 26,
-            background: '#4353ff',
+            background: '#2563eb',
             borderRadius: 7,
             display: 'flex',
             alignItems: 'center',
@@ -102,7 +102,7 @@ export default function AdminSidebar({ userName, userEmail, siteName = 'Mon Site
           style={{
             fontSize: 13,
             fontWeight: 600,
-            color: '#d8d8ec',
+            color: '#e4e4e7',
             letterSpacing: '-0.02em',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -141,7 +141,7 @@ export default function AdminSidebar({ userName, userEmail, siteName = 'Mon Site
             gap: 9,
             padding: '8px 10px',
             marginTop: 4,
-            borderTop: '1px solid rgba(255,255,255,0.03)',
+            borderTop: '1px solid rgba(255,255,255,0.04)',
           }}
         >
           {/* Avatar */}
@@ -150,13 +150,13 @@ export default function AdminSidebar({ userName, userEmail, siteName = 'Mon Site
               width: 26,
               height: 26,
               borderRadius: '50%',
-              background: 'rgba(67,83,255,0.2)',
+              background: 'rgba(37,99,235,0.15)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: 11,
               fontWeight: 700,
-              color: '#6878ff',
+              color: '#60a5fa',
               flexShrink: 0,
               letterSpacing: 0,
             }}
@@ -170,7 +170,7 @@ export default function AdminSidebar({ userName, userEmail, siteName = 'Mon Site
               style={{
                 fontSize: 12,
                 fontWeight: 500,
-                color: '#9898b8',
+                color: '#a1a1aa',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
@@ -181,7 +181,7 @@ export default function AdminSidebar({ userName, userEmail, siteName = 'Mon Site
             <div
               style={{
                 fontSize: 10,
-                color: '#3a3a5a',
+                color: '#3f3f46',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
@@ -212,7 +212,7 @@ export default function AdminSidebar({ userName, userEmail, siteName = 'Mon Site
                 padding: 0,
               }}
             >
-              <LogOut size={13} strokeWidth={1.5} color="#3a3a5a" />
+              <LogOut size={13} strokeWidth={1.5} color="#3f3f46" />
             </button>
           </form>
         </div>
@@ -240,8 +240,8 @@ function NavLink({ item, active }: { item: NavItem; active: boolean }) {
         outline: 'none',
         position: 'relative',
         // Active: left border + subtle blue bg
-        background: active ? 'rgba(67,83,255,0.1)' : 'transparent',
-        borderLeft: active ? '2px solid #4353ff' : '2px solid transparent',
+        background: active ? 'rgba(37,99,235,0.08)' : 'transparent',
+        borderLeft: active ? '2px solid #2563eb' : '2px solid transparent',
         paddingLeft: active ? 8 : 10,
         transition: 'background 0.1s',
       }}
@@ -251,7 +251,7 @@ function NavLink({ item, active }: { item: NavItem; active: boolean }) {
         size={14}
         strokeWidth={1.6}
         style={{
-          color: active ? '#6878ff' : '#3a3a5e',
+          color: active ? '#60a5fa' : '#3f3f46',
           flexShrink: 0,
           transition: 'color 0.1s',
         }}
@@ -260,7 +260,7 @@ function NavLink({ item, active }: { item: NavItem; active: boolean }) {
         style={{
           fontSize: 13,
           fontWeight: active ? 500 : 400,
-          color: active ? '#b8bcff' : '#5a5a80',
+          color: active ? '#bfdbfe' : '#71717a',
           letterSpacing: active ? '-0.01em' : '0',
           transition: 'color 0.1s',
         }}

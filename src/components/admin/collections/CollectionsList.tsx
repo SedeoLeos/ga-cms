@@ -49,7 +49,7 @@ function Row({ col }: { col: CollectionRow }) {
           style={{
             fontSize: 13,
             fontWeight: 500,
-            color: '#e8e8f0',
+            color: '#f4f4f5',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
@@ -60,7 +60,7 @@ function Row({ col }: { col: CollectionRow }) {
         <div
           style={{
             fontSize: 11,
-            color: '#4a4a68',
+            color: '#52525b',
             marginTop: 1,
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -72,7 +72,7 @@ function Row({ col }: { col: CollectionRow }) {
       </div>
 
       {/* Entrées */}
-      <div style={{ fontSize: 12, color: '#5a5a78', textAlign: 'right' }}>
+      <div style={{ fontSize: 12, color: '#71717a', textAlign: 'right' }}>
         {col.entryCount} entrée{col.entryCount !== 1 ? 's' : ''}
       </div>
 
@@ -92,7 +92,7 @@ function Row({ col }: { col: CollectionRow }) {
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: 5,
-            color: '#4a4a68',
+            color: '#52525b',
           }}
         >
           <Settings2 size={14} strokeWidth={1.5} />
@@ -113,7 +113,7 @@ function Row({ col }: { col: CollectionRow }) {
             background: 'none',
             border: 'none',
             cursor: pending ? 'not-allowed' : 'pointer',
-            color: '#4a4a68',
+            color: '#52525b',
             padding: 0,
           }}
         >
@@ -139,7 +139,7 @@ export default function CollectionsList({ collections }: Props) {
   return (
     <div
       style={{
-        background: '#13131c',
+        background: '#111113',
         border: '1px solid #1f1f2e',
         borderRadius: 10,
         overflow: 'hidden',
@@ -147,8 +147,8 @@ export default function CollectionsList({ collections }: Props) {
     >
       {collections.length === 0 ? (
         <div style={{ padding: '60px 32px', textAlign: 'center' }}>
-          <Database size={36} strokeWidth={1} color="#2a2a3e" style={{ marginBottom: 14 }} />
-          <p style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 500, color: '#5a5a78' }}>
+          <Database size={36} strokeWidth={1} color="#27272a" style={{ marginBottom: 14 }} />
+          <p style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 500, color: '#71717a' }}>
             Aucune collection pour l'instant
           </p>
           <p style={{ margin: 0, fontSize: 12, color: '#3a3a50' }}>

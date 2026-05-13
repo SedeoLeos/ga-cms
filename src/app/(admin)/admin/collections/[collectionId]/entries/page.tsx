@@ -99,19 +99,19 @@ async function EntriesContent({ params, searchParams }: Props) {
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
         <Link
           href="/admin/collections"
-          style={{ fontSize: 13, color: '#4a4a68', textDecoration: 'none' }}
+          style={{ fontSize: 13, color: '#52525b', textDecoration: 'none' }}
         >
           Collections
         </Link>
         <span style={{ fontSize: 13, color: '#2e2e42' }}>/</span>
         <Link
           href={`/admin/collections/${collectionId}`}
-          style={{ fontSize: 13, color: '#4a4a68', textDecoration: 'none' }}
+          style={{ fontSize: 13, color: '#52525b', textDecoration: 'none' }}
         >
           {collection.name}
         </Link>
         <span style={{ fontSize: 13, color: '#2e2e42' }}>/</span>
-        <span style={{ fontSize: 13, color: '#e8e8f0' }}>Entrées</span>
+        <span style={{ fontSize: 13, color: '#f4f4f5' }}>Entrées</span>
       </div>
 
       <div
@@ -128,13 +128,13 @@ async function EntriesContent({ params, searchParams }: Props) {
               margin: 0,
               fontSize: 20,
               fontWeight: 600,
-              color: '#e8e8f0',
+              color: '#f4f4f5',
               letterSpacing: '-0.01em',
             }}
           >
             {collection.name}
           </h1>
-          <p style={{ margin: '4px 0 0', fontSize: 13, color: '#5a5a78' }}>
+          <p style={{ margin: '4px 0 0', fontSize: 13, color: '#71717a' }}>
             {rows.length} entrée{rows.length !== 1 ? 's' : ''}
             {search ? ` pour "${search}"` : ''}
           </p>
@@ -145,7 +145,7 @@ async function EntriesContent({ params, searchParams }: Props) {
             style={{
               height: 32,
               padding: '0 14px',
-              background: '#4353ff',
+              background: '#2563eb',
               border: 'none',
               borderRadius: 6,
               fontSize: 13,

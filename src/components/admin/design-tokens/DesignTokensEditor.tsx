@@ -25,12 +25,12 @@ const TYPE_LABELS: Record<string, string> = {
 
 const INPUT_S: React.CSSProperties = {
   height: 30,
-  background: '#1e1e2e',
-  border: '1px solid #2a2a3e',
+  background: '#1c1c1f',
+  border: '1px solid #27272a',
   borderRadius: 5,
   padding: '0 8px',
   fontSize: 12,
-  color: '#e8e8f0',
+  color: '#f4f4f5',
   outline: 'none',
   boxSizing: 'border-box',
 }
@@ -96,7 +96,7 @@ function TokenRow({ token }: { token: TokenItem }) {
           style={{
             fontSize: 11,
             fontFamily: 'ui-monospace, monospace',
-            color: '#8090f0',
+            color: '#60a5fa',
           }}
         >
           --token-{token.name}
@@ -151,7 +151,7 @@ function TokenRow({ token }: { token: TokenItem }) {
               cursor: 'pointer',
               textAlign: 'left',
               fontSize: 12,
-              color: '#c8c8e0',
+              color: '#e4e4e7',
               fontFamily: token.type === 'color' ? 'ui-monospace, monospace' : undefined,
             }}
           >
@@ -258,7 +258,7 @@ function AddTokenRow({ activeType }: { activeType: string }) {
         id="new-token-value"
         name="value"
         type="text"
-        placeholder={activeType === 'color' ? '#4353ff' : activeType === 'spacing' ? '16px' : ''}
+        placeholder={activeType === 'color' ? '#2563eb' : activeType === 'spacing' ? '16px' : ''}
         required
         style={{ ...INPUT_S, width: '100%' }}
       />
@@ -318,7 +318,7 @@ export default function DesignTokensEditor({ tokens }: Props) {
       style={{
         display: 'flex',
         gap: 0,
-        background: '#13131c',
+        background: '#111113',
         border: '1px solid #1f1f2e',
         borderRadius: 10,
         overflow: 'hidden',
@@ -347,14 +347,14 @@ export default function DesignTokensEditor({ tokens }: Props) {
                 padding: '7px 14px',
                 background: active ? '#1a1a2e' : 'none',
                 border: 'none',
-                borderLeft: `2px solid ${active ? '#4353ff' : 'transparent'}`,
+                borderLeft: `2px solid ${active ? '#2563eb' : 'transparent'}`,
                 textAlign: 'left',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 fontSize: 12,
-                color: active ? '#ddddf0' : '#5a5a78',
+                color: active ? '#ddddf0' : '#71717a',
                 fontWeight: active ? 500 : 400,
               }}
             >
@@ -364,7 +364,7 @@ export default function DesignTokensEditor({ tokens }: Props) {
                   style={{
                     fontSize: 10,
                     background: active ? '#2a2a4a' : '#1a1a24',
-                    color: active ? '#8090f0' : '#3e3e52',
+                    color: active ? '#60a5fa' : '#3e3e52',
                     borderRadius: 3,
                     padding: '1px 5px',
                   }}

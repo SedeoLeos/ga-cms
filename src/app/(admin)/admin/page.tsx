@@ -24,7 +24,7 @@ async function DashboardContent() {
   ])
 
   const STATS = [
-    { label: 'Pages', value: pageCount, icon: FileText, color: '#4353ff', href: '/admin/pages' },
+    { label: 'Pages', value: pageCount, icon: FileText, color: '#2563eb', href: '/admin/pages' },
     {
       label: 'Collections',
       value: collectionCount,
@@ -70,7 +70,7 @@ async function DashboardContent() {
                   className="stat-card"
                   style={{
                     background: '#10101a',
-                    border: '1px solid #1c1c28',
+                    border: '1px solid #27272a',
                     borderRadius: 10,
                     padding: '16px 18px',
                     display: 'flex',
@@ -84,7 +84,7 @@ async function DashboardContent() {
                       style={{
                         fontSize: 26,
                         fontWeight: 700,
-                        color: '#e8e8f0',
+                        color: '#f4f4f5',
                         lineHeight: 1,
                         letterSpacing: '-0.03em',
                         marginBottom: 6,
@@ -138,7 +138,7 @@ async function DashboardContent() {
                   height: 32,
                   padding: '0 14px',
                   background: '#10101a',
-                  border: '1px solid #1c1c28',
+                  border: '1px solid #27272a',
                   borderRadius: 7,
                   fontSize: 12,
                   color: '#8a8aaa',

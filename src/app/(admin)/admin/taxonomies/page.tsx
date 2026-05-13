@@ -42,8 +42,8 @@ async function TaxonomiesContent() {
           <div
             style={{
               marginTop: 20,
-              background: '#0f0f18',
-              border: '1px solid #1c1c28',
+              background: '#111113',
+              border: '1px solid #27272a',
               borderRadius: 10,
               overflow: 'hidden',
             }}
@@ -56,8 +56,8 @@ async function TaxonomiesContent() {
                 padding: '0 16px',
                 height: 34,
                 alignItems: 'center',
-                borderBottom: '1px solid #1c1c28',
-                background: '#0c0c14',
+                borderBottom: '1px solid #27272a',
+                background: '#0f0f11',
               }}
             >
               {['Nom', 'Termes', 'Post Types', ''].map((h) => (
@@ -66,7 +66,7 @@ async function TaxonomiesContent() {
                   style={{
                     fontSize: 10,
                     fontWeight: 600,
-                    color: '#30304a',
+                    color: '#3f3f46',
                     textTransform: 'uppercase',
                     letterSpacing: '0.07em',
                   }}
@@ -86,33 +86,33 @@ async function TaxonomiesContent() {
                   alignItems: 'center',
                   padding: '0 16px',
                   height: 42,
-                  borderBottom: '1px solid #161620',
+                  borderBottom: '1px solid #1c1c1f',
                   textDecoration: 'none',
                 }}
               >
                 <div>
-                  <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: '#d8d8ec' }}>
+                  <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: '#e4e4e7' }}>
                     {tax.name}
                   </p>
                   <p
                     style={{
                       margin: '1px 0 0',
                       fontSize: 11,
-                      color: '#3a3a58',
+                      color: '#3f3f46',
                       fontFamily: 'ui-monospace, monospace',
                     }}
                   >
                     /{tax.slug}
                     {tax.hierarchical && (
-                      <span style={{ marginLeft: 6, color: '#2e2e48' }}>hiérarchique</span>
+                      <span style={{ marginLeft: 6, color: '#3f3f46' }}>hiérarchique</span>
                     )}
                   </p>
                 </div>
-                <span style={{ fontSize: 12, color: '#4a4a68' }}>{tax._count.terms}</span>
-                <span style={{ fontSize: 12, color: '#3e3e58' }}>
+                <span style={{ fontSize: 12, color: '#52525b' }}>{tax._count.terms}</span>
+                <span style={{ fontSize: 12, color: '#3f3f46' }}>
                   {tax.postTypes.map((pt) => pt.postType.name).join(', ') || '—'}
                 </span>
-                <span style={{ fontSize: 12, color: '#4353ff' }}>Gérer →</span>
+                <span style={{ fontSize: 12, color: '#2563eb' }}>Gérer →</span>
               </Link>
             ))}
           </div>

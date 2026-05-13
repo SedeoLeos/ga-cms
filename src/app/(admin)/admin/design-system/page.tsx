@@ -34,7 +34,7 @@ async function DesignSystemContent() {
               style={{
                 fontSize: 11,
                 fontFamily: 'ui-monospace, monospace',
-                background: '#16161f',
+                background: '#18181b',
                 padding: '1px 5px',
                 borderRadius: 3,
                 color: '#7080e8',

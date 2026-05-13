@@ -7,8 +7,8 @@ export const metadata: Metadata = {
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ minHeight: '100vh', background: '#0d0d12' }}>
-      <Suspense fallback={<div style={{ minHeight: '100vh', background: '#0d0d12' }} />}>
+    <div style={{ minHeight: '100vh', background: '#0f0f11' }}>
+      <Suspense fallback={<div style={{ minHeight: '100vh', background: '#0f0f11' }} />}>
         <AuthenticatedShell>{children}</AuthenticatedShell>
       </Suspense>
     </div>

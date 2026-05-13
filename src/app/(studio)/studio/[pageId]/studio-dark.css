@@ -6,35 +6,35 @@
  */
 
 :root {
-  /* Grey scale — inverted from Puck's default (light → dark) */
-  --puck-color-grey-01: #d8d8f0; /* was #181818 – primary text */
-  --puck-color-grey-02: #b8b8d0; /* was #292929 */
-  --puck-color-grey-03: #9090a8; /* was #404040 – secondary text */
-  --puck-color-grey-04: #686888; /* was #5a5a5a */
-  --puck-color-grey-05: #4a4a68; /* was #767676 – muted text */
-  --puck-color-grey-06: #363654; /* was #949494 – borders */
-  --puck-color-grey-07: #282840; /* was #ababab – heavy borders */
-  --puck-color-grey-08: #20202e; /* was #c3c3c3 */
-  --puck-color-grey-09: #1a1a28; /* was #dcdcdc */
-  --puck-color-grey-10: #141420; /* was #efefef */
-  --puck-color-grey-11: #111118; /* was #f5f5f5 – panel bg */
-  --puck-color-grey-12: #0d0d14; /* was #fafafa  – deepest bg */
-  --puck-color-white: #13131c; /* panel/card backgrounds */
-  --puck-color-black: #e8e8f0; /* primary text color */
+  /* Grey scale — pure zinc, no violet tint */
+  --puck-color-grey-01: #e4e4e7; /* primary text */
+  --puck-color-grey-02: #d4d4d8;
+  --puck-color-grey-03: #a1a1aa; /* secondary text */
+  --puck-color-grey-04: #71717a;
+  --puck-color-grey-05: #52525b; /* muted text */
+  --puck-color-grey-06: #3f3f46; /* borders */
+  --puck-color-grey-07: #27272a; /* heavy borders */
+  --puck-color-grey-08: #1c1c1f;
+  --puck-color-grey-09: #18181b;
+  --puck-color-grey-10: #111113;
+  --puck-color-grey-11: #0f0f11; /* panel bg */
+  --puck-color-grey-12: #09090b; /* deepest bg */
+  --puck-color-white: #111113; /* panel/card backgrounds */
+  --puck-color-black: #f4f4f5; /* primary text color */
 
-  /* Azure scale — mapped to our accent #4353ff */
-  --puck-color-azure-01: #0d1060;
-  --puck-color-azure-02: #1318a0;
-  --puck-color-azure-03: #1a20c8;
-  --puck-color-azure-04: #2a30e0;
-  --puck-color-azure-05: #3440ef;
-  --puck-color-azure-06: #4353ff;
-  --puck-color-azure-07: #6878ff;
-  --puck-color-azure-08: #8898ff;
-  --puck-color-azure-09: #a8b4ff;
-  --puck-color-azure-10: #c8d0ff;
-  --puck-color-azure-11: #e0e4ff;
-  --puck-color-azure-12: #f0f2ff;
+  /* Azure scale — centered on #2563eb */
+  --puck-color-azure-01: #172554;
+  --puck-color-azure-02: #1e3a8a;
+  --puck-color-azure-03: #1e40af;
+  --puck-color-azure-04: #1d4ed8;
+  --puck-color-azure-05: #2563eb;
+  --puck-color-azure-06: #3b82f6;
+  --puck-color-azure-07: #60a5fa;
+  --puck-color-azure-08: #93c5fd;
+  --puck-color-azure-09: #bfdbfe;
+  --puck-color-azure-10: #dbeafe;
+  --puck-color-azure-11: #eff6ff;
+  --puck-color-azure-12: #f8faff;
 }
 
 /* ─── Keep the canvas preview area white ───────────────────────────── */
@@ -49,7 +49,7 @@
 /* Remove Puck's blue outline on selected zones — use our accent */
 [data-puck-component]:focus-within > [data-puck-overlay],
 [data-puck-component]:hover > [data-puck-overlay] {
-  outline-color: #4353ff !important;
+  outline-color: #2563eb !important;
 }
 
 /* ─── Thin the Puck scrollbars ──────────────────────────────────────── */
@@ -61,9 +61,9 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #28283e;
+  background: #27272a;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #38385a;
+  background: #3f3f46;
 }

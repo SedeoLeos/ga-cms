@@ -37,12 +37,12 @@ function Row({ block }: { block: GlobalBlockRow }) {
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
-        <Blocks size={13} strokeWidth={1.5} color="#4353ff" />
+        <Blocks size={13} strokeWidth={1.5} color="#2563eb" />
         <span
           style={{
             fontSize: 13,
             fontWeight: 500,
-            color: '#e8e8f0',
+            color: '#f4f4f5',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
@@ -57,7 +57,7 @@ function Row({ block }: { block: GlobalBlockRow }) {
           style={{
             fontSize: 11,
             background: '#1a1a26',
-            border: '1px solid #2a2a3e',
+            border: '1px solid #27272a',
             borderRadius: 4,
             padding: '1px 7px',
             color: '#6868a8',
@@ -86,7 +86,7 @@ function Row({ block }: { block: GlobalBlockRow }) {
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: 5,
-            color: '#4a4a68',
+            color: '#52525b',
           }}
         >
           <Blocks size={13} strokeWidth={1.5} />
@@ -107,7 +107,7 @@ function Row({ block }: { block: GlobalBlockRow }) {
             background: 'none',
             border: 'none',
             cursor: pending ? 'not-allowed' : 'pointer',
-            color: '#4a4a68',
+            color: '#52525b',
             padding: 0,
           }}
         >
@@ -134,7 +134,7 @@ export default function GlobalBlocksList({ blocks }: Props) {
     <div>
       <div
         style={{
-          background: '#13131c',
+          background: '#111113',
           border: '1px solid #1f1f2e',
           borderRadius: 10,
           overflow: 'hidden',
@@ -142,7 +142,7 @@ export default function GlobalBlocksList({ blocks }: Props) {
       >
         {blocks.length === 0 ? (
           <div style={{ padding: '60px 32px', textAlign: 'center' }}>
-            <p style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 500, color: '#5a5a78' }}>
+            <p style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 500, color: '#71717a' }}>
               Aucun bloc global pour l'instant
             </p>
             <p style={{ margin: 0, fontSize: 12, color: '#3a3a50' }}>

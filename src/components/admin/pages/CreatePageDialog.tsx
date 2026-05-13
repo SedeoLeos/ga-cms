@@ -65,12 +65,12 @@ export default function CreatePageDialog({ locales, defaultLocale }: Props) {
   const INPUT: React.CSSProperties = {
     width: '100%',
     height: 34,
-    background: '#111118',
-    border: '1px solid #252535',
+    background: '#18181b',
+    border: '1px solid rgba(255,255,255,0.08)',
     borderRadius: 7,
     padding: '0 10px',
     fontSize: 13,
-    color: '#e8e8f0',
+    color: '#f4f4f5',
     outline: 'none',
     boxSizing: 'border-box',
     letterSpacing: '-0.01em',
@@ -80,7 +80,7 @@ export default function CreatePageDialog({ locales, defaultLocale }: Props) {
     display: 'block',
     fontSize: 11,
     fontWeight: 500,
-    color: '#5a5a80',
+    color: '#71717a',
     marginBottom: 5,
     letterSpacing: '0.02em',
     textTransform: 'uppercase',
@@ -95,7 +95,7 @@ export default function CreatePageDialog({ locales, defaultLocale }: Props) {
         style={{
           height: 32,
           padding: '0 14px',
-          background: '#4353ff',
+          background: '#2563eb',
           border: 'none',
           borderRadius: 7,
           fontSize: 13,
@@ -138,8 +138,8 @@ export default function CreatePageDialog({ locales, defaultLocale }: Props) {
               transform: 'translate(-50%, -50%)',
               zIndex: 201,
               width: 440,
-              background: '#111118',
-              border: '1px solid #222232',
+              background: '#111113',
+              border: '1px solid rgba(255,255,255,0.08)',
               borderRadius: 12,
               padding: '20px 24px 24px',
               boxShadow: '0 32px 80px rgba(0,0,0,0.7)',
@@ -159,7 +159,7 @@ export default function CreatePageDialog({ locales, defaultLocale }: Props) {
                   margin: 0,
                   fontSize: 14,
                   fontWeight: 600,
-                  color: '#e0e0f0',
+                  color: '#f4f4f5',
                   letterSpacing: '-0.02em',
                 }}
               >
@@ -180,7 +180,7 @@ export default function CreatePageDialog({ locales, defaultLocale }: Props) {
                   justifyContent: 'center',
                   borderRadius: 6,
                   padding: 0,
-                  color: '#3e3e5a',
+                  color: '#3f3f46',
                 }}
               >
                 <X size={14} />
@@ -229,7 +229,7 @@ export default function CreatePageDialog({ locales, defaultLocale }: Props) {
                     ...INPUT,
                     fontFamily: 'ui-monospace, monospace',
                     fontSize: 12,
-                    color: '#9090c0',
+                    color: '#93c5fd',
                   }}
                 />
               </div>
@@ -246,12 +246,12 @@ export default function CreatePageDialog({ locales, defaultLocale }: Props) {
                         style={{
                           height: 26,
                           padding: '0 10px',
-                          background: locale === code ? '#4353ff' : '#161620',
-                          border: `1px solid ${locale === code ? '#4353ff' : '#252535'}`,
+                          background: locale === code ? '#2563eb' : '#18181b',
+                          border: `1px solid ${locale === code ? '#2563eb' : '#27272a'}`,
                           borderRadius: 6,
                           fontSize: 11,
                           fontFamily: 'ui-monospace, monospace',
-                          color: locale === code ? '#fff' : '#4a4a70',
+                          color: locale === code ? '#fff' : '#52525b',
                           cursor: 'pointer',
                         }}
                       >
@@ -274,7 +274,7 @@ export default function CreatePageDialog({ locales, defaultLocale }: Props) {
                   gap: 8,
                   justifyContent: 'flex-end',
                   paddingTop: 8,
-                  borderTop: '1px solid #1a1a28',
+                  borderTop: '1px solid rgba(255,255,255,0.06)',
                   marginTop: 8,
                 }}
               >
@@ -286,10 +286,10 @@ export default function CreatePageDialog({ locales, defaultLocale }: Props) {
                     height: 32,
                     padding: '0 14px',
                     background: 'transparent',
-                    border: '1px solid #252535',
+                    border: '1px solid #27272a',
                     borderRadius: 7,
                     fontSize: 13,
-                    color: '#6a6a90',
+                    color: '#71717a',
                     cursor: 'pointer',
                     fontFamily: 'inherit',
                     letterSpacing: '-0.01em',
@@ -304,12 +304,12 @@ export default function CreatePageDialog({ locales, defaultLocale }: Props) {
                   style={{
                     height: 32,
                     padding: '0 16px',
-                    background: pending ? '#1e204a' : '#4353ff',
+                    background: pending ? 'rgba(37,99,235,0.08)' : '#2563eb',
                     border: 'none',
                     borderRadius: 7,
                     fontSize: 13,
                     fontWeight: 500,
-                    color: pending ? '#5060a0' : '#fff',
+                    color: pending ? '#60a5fa' : '#fff',
                     cursor: pending ? 'not-allowed' : 'pointer',
                     display: 'inline-flex',
                     alignItems: 'center',

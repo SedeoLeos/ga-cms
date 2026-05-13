@@ -15,12 +15,12 @@ function slugify(s: string): string {
 }
 
 const INPUT_S: React.CSSProperties = {
-  background: '#1e1e2e',
-  border: '1px solid #2a2a3e',
+  background: '#1c1c1f',
+  border: '1px solid #27272a',
   borderRadius: 5,
   padding: '0 8px',
   fontSize: 12,
-  color: '#e8e8f0',
+  color: '#f4f4f5',
   outline: 'none',
   height: 28,
   boxSizing: 'border-box',
@@ -154,7 +154,7 @@ function AddTermForm({
         gap: 8,
         alignItems: 'flex-end',
         padding: 14,
-        background: '#13131c',
+        background: '#111113',
         border: '1px solid #1f1f2e',
         borderRadius: 10,
         flexWrap: 'wrap',
@@ -163,7 +163,7 @@ function AddTermForm({
       <div style={{ flex: '1 1 140px' }}>
         <label
           htmlFor="add-term-name"
-          style={{ display: 'block', fontSize: 11, color: '#5a5a78', marginBottom: 4 }}
+          style={{ display: 'block', fontSize: 11, color: '#71717a', marginBottom: 4 }}
         >
           Nom
         </label>
@@ -183,7 +183,7 @@ function AddTermForm({
       <div style={{ flex: '1 1 120px' }}>
         <label
           htmlFor="add-term-slug"
-          style={{ display: 'block', fontSize: 11, color: '#5a5a78', marginBottom: 4 }}
+          style={{ display: 'block', fontSize: 11, color: '#71717a', marginBottom: 4 }}
         >
           Identifiant
         </label>
@@ -204,7 +204,7 @@ function AddTermForm({
         <div style={{ flex: '0 0 130px' }}>
           <label
             htmlFor="add-term-parent"
-            style={{ display: 'block', fontSize: 11, color: '#5a5a78', marginBottom: 4 }}
+            style={{ display: 'block', fontSize: 11, color: '#71717a', marginBottom: 4 }}
           >
             Parent (optionnel)
           </label>
@@ -229,8 +229,8 @@ function AddTermForm({
         style={{
           height: 28,
           padding: '0 12px',
-          background: name && !pending ? '#4353ff' : '#1a1a26',
-          border: `1px solid ${name && !pending ? 'transparent' : '#2a2a3e'}`,
+          background: name && !pending ? '#2563eb' : '#1a1a26',
+          border: `1px solid ${name && !pending ? 'transparent' : '#27272a'}`,
           borderRadius: 5,
           fontSize: 12,
           fontWeight: 500,
@@ -289,7 +289,7 @@ function TermRow({
           paddingRight: 10,
           paddingBlock: 8,
           background: '#1a1a26',
-          border: '1px solid #2a2a3e',
+          border: '1px solid #27272a',
           borderRadius: 7,
           marginLeft: indent * 16,
         }}
@@ -357,7 +357,7 @@ function TermRow({
               width: 28,
               height: 28,
               background: 'none',
-              border: '1px solid #2a2a3e',
+              border: '1px solid #27272a',
               borderRadius: 5,
               cursor: 'pointer',
               display: 'flex',
@@ -366,7 +366,7 @@ function TermRow({
               flexShrink: 0,
             }}
           >
-            <X size={12} color="#5a5a78" />
+            <X size={12} color="#71717a" />
           </button>
           {state && 'error' in state && (
             <p style={{ margin: 0, fontSize: 11, color: '#ff6060', flexBasis: '100%' }}>
@@ -386,13 +386,13 @@ function TermRow({
         alignItems: 'center',
         padding: '8px 10px',
         paddingLeft: indent * 16 + 10,
-        background: '#13131c',
+        background: '#111113',
         border: '1px solid #1f1f2e',
         borderRadius: 7,
       }}
     >
       <div>
-        <span style={{ fontSize: 13, color: '#c8c8da' }}>
+        <span style={{ fontSize: 13, color: '#d4d4d8' }}>
           {indent > 0 && <span style={{ color: '#3e3e52', marginRight: 4 }}>└</span>}
           {term.name}
         </span>
@@ -407,7 +407,7 @@ function TermRow({
           {term.slug}
         </span>
       </div>
-      <span style={{ fontSize: 12, color: '#5a5a78' }}>{term._count.entries}</span>
+      <span style={{ fontSize: 12, color: '#71717a' }}>{term._count.entries}</span>
       <div style={{ display: 'flex', gap: 4, justifyContent: 'flex-end' }}>
         <button
           type="button"
@@ -416,7 +416,7 @@ function TermRow({
             width: 26,
             height: 26,
             background: 'none',
-            border: '1px solid #2a2a3e',
+            border: '1px solid #27272a',
             borderRadius: 4,
             cursor: 'pointer',
             display: 'flex',
@@ -424,7 +424,7 @@ function TermRow({
             justifyContent: 'center',
           }}
         >
-          <Pencil size={11} color="#4a4a68" />
+          <Pencil size={11} color="#52525b" />
         </button>
         <button
           type="button"
@@ -438,7 +438,7 @@ function TermRow({
             width: 26,
             height: 26,
             background: 'none',
-            border: '1px solid #2a2a3e',
+            border: '1px solid #27272a',
             borderRadius: 4,
             cursor: deletePending ? 'not-allowed' : 'pointer',
             display: 'flex',

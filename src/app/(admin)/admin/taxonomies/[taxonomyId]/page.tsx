@@ -77,12 +77,12 @@ async function TaxonomyContent({ params }: Props) {
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
         <Link
           href="/admin/taxonomies"
-          style={{ fontSize: 13, color: '#4a4a68', textDecoration: 'none' }}
+          style={{ fontSize: 13, color: '#52525b', textDecoration: 'none' }}
         >
           Taxonomies
         </Link>
         <span style={{ fontSize: 13, color: '#2e2e42' }}>/</span>
-        <span style={{ fontSize: 13, color: '#e8e8f0' }}>{taxonomy.name}</span>
+        <span style={{ fontSize: 13, color: '#f4f4f5' }}>{taxonomy.name}</span>
       </div>
 
       <div
@@ -95,7 +95,7 @@ async function TaxonomyContent({ params }: Props) {
               margin: '0 0 20px',
               fontSize: 18,
               fontWeight: 600,
-              color: '#e8e8f0',
+              color: '#f4f4f5',
               letterSpacing: '-0.01em',
             }}
           >
@@ -114,7 +114,7 @@ async function TaxonomyContent({ params }: Props) {
           {/* Settings */}
           <div
             style={{
-              background: '#13131c',
+              background: '#111113',
               border: '1px solid #1f1f2e',
               borderRadius: 10,
               padding: 16,
@@ -148,7 +148,7 @@ async function TaxonomyContent({ params }: Props) {
           {allPostTypes.length > 0 && (
             <div
               style={{
-                background: '#13131c',
+                background: '#111113',
                 border: '1px solid #1f1f2e',
                 borderRadius: 10,
                 padding: 16,
@@ -183,11 +183,11 @@ async function TaxonomyContent({ params }: Props) {
                           alignItems: 'center',
                           justifyContent: 'space-between',
                           padding: '0 8px',
-                          background: attached ? '#1a1f4a' : '#1a1a26',
-                          border: `1px solid ${attached ? '#2d3580' : '#2a2a3e'}`,
+                          background: attached ? 'rgba(37,99,235,0.1)' : '#1a1a26',
+                          border: `1px solid ${attached ? '#1d4ed8' : '#27272a'}`,
                           borderRadius: 5,
                           fontSize: 12,
-                          color: attached ? '#8090f0' : '#5a5a78',
+                          color: attached ? '#60a5fa' : '#71717a',
                           cursor: 'pointer',
                           textAlign: 'left',
                         }}

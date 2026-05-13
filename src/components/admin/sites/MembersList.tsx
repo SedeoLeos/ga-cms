@@ -20,12 +20,12 @@ export type MemberRow = {
 
 const INPUT_S: React.CSSProperties = {
   height: 32,
-  background: '#1e1e2e',
-  border: '1px solid #2a2a3e',
+  background: '#1c1c1f',
+  border: '1px solid #27272a',
   borderRadius: 5,
   padding: '0 10px',
   fontSize: 12,
-  color: '#e8e8f0',
+  color: '#f4f4f5',
   outline: 'none',
   boxSizing: 'border-box',
 }
@@ -62,13 +62,13 @@ function Row({ member }: { member: MemberRow }) {
       }}
     >
       <div style={{ minWidth: 0 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: '#e8e8f0', marginBottom: 1 }}>
-          {member.name ?? <span style={{ color: '#4a4a68', fontStyle: 'italic' }}>Sans nom</span>}
+        <div style={{ fontSize: 13, fontWeight: 500, color: '#f4f4f5', marginBottom: 1 }}>
+          {member.name ?? <span style={{ color: '#52525b', fontStyle: 'italic' }}>Sans nom</span>}
         </div>
         <div
           style={{
             fontSize: 11,
-            color: '#5a5a78',
+            color: '#71717a',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
@@ -93,12 +93,12 @@ function Row({ member }: { member: MemberRow }) {
           display: 'inline-flex',
           alignItems: 'center',
           gap: 4,
-          background: member.emailVerified ? '#0e2e1a' : '#1e1e2e',
-          border: `1px solid ${member.emailVerified ? '#1a4a28' : '#2a2a3e'}`,
+          background: member.emailVerified ? '#0e2e1a' : '#1c1c1f',
+          border: `1px solid ${member.emailVerified ? '#1a4a28' : '#27272a'}`,
           borderRadius: 4,
           fontSize: 11,
           fontWeight: 500,
-          color: member.emailVerified ? '#4ade80' : '#4a4a68',
+          color: member.emailVerified ? '#4ade80' : '#52525b',
           cursor: verifyPending ? 'not-allowed' : 'pointer',
         }}
       >
@@ -125,7 +125,7 @@ function Row({ member }: { member: MemberRow }) {
             background: 'none',
             border: 'none',
             cursor: deletePending ? 'not-allowed' : 'pointer',
-            color: '#4a4a68',
+            color: '#52525b',
             padding: 0,
           }}
         >
@@ -164,7 +164,7 @@ function InviteRow() {
           style={{
             height: 32,
             padding: '0 14px',
-            background: '#4353ff',
+            background: '#2563eb',
             border: 'none',
             borderRadius: 6,
             fontSize: 12,
@@ -198,7 +198,7 @@ function InviteRow() {
       <div style={{ flex: '1 1 200px', minWidth: 0 }}>
         <label
           htmlFor="inv-email"
-          style={{ display: 'block', fontSize: 11, color: '#5a5a78', marginBottom: 4 }}
+          style={{ display: 'block', fontSize: 11, color: '#71717a', marginBottom: 4 }}
         >
           Email
         </label>
@@ -206,7 +206,7 @@ function InviteRow() {
           <Mail
             size={12}
             strokeWidth={1.5}
-            color="#4a4a68"
+            color="#52525b"
             style={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)' }}
           />
           <input
@@ -224,7 +224,7 @@ function InviteRow() {
       <div style={{ flex: '1 1 160px', minWidth: 0 }}>
         <label
           htmlFor="inv-name"
-          style={{ display: 'block', fontSize: 11, color: '#5a5a78', marginBottom: 4 }}
+          style={{ display: 'block', fontSize: 11, color: '#71717a', marginBottom: 4 }}
         >
           Nom <span style={{ color: '#3e3e52', fontWeight: 400 }}>(optionnel)</span>
         </label>
@@ -246,12 +246,12 @@ function InviteRow() {
           style={{
             height: 32,
             padding: '0 14px',
-            background: pending ? '#2a2a4e' : '#4353ff',
+            background: pending ? 'rgba(37,99,235,0.12)' : '#2563eb',
             border: 'none',
             borderRadius: 5,
             fontSize: 12,
             fontWeight: 500,
-            color: pending ? '#6a6a90' : '#fff',
+            color: pending ? '#71717a' : '#fff',
             cursor: pending ? 'not-allowed' : 'pointer',
             display: 'inline-flex',
             alignItems: 'center',
@@ -268,10 +268,10 @@ function InviteRow() {
             height: 32,
             padding: '0 12px',
             background: 'none',
-            border: '1px solid #2a2a3e',
+            border: '1px solid #27272a',
             borderRadius: 5,
             fontSize: 12,
-            color: '#5a5a78',
+            color: '#71717a',
             cursor: 'pointer',
           }}
         >
@@ -298,7 +298,7 @@ export default function MembersList({ members }: Props) {
   return (
     <div
       style={{
-        background: '#13131c',
+        background: '#111113',
         border: '1px solid #1f1f2e',
         borderRadius: 10,
         overflow: 'hidden',
@@ -333,7 +333,7 @@ export default function MembersList({ members }: Props) {
 
       {members.length === 0 && (
         <div style={{ padding: '40px 24px', textAlign: 'center' }}>
-          <p style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 500, color: '#5a5a78' }}>
+          <p style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 500, color: '#71717a' }}>
             Aucun membre pour l'instant
           </p>
           <p style={{ margin: 0, fontSize: 12, color: '#3a3a50' }}>

@@ -15,7 +15,7 @@ export default async function LoginPage({ searchParams }: Props) {
     <div
       style={{
         minHeight: '100vh',
-        background: '#0d0d12',
+        background: '#0f0f11',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -37,7 +37,7 @@ export default async function LoginPage({ searchParams }: Props) {
             style={{
               width: 34,
               height: 34,
-              background: '#4353ff',
+              background: '#2563eb',
               borderRadius: 9,
               display: 'flex',
               alignItems: 'center',
@@ -50,7 +50,7 @@ export default async function LoginPage({ searchParams }: Props) {
             style={{
               fontSize: 18,
               fontWeight: 700,
-              color: '#e0e0ec',
+              color: '#f4f4f5',
               letterSpacing: '-0.03em',
             }}
           >
@@ -61,8 +61,8 @@ export default async function LoginPage({ searchParams }: Props) {
         {/* Card */}
         <div
           style={{
-            background: '#0f0f18',
-            border: '1px solid #1c1c28',
+            background: '#111113',
+            border: '1px solid #27272a',
             borderRadius: 12,
             padding: '28px 28px 24px',
             boxShadow: '0 24px 64px rgba(0,0,0,0.5)',
@@ -73,13 +73,13 @@ export default async function LoginPage({ searchParams }: Props) {
               margin: '0 0 2px',
               fontSize: 15,
               fontWeight: 600,
-              color: '#e8e8f0',
+              color: '#f4f4f5',
               letterSpacing: '-0.02em',
             }}
           >
             Connexion à votre espace
           </h1>
-          <p style={{ margin: '0 0 24px', fontSize: 12, color: '#3e3e58' }}>
+          <p style={{ margin: '0 0 24px', fontSize: 12, color: '#3f3f46' }}>
             Entrez vos identifiants administrateur pour continuer.
           </p>
 

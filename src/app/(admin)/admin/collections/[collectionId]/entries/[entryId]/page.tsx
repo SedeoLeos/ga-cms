@@ -73,26 +73,26 @@ async function EntryEditContent({ params }: Props) {
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 24 }}>
         <Link
           href="/admin/collections"
-          style={{ fontSize: 13, color: '#4a4a68', textDecoration: 'none' }}
+          style={{ fontSize: 13, color: '#52525b', textDecoration: 'none' }}
         >
           Collections
         </Link>
         <span style={{ fontSize: 13, color: '#2e2e42' }}>/</span>
         <Link
           href={`/admin/collections/${collectionId}`}
-          style={{ fontSize: 13, color: '#4a4a68', textDecoration: 'none' }}
+          style={{ fontSize: 13, color: '#52525b', textDecoration: 'none' }}
         >
           {entry.collection.name}
         </Link>
         <span style={{ fontSize: 13, color: '#2e2e42' }}>/</span>
         <Link
           href={`/admin/collections/${collectionId}/entries`}
-          style={{ fontSize: 13, color: '#4a4a68', textDecoration: 'none' }}
+          style={{ fontSize: 13, color: '#52525b', textDecoration: 'none' }}
         >
           Entrées
         </Link>
         <span style={{ fontSize: 13, color: '#2e2e42' }}>/</span>
-        <span style={{ fontSize: 13, color: '#e8e8f0' }}>Édition</span>
+        <span style={{ fontSize: 13, color: '#f4f4f5' }}>Édition</span>
       </div>
 
       <EntryForm

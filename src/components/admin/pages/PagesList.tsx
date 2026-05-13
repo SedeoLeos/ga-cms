@@ -15,13 +15,13 @@ export type PageRow = {
 }
 
 const STATUS: Record<string, { label: string; dot: string; color: string }> = {
-  DRAFT: { label: 'Brouillon', dot: '#444464', color: '#5a5a88' },
+  DRAFT: { label: 'Brouillon', dot: '#3f3f46', color: '#71717a' },
   PUBLISHED: { label: 'Publié', dot: '#22c55e', color: '#4ade80' },
   ARCHIVED: { label: 'Archivé', dot: '#f59e0b', color: '#fbbf24' },
 }
 
 function StatusBadge({ status }: { status: string }) {
-  const s = STATUS[status] ?? STATUS.DRAFT ?? { dot: '#444464', color: '#5a5a88', label: status }
+  const s = STATUS[status] ?? STATUS.DRAFT ?? { dot: '#3f3f46', color: '#71717a', label: status }
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
       <span
@@ -58,7 +58,7 @@ function Row({ page }: { page: PageRow }) {
         gap: 12,
         padding: '0 16px',
         height: 42,
-        borderBottom: '1px solid #161620',
+        borderBottom: '1px solid rgba(255,255,255,0.04)',
         opacity: pending ? 0.4 : 1,
         transition: 'opacity 0.15s, background 0.1s',
       }}
@@ -69,7 +69,7 @@ function Row({ page }: { page: PageRow }) {
           style={{
             fontSize: 13,
             fontWeight: 500,
-            color: '#d8d8ec',
+            color: '#e4e4e7',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
@@ -80,7 +80,7 @@ function Row({ page }: { page: PageRow }) {
         <span
           style={{
             fontSize: 11,
-            color: '#3a3a58',
+            color: '#3f3f46',
             fontFamily: 'ui-monospace, monospace',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -96,9 +96,9 @@ function Row({ page }: { page: PageRow }) {
         style={{
           fontSize: 11,
           fontFamily: 'ui-monospace, monospace',
-          color: '#404060',
+          color: '#52525b',
           textAlign: 'center',
-          background: '#161620',
+          background: '#18181b',
           borderRadius: 4,
           padding: '2px 6px',
           width: 'fit-content',
@@ -111,7 +111,7 @@ function Row({ page }: { page: PageRow }) {
       <StatusBadge status={page.status} />
 
       {/* Date */}
-      <span style={{ fontSize: 11, color: '#36364e' }}>{page.updatedAt}</span>
+      <span style={{ fontSize: 11, color: '#3f3f46' }}>{page.updatedAt}</span>
 
       {/* Actions */}
       <div style={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
@@ -126,7 +126,7 @@ function Row({ page }: { page: PageRow }) {
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: 6,
-            color: '#404068',
+            color: '#52525b',
           }}
         >
           <LayoutDashboard size={13} strokeWidth={1.5} />
@@ -147,7 +147,7 @@ function Row({ page }: { page: PageRow }) {
             background: 'none',
             border: 'none',
             cursor: pending ? 'not-allowed' : 'pointer',
-            color: '#404068',
+            color: '#52525b',
             padding: 0,
           }}
         >
@@ -170,8 +170,8 @@ export default function PagesList({ pages }: { pages: PageRow[] }) {
   return (
     <div
       style={{
-        background: '#0f0f18',
-        border: '1px solid #1c1c28',
+        background: '#0f0f11',
+        border: '1px solid rgba(255,255,255,0.07)',
         borderRadius: 10,
         overflow: 'hidden',
       }}
@@ -192,18 +192,18 @@ export default function PagesList({ pages }: { pages: PageRow[] }) {
               width: 40,
               height: 40,
               borderRadius: 10,
-              background: '#141420',
+              background: '#18181b',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
-            <FileText size={18} strokeWidth={1.2} color="#2e2e48" />
+            <FileText size={18} strokeWidth={1.2} color="#3f3f46" />
           </div>
-          <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: '#4a4a68' }}>
+          <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: '#52525b' }}>
             Aucune page pour l'instant
           </p>
-          <p style={{ margin: 0, fontSize: 12, color: '#2e2e48' }}>
+          <p style={{ margin: 0, fontSize: 12, color: '#3f3f46' }}>
             Créez votre première page pour commencer.
           </p>
         </div>
@@ -218,8 +218,8 @@ export default function PagesList({ pages }: { pages: PageRow[] }) {
               padding: '0 16px',
               height: 34,
               alignItems: 'center',
-              borderBottom: '1px solid #1c1c28',
-              background: '#0c0c14',
+              borderBottom: '1px solid rgba(255,255,255,0.07)',
+              background: '#0a0a0c',
             }}
           >
             {COLS.map((col) => (
@@ -228,7 +228,7 @@ export default function PagesList({ pages }: { pages: PageRow[] }) {
                 style={{
                   fontSize: 10,
                   fontWeight: 600,
-                  color: '#30304a',
+                  color: '#3f3f46',
                   textTransform: 'uppercase',
                   letterSpacing: '0.07em',
                 }}

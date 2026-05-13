@@ -5,12 +5,12 @@ import { Plus } from 'lucide-react'
 import { useActionState, useRef, useState } from 'react'
 
 const INPUT_S: React.CSSProperties = {
-  background: '#1e1e2e',
-  border: '1px solid #2a2a3e',
+  background: '#1c1c1f',
+  border: '1px solid #27272a',
   borderRadius: 6,
   padding: '0 10px',
   fontSize: 13,
-  color: '#e8e8f0',
+  color: '#f4f4f5',
   outline: 'none',
   height: 32,
 }
@@ -52,7 +52,7 @@ export default function TaxonomyCreateForm({ action }: Props) {
         alignItems: 'flex-end',
         gap: 8,
         padding: 16,
-        background: '#13131c',
+        background: '#111113',
         border: '1px solid #1f1f2e',
         borderRadius: 10,
       }}
@@ -60,7 +60,7 @@ export default function TaxonomyCreateForm({ action }: Props) {
       <div style={{ flex: 1 }}>
         <label
           htmlFor="tax-create-name"
-          style={{ display: 'block', fontSize: 11, color: '#5a5a78', marginBottom: 5 }}
+          style={{ display: 'block', fontSize: 11, color: '#71717a', marginBottom: 5 }}
         >
           Nom
         </label>
@@ -77,7 +77,7 @@ export default function TaxonomyCreateForm({ action }: Props) {
       <div style={{ flex: 1 }}>
         <label
           htmlFor="tax-create-slug"
-          style={{ display: 'block', fontSize: 11, color: '#5a5a78', marginBottom: 5 }}
+          style={{ display: 'block', fontSize: 11, color: '#71717a', marginBottom: 5 }}
         >
           Identifiant
         </label>
@@ -102,7 +102,7 @@ export default function TaxonomyCreateForm({ action }: Props) {
             alignItems: 'center',
             gap: 5,
             fontSize: 12,
-            color: '#8a8aa8',
+            color: '#a1a1aa',
             cursor: 'pointer',
           }}
         >
@@ -116,8 +116,8 @@ export default function TaxonomyCreateForm({ action }: Props) {
         style={{
           height: 32,
           padding: '0 14px',
-          background: name && !pending ? '#4353ff' : '#1a1a26',
-          border: `1px solid ${name && !pending ? 'transparent' : '#2a2a3e'}`,
+          background: name && !pending ? '#2563eb' : '#1a1a26',
+          border: `1px solid ${name && !pending ? 'transparent' : '#27272a'}`,
           borderRadius: 6,
           fontSize: 13,
           fontWeight: 500,

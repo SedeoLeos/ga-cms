@@ -51,7 +51,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const tax of taxonomies) {
     for (const term of tax.terms) {
-      items.push({ url: `${base}/${tax.slug}/${term.slug}`, changeFrequency: 'weekly', priority: 0.5 })
+      items.push({
+        url: `${base}/${tax.slug}/${term.slug}`,
+        changeFrequency: 'weekly',
+        priority: 0.5,
+      })
     }
   }
 

@@ -14,7 +14,7 @@ export default function AdminPageHeader({ title, subtitle, action, border = true
         justifyContent: 'space-between',
         gap: 16,
         padding: '18px 28px',
-        borderBottom: border ? '1px solid #1c1c28' : 'none',
+        borderBottom: border ? '1px solid rgba(255,255,255,0.06)' : 'none',
         flexShrink: 0,
       }}
     >
@@ -24,7 +24,7 @@ export default function AdminPageHeader({ title, subtitle, action, border = true
             margin: 0,
             fontSize: 15,
             fontWeight: 600,
-            color: '#e8e8f0',
+            color: '#f4f4f5',
             letterSpacing: '-0.02em',
             lineHeight: 1.3,
           }}
@@ -36,7 +36,7 @@ export default function AdminPageHeader({ title, subtitle, action, border = true
             style={{
               margin: '2px 0 0',
               fontSize: 12,
-              color: '#4a4a68',
+              color: '#52525b',
               lineHeight: 1.4,
             }}
           >

@@ -93,21 +93,21 @@ async function PostEntryEditContent({ params }: Props) {
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 24 }}>
         <Link
           href="/admin/post-types"
-          style={{ fontSize: 13, color: '#4a4a68', textDecoration: 'none' }}
+          style={{ fontSize: 13, color: '#52525b', textDecoration: 'none' }}
         >
           Post Types
         </Link>
         <span style={{ fontSize: 13, color: '#2e2e42' }}>/</span>
         <Link
           href={`/admin/post-types/${postTypeId}`}
-          style={{ fontSize: 13, color: '#4a4a68', textDecoration: 'none' }}
+          style={{ fontSize: 13, color: '#52525b', textDecoration: 'none' }}
         >
           {entry.postType.name}
         </Link>
         <span style={{ fontSize: 13, color: '#2e2e42' }}>/</span>
         <Link
           href={`/admin/post-types/${postTypeId}/entries`}
-          style={{ fontSize: 13, color: '#4a4a68', textDecoration: 'none' }}
+          style={{ fontSize: 13, color: '#52525b', textDecoration: 'none' }}
         >
           Billets
         </Link>
@@ -115,7 +115,7 @@ async function PostEntryEditContent({ params }: Props) {
         <span
           style={{
             fontSize: 13,
-            color: '#e8e8f0',
+            color: '#f4f4f5',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',

@@ -39,12 +39,12 @@ const FIELD_TYPE_MAP = Object.fromEntries(FIELD_TYPES.map((f) => [f.type, f])) a
 
 const INPUT_S: React.CSSProperties = {
   height: 32,
-  background: '#1e1e2e',
-  border: '1px solid #2a2a3e',
+  background: '#1c1c1f',
+  border: '1px solid #27272a',
   borderRadius: 5,
   padding: '0 9px',
   fontSize: 12,
-  color: '#e8e8f0',
+  color: '#f4f4f5',
   outline: 'none',
   boxSizing: 'border-box',
   width: '100%',
@@ -153,7 +153,7 @@ export default function SchemaBuilder({
           marginBottom: 16,
         }}
       >
-        <p style={{ margin: 0, fontSize: 13, color: '#5a5a78' }}>
+        <p style={{ margin: 0, fontSize: 13, color: '#71717a' }}>
           {fields.length} champ{fields.length !== 1 ? 's' : ''}
         </p>
         <form
@@ -171,8 +171,8 @@ export default function SchemaBuilder({
           style={{
             height: 32,
             padding: '0 14px',
-            background: dirty && !pending ? '#4353ff' : '#1a1a26',
-            border: `1px solid ${dirty && !pending ? 'transparent' : '#2a2a3e'}`,
+            background: dirty && !pending ? '#2563eb' : '#1a1a26',
+            border: `1px solid ${dirty && !pending ? 'transparent' : '#27272a'}`,
             borderRadius: 6,
             fontSize: 13,
             fontWeight: 500,
@@ -191,7 +191,7 @@ export default function SchemaBuilder({
 
       <div
         style={{
-          background: '#13131c',
+          background: '#111113',
           border: '1px solid #1f1f2e',
           borderRadius: 10,
           overflow: 'hidden',
@@ -230,10 +230,10 @@ export default function SchemaBuilder({
             height: 34,
             padding: '0 14px',
             background: 'none',
-            border: '1px dashed #2a2a3e',
+            border: '1px dashed #27272a',
             borderRadius: 7,
             fontSize: 13,
-            color: '#4a4a68',
+            color: '#52525b',
             cursor: 'pointer',
             display: 'inline-flex',
             alignItems: 'center',
@@ -259,7 +259,7 @@ function TypePicker({
   return (
     <div
       style={{
-        background: '#13131c',
+        background: '#111113',
         border: '1px solid #1f1f2e',
         borderRadius: 10,
         padding: 16,
@@ -278,7 +278,7 @@ function TypePicker({
             margin: 0,
             fontSize: 11,
             fontWeight: 600,
-            color: '#5a5a78',
+            color: '#71717a',
             textTransform: 'uppercase',
             letterSpacing: '0.05em',
           }}
@@ -292,7 +292,7 @@ function TypePicker({
             background: 'none',
             border: 'none',
             cursor: 'pointer',
-            color: '#4a4a68',
+            color: '#52525b',
             padding: 0,
             display: 'flex',
           }}
@@ -314,10 +314,10 @@ function TypePicker({
               justifyContent: 'center',
               gap: 6,
               background: '#1a1a26',
-              border: '1px solid #2a2a3e',
+              border: '1px solid #27272a',
               borderRadius: 7,
               cursor: 'pointer',
-              color: '#8a8aa8',
+              color: '#a1a1aa',
             }}
           >
             <Icon size={16} strokeWidth={1.5} />
@@ -389,7 +389,7 @@ function FieldRow({
             style={{
               width: 28,
               flexShrink: 0,
-              color: '#4a4a68',
+              color: '#52525b',
               display: 'flex',
               justifyContent: 'center',
             }}
@@ -399,7 +399,7 @@ function FieldRow({
 
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontSize: 13, fontWeight: 500, color: '#e8e8f0' }}>
+              <span style={{ fontSize: 13, fontWeight: 500, color: '#f4f4f5' }}>
                 {field.name || (
                   <span style={{ color: '#3e3e52', fontStyle: 'italic' }}>Sans nom</span>
                 )}
@@ -409,7 +409,7 @@ function FieldRow({
                   style={{
                     fontSize: 10,
                     background: '#1e264a',
-                    color: '#8090f0',
+                    color: '#60a5fa',
                     borderRadius: 3,
                     padding: '1px 5px',
                   }}
@@ -430,7 +430,7 @@ function FieldRow({
             </div>
           </div>
 
-          <span style={{ fontSize: 11, color: '#5a5a78', whiteSpace: 'nowrap', flexShrink: 0 }}>
+          <span style={{ fontSize: 11, color: '#71717a', whiteSpace: 'nowrap', flexShrink: 0 }}>
             {meta?.label ?? field.type}
           </span>
         </button>
@@ -445,7 +445,7 @@ function FieldRow({
               background: 'none',
               border: 'none',
               cursor: idx === 0 ? 'default' : 'pointer',
-              color: idx === 0 ? '#2a2a3e' : '#4a4a68',
+              color: idx === 0 ? '#27272a' : '#52525b',
               padding: '1px 2px',
               lineHeight: 1,
               display: 'flex',
@@ -461,7 +461,7 @@ function FieldRow({
               background: 'none',
               border: 'none',
               cursor: idx === total - 1 ? 'default' : 'pointer',
-              color: idx === total - 1 ? '#2a2a3e' : '#4a4a68',
+              color: idx === total - 1 ? '#27272a' : '#52525b',
               padding: '1px 2px',
               lineHeight: 1,
               display: 'flex',
@@ -531,7 +531,7 @@ function FieldEditor({
     <div
       style={{
         padding: '12px 14px 14px',
-        background: '#0f0f18',
+        background: '#111113',
         borderTop: '1px solid #1a1a24',
       }}
     >
@@ -539,7 +539,7 @@ function FieldEditor({
         <div>
           <label
             htmlFor={`fn-${field.id}`}
-            style={{ display: 'block', fontSize: 11, color: '#5a5a78', marginBottom: 4 }}
+            style={{ display: 'block', fontSize: 11, color: '#71717a', marginBottom: 4 }}
           >
             Nom
           </label>
@@ -557,7 +557,7 @@ function FieldEditor({
         <div>
           <label
             htmlFor={`fk-${field.id}`}
-            style={{ display: 'block', fontSize: 11, color: '#5a5a78', marginBottom: 4 }}
+            style={{ display: 'block', fontSize: 11, color: '#71717a', marginBottom: 4 }}
           >
             Clé
           </label>
@@ -577,7 +577,7 @@ function FieldEditor({
       <div style={{ marginBottom: 10 }}>
         <label
           htmlFor={`fd-${field.id}`}
-          style={{ display: 'block', fontSize: 11, color: '#5a5a78', marginBottom: 4 }}
+          style={{ display: 'block', fontSize: 11, color: '#71717a', marginBottom: 4 }}
         >
           Description <span style={{ color: '#2e2e42', fontWeight: 400 }}>(optionnel)</span>
         </label>
@@ -609,7 +609,7 @@ function FieldEditor({
           onChange={(e) => onUpdate({ required: e.target.checked })}
           style={{ width: 13, height: 13, cursor: 'pointer' }}
         />
-        <span style={{ fontSize: 12, color: '#8a8aa8' }}>Champ requis</span>
+        <span style={{ fontSize: 12, color: '#a1a1aa' }}>Champ requis</span>
       </label>
 
       {field.type === 'select' && <SelectOptions field={field} onUpdate={onUpdate} />}
@@ -632,7 +632,7 @@ function FieldEditor({
             onChange={(e) => onUpdate({ multiple: e.target.checked })}
             style={{ width: 13, height: 13, cursor: 'pointer' }}
           />
-          <span style={{ fontSize: 12, color: '#8a8aa8' }}>Sélection multiple</span>
+          <span style={{ fontSize: 12, color: '#a1a1aa' }}>Sélection multiple</span>
         </label>
       )}
 
@@ -640,7 +640,7 @@ function FieldEditor({
         <div style={{ marginBottom: 12 }}>
           <label
             htmlFor={`frel-${field.id}`}
-            style={{ display: 'block', fontSize: 11, color: '#5a5a78', marginBottom: 4 }}
+            style={{ display: 'block', fontSize: 11, color: '#71717a', marginBottom: 4 }}
           >
             Collection liée
           </label>
@@ -668,10 +668,10 @@ function FieldEditor({
             height: 28,
             padding: '0 12px',
             background: 'none',
-            border: '1px solid #2a2a3e',
+            border: '1px solid #27272a',
             borderRadius: 5,
             fontSize: 12,
-            color: '#5a5a78',
+            color: '#71717a',
             cursor: 'pointer',
           }}
         >
@@ -712,7 +712,7 @@ function SelectOptions({
 
   return (
     <div style={{ marginBottom: 12 }}>
-      <p style={{ margin: '0 0 6px', fontSize: 11, color: '#5a5a78' }}>Options</p>
+      <p style={{ margin: '0 0 6px', fontSize: 11, color: '#71717a' }}>Options</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         {items.map(({ id, value }) => (
           <div key={id} style={{ display: 'flex', gap: 5 }}>
@@ -736,10 +736,10 @@ function SelectOptions({
                 alignItems: 'center',
                 justifyContent: 'center',
                 background: 'none',
-                border: '1px solid #2a2a3e',
+                border: '1px solid #27272a',
                 borderRadius: 5,
                 cursor: items.length <= 1 ? 'not-allowed' : 'pointer',
-                color: items.length <= 1 ? '#2a2a3e' : '#4a4a68',
+                color: items.length <= 1 ? '#27272a' : '#52525b',
               }}
             >
               <X size={11} />
@@ -753,10 +753,10 @@ function SelectOptions({
             height: 28,
             padding: '0 10px',
             background: 'none',
-            border: '1px dashed #2a2a3e',
+            border: '1px dashed #27272a',
             borderRadius: 5,
             fontSize: 11,
-            color: '#4a4a68',
+            color: '#52525b',
             cursor: 'pointer',
             display: 'inline-flex',
             alignItems: 'center',

@@ -6,12 +6,12 @@ import { useActionState, useState } from 'react'
 
 const INPUT_S: React.CSSProperties = {
   width: '100%',
-  background: '#1e1e2e',
-  border: '1px solid #2a2a3e',
+  background: '#1c1c1f',
+  border: '1px solid #27272a',
   borderRadius: 6,
   padding: '0 8px',
   fontSize: 12,
-  color: '#e8e8f0',
+  color: '#f4f4f5',
   outline: 'none',
   height: 30,
   boxSizing: 'border-box',
@@ -20,7 +20,7 @@ const INPUT_S: React.CSSProperties = {
 const LABEL_S: React.CSSProperties = {
   display: 'block',
   fontSize: 11,
-  color: '#5a5a78',
+  color: '#71717a',
   marginBottom: 4,
 }
 
@@ -76,7 +76,7 @@ export default function TaxonomyEditForm({ taxonomy, updateAction, deleteAction 
             defaultChecked={taxonomy.hierarchical}
             style={{ width: 13, height: 13 }}
           />
-          <span style={{ fontSize: 12, color: '#8a8aa8' }}>Hiérarchique</span>
+          <span style={{ fontSize: 12, color: '#a1a1aa' }}>Hiérarchique</span>
         </label>
         {state && 'error' in state && (
           <p style={{ margin: 0, fontSize: 11, color: '#ff6060' }}>{state.error}</p>
@@ -86,8 +86,8 @@ export default function TaxonomyEditForm({ taxonomy, updateAction, deleteAction 
           disabled={pending || !dirty}
           style={{
             height: 28,
-            background: dirty && !pending ? '#4353ff' : '#1a1a26',
-            border: `1px solid ${dirty && !pending ? 'transparent' : '#2a2a3e'}`,
+            background: dirty && !pending ? '#2563eb' : '#1a1a26',
+            border: `1px solid ${dirty && !pending ? 'transparent' : '#27272a'}`,
             borderRadius: 5,
             fontSize: 12,
             fontWeight: 500,
@@ -112,7 +112,7 @@ export default function TaxonomyEditForm({ taxonomy, updateAction, deleteAction 
               width: '100%',
               height: 28,
               background: 'none',
-              border: '1px solid #2a2a3e',
+              border: '1px solid #27272a',
               borderRadius: 5,
               fontSize: 12,
               color: '#6b3a3a',

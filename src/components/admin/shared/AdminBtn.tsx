@@ -49,7 +49,7 @@ export default function AdminBtn({
         {...rest}
         disabled={disabled || loading}
         className={`wf-btn-primary ${className}`}
-        style={{ ...base, background: '#4353ff', color: '#fff' }}
+        style={{ ...base, background: '#2563eb', color: '#fff' }}
       >
         {loading ? <Loader2 size={12} className="spin" /> : icon}
         {children}
@@ -67,7 +67,7 @@ export default function AdminBtn({
         style={{
           ...base,
           background: 'transparent',
-          border: '1px solid #252535',
+          border: '1px solid #27272a',
           color: '#7a7a98',
         }}
       >
