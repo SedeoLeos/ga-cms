@@ -1,7 +1,8 @@
 'use server'
 
+import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/db/client'
-import bcrypt from 'bcryptjs'
+import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
@@ -18,7 +19,6 @@ export async function setupAction(
   _prev: SetupActionState,
   formData: FormData,
 ): Promise<SetupActionState> {
-  // Security: refuse if any user already exists
   const count = await prisma.user.count()
   if (count > 0) return { error: 'Un compte admin existe déjà.' }
 
@@ -39,28 +39,22 @@ export async function setupAction(
   const { name, email, password } = result.data
 
   try {
-    const passwordHash = await bcrypt.hash(password, 12)
-
-    const user = await prisma.user.create({
-      data: { name, email, emailVerified: true },
+    // Better Auth gère le hachage du mot de passe avec son propre algorithme
+    await auth.api.signUpEmail({
+      body: { name, email, password },
+      headers: await headers(),
     })
 
-    await prisma.account.create({
-      data: {
-        accountId: user.id,
-        providerId: 'credential',
-        userId: user.id,
-        password: passwordHash,
-      },
-    })
-
-    // Default settings (won't exist yet on first run)
     await prisma.settings.upsert({
       where: { id: 1 },
       update: {},
       create: { name: 'Mon Site', locales: '["fr"]', defaultLocale: 'fr' },
     })
-  } catch {
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : ''
+    if (msg.includes('already exists') || msg.includes('unique')) {
+      return { error: 'Cet email est déjà utilisé.' }
+    }
     return { error: 'Erreur lors de la création du compte.' }
   }
 
