@@ -15,10 +15,11 @@ export const auth = betterAuth({
   session: {
     expiresIn: 60 * 60 * 24 * 7, // 7 jours
     updateAge: 60 * 60 * 24,
-    cookieCache: {
-      enabled: true,
-      maxAge: 60 * 5,
-    },
+    // cookieCache désactivé : quand le cookie de cache a une signature
+    // HMAC invalide (secret changé, cookie corrompu), Better Auth retourne
+    // null sans vérifier le vrai token en base — ce qui cause une
+    // déconnexion fantôme. Sans cache, chaque appel getSession() va
+    // directement en BDD, ce qui est fiable.
   },
   trustedOrigins: [process.env.BETTER_AUTH_URL ?? 'http://localhost:3000'],
 })

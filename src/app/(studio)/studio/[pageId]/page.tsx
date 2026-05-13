@@ -1,6 +1,7 @@
+import { getSession } from '@/lib/auth/session'
 import { prisma } from '@/lib/db/client'
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { connection } from 'next/server'
 import { Suspense } from 'react'
 import StudioEditor from './StudioEditor'
@@ -22,8 +23,17 @@ export default function StudioPage({ params }: Props) {
 async function StudioContent({ params }: Props) {
   await connection()
   const { pageId } = await params
-  // Auth is guaranteed by the middleware (proxy.ts) which redirects to login
-  // if the session cookie is absent — no need to re-validate here.
+
+  // Validate session against DB (cookieCache disabled — no HMAC false-negative)
+  let session = null
+  try {
+    session = await getSession()
+  } catch {
+    // ignore — middleware will redirect if cookie is absent
+  }
+  if (!session) {
+    redirect(`/admin/auth/login?callbackUrl=${encodeURIComponent(`/studio/${pageId}`)}`)
+  }
 
   const page = await prisma.page.findUnique({
     where: { id: pageId },
