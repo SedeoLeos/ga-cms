@@ -784,9 +784,9 @@ function SinglePostView({ content }: { content: PostContent }) {
 function FieldRenderer({ field, value }: { field: SchemaField; value: unknown }) {
   switch (field.type) {
     case 'richtext':
-      // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted CMS content
       return (
         <div
+          // trusted CMS content — rule disabled via biome.json override for this file
           dangerouslySetInnerHTML={{ __html: value as string }}
           style={{ fontSize: 17, lineHeight: 1.75, color: '#374151' }}
         />

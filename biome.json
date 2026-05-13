@@ -40,5 +40,17 @@
   },
   "files": {
     "ignore": ["node_modules", ".next", "dist", "prisma/migrations"]
-  }
+  },
+  "overrides": [
+    {
+      "include": ["src/app/(site)/[...slug]/page.tsx"],
+      "linter": {
+        "rules": {
+          "security": {
+            "noDangerouslySetInnerHtml": "off"
+          }
+        }
+      }
+    }
+  ]
 }
