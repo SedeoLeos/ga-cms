@@ -7,7 +7,6 @@ import { z } from 'zod'
 import type { SchemaActionState } from './collections'
 
 const CreatePostTypeSchema = z.object({
-  siteId: z.string().min(1, 'Site requis'),
   name: z.string().min(1, 'Le nom est requis').max(100),
   slug: z
     .string()
@@ -24,7 +23,6 @@ export async function createPostTypeAction(
   formData: FormData,
 ): Promise<PostTypeActionState> {
   const raw = {
-    siteId: formData.get('siteId') as string,
     name: formData.get('name') as string,
     slug: formData.get('slug') as string,
     description: (formData.get('description') as string) || undefined,
@@ -42,7 +40,7 @@ export async function createPostTypeAction(
     revalidatePath('/admin')
     return { success: true, id: pt.id }
   } catch {
-    return { error: 'Un post type avec cet identifiant existe déjà sur ce site.' }
+    return { error: 'Un post type avec cet identifiant existe déjà.' }
   }
 }
 

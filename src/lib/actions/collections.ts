@@ -6,7 +6,6 @@ import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
 const CreateCollectionSchema = z.object({
-  siteId: z.string().min(1, 'Site requis'),
   name: z.string().min(1, 'Le nom est requis').max(100),
   slug: z
     .string()
@@ -23,7 +22,6 @@ export async function createCollectionAction(
   formData: FormData,
 ): Promise<CollectionActionState> {
   const raw = {
-    siteId: formData.get('siteId') as string,
     name: formData.get('name') as string,
     slug: formData.get('slug') as string,
     description: (formData.get('description') as string) || undefined,
@@ -41,7 +39,7 @@ export async function createCollectionAction(
     revalidatePath('/admin')
     return { success: true, id: col.id }
   } catch {
-    return { error: 'Une collection avec cet identifiant existe déjà sur ce site.' }
+    return { error: 'Une collection avec cet identifiant existe déjà.' }
   }
 }
 

@@ -6,13 +6,6 @@ import { Loader2, Plus, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useActionState, useEffect, useRef, useState } from 'react'
 
-export interface SiteOption {
-  id: string
-  name: string
-  locales: string[]
-  defaultLocale: string
-}
-
 function slugify(s: string): string {
   return s
     .toLowerCase()
@@ -43,23 +36,20 @@ const LABEL_STYLE: React.CSSProperties = {
   marginBottom: 6,
 }
 
-export default function CreatePageDialog({ sites }: { sites: SiteOption[] }) {
+interface Props {
+  locales: string[]
+  defaultLocale: string
+}
+
+export default function CreatePageDialog({ locales, defaultLocale }: Props) {
   const [open, setOpen] = useState(false)
   const [state, action, pending] = useActionState<PageActionState, FormData>(createPageAction, null)
   const [title, setTitle] = useState('')
   const [slug, setSlug] = useState('')
   const [slugTouched, setSlugTouched] = useState(false)
-  const [selectedSiteId, setSelectedSiteId] = useState(sites[0]?.id ?? '')
-  const [locale, setLocale] = useState('')
+  const [locale, setLocale] = useState(defaultLocale)
   const titleRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
-
-  const selectedSite = sites.find((s) => s.id === selectedSiteId)
-
-  // Sync locale with selected site's default
-  useEffect(() => {
-    setLocale(selectedSite?.defaultLocale ?? 'en')
-  }, [selectedSite])
 
   useEffect(() => {
     if (state && 'success' in state) {
@@ -80,7 +70,7 @@ export default function CreatePageDialog({ sites }: { sites: SiteOption[] }) {
     setTitle('')
     setSlug('')
     setSlugTouched(false)
-    setSelectedSiteId(sites[0]?.id ?? '')
+    setLocale(defaultLocale)
   }
 
   function handleClose() {
@@ -143,7 +133,6 @@ export default function CreatePageDialog({ sites }: { sites: SiteOption[] }) {
           boxShadow: '0 24px 64px rgba(0,0,0,0.6)',
         }}
       >
-        {/* Header */}
         <div
           style={{
             display: 'flex',
@@ -178,37 +167,6 @@ export default function CreatePageDialog({ sites }: { sites: SiteOption[] }) {
         </div>
 
         <form action={action}>
-          {/* Site — affiché seulement si plusieurs sites */}
-          {sites.length > 1 && (
-            <div style={{ marginBottom: 14 }}>
-              <p style={LABEL_STYLE}>Site</p>
-              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                {sites.map((s) => (
-                  <button
-                    key={s.id}
-                    type="button"
-                    onClick={() => setSelectedSiteId(s.id)}
-                    style={{
-                      height: 28,
-                      padding: '0 12px',
-                      background: selectedSiteId === s.id ? '#1e264a' : '#1a1a26',
-                      border: `1px solid ${selectedSiteId === s.id ? '#4353ff60' : '#2a2a3e'}`,
-                      borderRadius: 5,
-                      fontSize: 12,
-                      color: selectedSiteId === s.id ? '#8090f0' : '#5a5a78',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    {s.name}
-                  </button>
-                ))}
-              </div>
-              <input type="hidden" name="siteId" value={selectedSiteId} />
-            </div>
-          )}
-          {sites.length === 1 && <input type="hidden" name="siteId" value={selectedSiteId} />}
-
-          {/* Titre */}
           <div style={{ marginBottom: 14 }}>
             <label htmlFor="page-title" style={LABEL_STYLE}>
               Titre de la page
@@ -228,7 +186,6 @@ export default function CreatePageDialog({ sites }: { sites: SiteOption[] }) {
             />
           </div>
 
-          {/* Slug */}
           <div style={{ marginBottom: 14 }}>
             <label htmlFor="page-slug" style={LABEL_STYLE}>
               Identifiant
@@ -244,19 +201,18 @@ export default function CreatePageDialog({ sites }: { sites: SiteOption[] }) {
               }}
               placeholder="a-propos"
               required
-              pattern="[a-z0-9-]+"
+              pattern="[a-z0-9-/]+"
               autoComplete="off"
               className="admin-input"
               style={{ ...INPUT_STYLE, fontFamily: 'ui-monospace, monospace', fontSize: 12 }}
             />
           </div>
 
-          {/* Locale */}
-          {selectedSite && selectedSite.locales.length > 1 && (
+          {locales.length > 1 && (
             <div style={{ marginBottom: 20 }}>
               <p style={LABEL_STYLE}>Langue</p>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                {selectedSite.locales.map((code) => (
+                {locales.map((code) => (
                   <button
                     key={code}
                     type="button"
@@ -281,12 +237,10 @@ export default function CreatePageDialog({ sites }: { sites: SiteOption[] }) {
           )}
           <input type="hidden" name="locale" value={locale} />
 
-          {/* Erreur */}
           {state && 'error' in state && (
             <p style={{ margin: '0 0 14px', fontSize: 12, color: '#ff6060' }}>{state.error}</p>
           )}
 
-          {/* Actions */}
           <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
             <button
               type="button"

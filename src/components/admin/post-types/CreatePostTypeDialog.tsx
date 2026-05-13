@@ -6,11 +6,6 @@ import { Loader2, Plus, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useActionState, useEffect, useRef, useState } from 'react'
 
-export interface SiteOption {
-  id: string
-  name: string
-}
-
 function slugify(s: string): string {
   return s
     .toLowerCase()
@@ -41,7 +36,7 @@ const LABEL_STYLE: React.CSSProperties = {
   marginBottom: 6,
 }
 
-export default function CreatePostTypeDialog({ sites }: { sites: SiteOption[] }) {
+export default function CreatePostTypeDialog() {
   const [open, setOpen] = useState(false)
   const [state, action, pending] = useActionState<PostTypeActionState, FormData>(
     createPostTypeAction,
@@ -50,7 +45,6 @@ export default function CreatePostTypeDialog({ sites }: { sites: SiteOption[] })
   const [name, setName] = useState('')
   const [slug, setSlug] = useState('')
   const [slugTouched, setSlugTouched] = useState(false)
-  const [selectedSiteId, setSelectedSiteId] = useState(sites[0]?.id ?? '')
   const nameRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
 
@@ -73,7 +67,6 @@ export default function CreatePostTypeDialog({ sites }: { sites: SiteOption[] })
     setName('')
     setSlug('')
     setSlugTouched(false)
-    setSelectedSiteId(sites[0]?.id ?? '')
   }
 
   function handleClose() {
@@ -170,35 +163,6 @@ export default function CreatePostTypeDialog({ sites }: { sites: SiteOption[] })
         </div>
 
         <form action={action}>
-          {sites.length > 1 && (
-            <div style={{ marginBottom: 14 }}>
-              <p style={LABEL_STYLE}>Site</p>
-              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                {sites.map((s) => (
-                  <button
-                    key={s.id}
-                    type="button"
-                    onClick={() => setSelectedSiteId(s.id)}
-                    style={{
-                      height: 28,
-                      padding: '0 12px',
-                      background: selectedSiteId === s.id ? '#1e264a' : '#1a1a26',
-                      border: `1px solid ${selectedSiteId === s.id ? '#4353ff60' : '#2a2a3e'}`,
-                      borderRadius: 5,
-                      fontSize: 12,
-                      color: selectedSiteId === s.id ? '#8090f0' : '#5a5a78',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    {s.name}
-                  </button>
-                ))}
-              </div>
-              <input type="hidden" name="siteId" value={selectedSiteId} />
-            </div>
-          )}
-          {sites.length === 1 && <input type="hidden" name="siteId" value={selectedSiteId} />}
-
           <div style={{ marginBottom: 14 }}>
             <label htmlFor="pt-name" style={LABEL_STYLE}>
               Nom du post type

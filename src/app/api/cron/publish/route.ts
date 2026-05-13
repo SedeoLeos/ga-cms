@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/db/client'
-import { revalidateTag } from 'next/cache'
+import { Prisma } from '@prisma/client'
+import { revalidatePath } from 'next/cache'
 import { type NextRequest, NextResponse } from 'next/server'
 
 // Platform-agnostic scheduled publish endpoint.
@@ -21,7 +22,7 @@ export async function GET(request: NextRequest) {
       status: 'DRAFT',
       scheduledAt: { lte: now },
     },
-    select: { id: true, slug: true, siteId: true, draftJson: true },
+    select: { id: true, slug: true, locale: true, draftJson: true },
   })
 
   if (scheduled.length === 0) {
@@ -35,17 +36,16 @@ export async function GET(request: NextRequest) {
       where: { id: page.id },
       data: {
         status: 'PUBLISHED',
-        publishedJson: page.draftJson ?? undefined,
+        publishedJson: (page.draftJson as Prisma.InputJsonValue) ?? Prisma.JsonNull,
         publishedAt: now,
         scheduledAt: null,
         revisions: {
-          create: { json: page.draftJson ?? {}, publishedBy: 'cron' },
+          create: { json: (page.draftJson as Prisma.InputJsonValue) ?? {}, publishedBy: 'cron' },
         },
       },
     })
 
-    revalidateTag(`page:${page.slug}:${page.siteId}`, 'force-cache')
-    revalidateTag(`site:${page.siteId}:nav`, 'force-cache')
+    revalidatePath(`/${page.locale}/${page.slug}`)
     published++
   }
 

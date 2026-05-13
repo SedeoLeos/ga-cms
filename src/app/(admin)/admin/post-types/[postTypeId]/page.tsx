@@ -31,29 +31,25 @@ export default function PostTypeSchemaPage({ params }: Props) {
 async function PostTypeSchemaContent({ params }: Props) {
   const { postTypeId } = await params
 
-  const postType = await prisma.postType.findUnique({
-    where: { id: postTypeId },
-    select: {
-      id: true,
-      name: true,
-      slug: true,
-      description: true,
-      isBuiltIn: true,
-      hasArchive: true,
-      hasRss: true,
-      schema: true,
-      site: {
-        select: {
-          id: true,
-          name: true,
-          collections: {
-            select: { id: true, name: true },
-            orderBy: { name: 'asc' },
-          },
-        },
+  const [postType, collections] = await Promise.all([
+    prisma.postType.findUnique({
+      where: { id: postTypeId },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        description: true,
+        isBuiltIn: true,
+        hasArchive: true,
+        hasRss: true,
+        schema: true,
       },
-    },
-  })
+    }),
+    prisma.collection.findMany({
+      select: { id: true, name: true },
+      orderBy: { name: 'asc' },
+    }),
+  ])
 
   if (!postType) notFound()
 
@@ -153,7 +149,7 @@ async function PostTypeSchemaContent({ params }: Props) {
       <SchemaBuilder
         saveAction={updatePostTypeSchemaAction.bind(null, postType.id)}
         initialSchema={(postType.schema as unknown as SchemaField[]) ?? []}
-        siblingCollections={postType.site.collections}
+        siblingCollections={collections}
       />
     </div>
   )

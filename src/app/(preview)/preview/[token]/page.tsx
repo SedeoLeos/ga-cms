@@ -1,4 +1,7 @@
+import { prisma } from '@/lib/db/client'
+import { PuckRenderer } from '@/lib/puck/render'
 import { jwtVerify } from 'jose'
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 
@@ -8,12 +11,11 @@ interface Props {
 
 interface PreviewToken {
   pageId: string
-  siteId: string
   exp: number
 }
 
-// Outer page is a synchronous shell — required by PPR (cacheComponents: true).
-// All async data access is inside <Suspense> via PreviewContent.
+export const metadata: Metadata = { title: 'Preview' }
+
 export default function PreviewPage({ params }: Props) {
   return (
     <Suspense fallback={<PreviewLoading />}>
@@ -36,36 +38,59 @@ async function PreviewContent({ params }: Props) {
     })
     payload = p as unknown as PreviewToken
   } catch {
-    return (
-      <div
-        style={{
-          padding: 40,
-          fontFamily: 'system-ui',
-          color: '#ff4444',
-          background: '#0e0e14',
-          minHeight: '100vh',
-        }}
-      >
-        <h1 style={{ fontSize: 24, marginBottom: 8 }}>Preview link expired or invalid</h1>
-        <p style={{ color: '#9191a8' }}>Request a new preview link from the editor.</p>
-      </div>
-    )
+    return <PreviewError message="Lien de prévisualisation expiré ou invalide." />
   }
 
+  const page = await prisma.page.findUnique({
+    where: { id: payload.pageId },
+    select: {
+      id: true,
+      title: true,
+      draftJson: true,
+      publishedJson: true,
+    },
+  })
+
+  if (!page) notFound()
+
+  const json = page.draftJson ?? page.publishedJson
+  const isDraft = !!page.draftJson
+
   return (
-    <div>
-      <PreviewBanner pageId={payload.pageId} siteId={payload.siteId} />
-      <div id="preview-content" style={{ paddingTop: 36 }}>
-        {/* Page renderer mounts here in Sprint S12 */}
-        <div style={{ padding: 40, fontFamily: 'system-ui', color: '#9191a8' }}>
-          Preview renderer — Sprint S12
+    <>
+      <PreviewBanner pageId={page.id} pageTitle={page.title} isDraft={isDraft} />
+      {json ? (
+        <div style={{ paddingTop: 36 }}>
+          <PuckRenderer data={json} />
         </div>
-      </div>
-    </div>
+      ) : (
+        <div
+          style={{
+            padding: 40,
+            fontFamily: 'system-ui',
+            color: '#888',
+            textAlign: 'center',
+          }}
+        >
+          <h1 style={{ fontSize: 28, fontWeight: 300, marginBottom: 8 }}>{page.title}</h1>
+          <p style={{ fontSize: 13, color: '#aaa' }}>
+            Cette page n'a pas encore de contenu à prévisualiser.
+          </p>
+        </div>
+      )}
+    </>
   )
 }
 
-function PreviewBanner({ pageId, siteId }: { pageId: string; siteId: string }) {
+function PreviewBanner({
+  pageId,
+  pageTitle,
+  isDraft,
+}: {
+  pageId: string
+  pageTitle: string
+  isDraft: boolean
+}) {
   return (
     <div
       style={{
@@ -74,21 +99,48 @@ function PreviewBanner({ pageId, siteId }: { pageId: string; siteId: string }) {
         left: 0,
         right: 0,
         zIndex: 9999,
-        background: '#4353ff',
+        background: isDraft ? '#4353ff' : '#1a4a28',
         color: '#fff',
         fontSize: 12,
         fontFamily: 'system-ui',
-        padding: '8px 16px',
+        padding: '0 16px',
+        height: 36,
         display: 'flex',
         alignItems: 'center',
         gap: 12,
       }}
     >
-      <span style={{ fontWeight: 600 }}>Preview mode</span>
-      <span style={{ opacity: 0.7 }}>Showing unpublished draft</span>
-      <span style={{ marginLeft: 'auto', opacity: 0.5 }}>
-        {siteId} / {pageId}
+      <span style={{ fontWeight: 600 }}>
+        {isDraft ? 'Prévisualisation — brouillon' : 'Prévisualisation — publié'}
       </span>
+      <span
+        style={{
+          background: 'rgba(255,255,255,0.15)',
+          borderRadius: 4,
+          padding: '2px 8px',
+          fontSize: 11,
+        }}
+      >
+        {pageTitle}
+      </span>
+      <span style={{ marginLeft: 'auto', opacity: 0.5, fontSize: 11 }}>{pageId}</span>
+    </div>
+  )
+}
+
+function PreviewError({ message }: { message: string }) {
+  return (
+    <div
+      style={{
+        padding: 40,
+        fontFamily: 'system-ui',
+        color: '#ff6060',
+        background: '#0e0e14',
+        minHeight: '100vh',
+      }}
+    >
+      <h1 style={{ fontSize: 22, marginBottom: 8 }}>Prévisualisation indisponible</h1>
+      <p style={{ color: '#9191a8', fontSize: 14 }}>{message}</p>
     </div>
   )
 }
@@ -107,7 +159,7 @@ function PreviewLoading() {
         fontSize: 13,
       }}
     >
-      Loading preview…
+      Chargement de la prévisualisation…
     </div>
   )
 }

@@ -4,13 +4,14 @@ import { logoutAction } from '@/lib/auth/actions'
 import {
   Database,
   FileText,
-  Globe,
   Image,
   Layers,
   LogOut,
   Palette,
   Settings2,
   Shapes,
+  Tag,
+  Users,
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -26,10 +27,10 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
   {
     label: 'Content',
     items: [
-      { href: '/admin/sites', label: 'Sites', icon: Globe },
       { href: '/admin/pages', label: 'Pages', icon: FileText },
       { href: '/admin/collections', label: 'Collections', icon: Database },
       { href: '/admin/post-types', label: 'Post Types', icon: Layers },
+      { href: '/admin/taxonomies', label: 'Taxonomies', icon: Tag },
     ],
   },
   {
@@ -39,6 +40,10 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
   {
     label: 'Design',
     items: [{ href: '/admin/design-system', label: 'Design System', icon: Palette }],
+  },
+  {
+    label: 'Accès',
+    items: [{ href: '/admin/members', label: 'Membres', icon: Users }],
   },
 ]
 

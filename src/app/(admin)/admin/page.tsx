@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/db/client'
-import { FileText, Globe, Image, Layers } from 'lucide-react'
+import { FileText, Image, Layers, Tag } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Suspense } from 'react'
@@ -15,22 +15,28 @@ export default function DashboardPage() {
 }
 
 async function DashboardContent() {
-  const [siteCount, pageCount, collectionCount, mediaCount] = await Promise.all([
-    prisma.site.count(),
+  const [pageCount, collectionCount, postTypeCount, mediaCount] = await Promise.all([
     prisma.page.count(),
     prisma.collection.count(),
+    prisma.postType.count(),
     prisma.mediaFile.count(),
   ])
 
   const STATS = [
-    { label: 'Sites', value: siteCount, icon: Globe, color: '#4353ff', href: '/admin/sites' },
-    { label: 'Pages', value: pageCount, icon: FileText, color: '#22c55e', href: '/admin/pages' },
+    { label: 'Pages', value: pageCount, icon: FileText, color: '#4353ff', href: '/admin/pages' },
     {
       label: 'Collections',
       value: collectionCount,
       icon: Layers,
-      color: '#f59e0b',
+      color: '#22c55e',
       href: '/admin/collections',
+    },
+    {
+      label: 'Post Types',
+      value: postTypeCount,
+      icon: Tag,
+      color: '#f59e0b',
+      href: '/admin/post-types',
     },
     {
       label: 'Médias',
@@ -128,9 +134,9 @@ async function DashboardContent() {
         </h2>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           {[
-            { label: 'Nouveau site', href: '/admin/sites' },
             { label: 'Nouvelle page', href: '/admin/pages' },
             { label: 'Ajouter un média', href: '/admin/media' },
+            { label: 'Nouveau post type', href: '/admin/post-types' },
           ].map((action) => (
             <Link
               key={action.href}

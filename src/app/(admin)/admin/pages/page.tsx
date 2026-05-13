@@ -1,60 +1,39 @@
 import CreatePageDialog from '@/components/admin/pages/CreatePageDialog'
-import type { SiteOption } from '@/components/admin/pages/CreatePageDialog'
 import PagesList from '@/components/admin/pages/PagesList'
-import type { PageRow, SiteTab } from '@/components/admin/pages/PagesList'
+import type { PageRow } from '@/components/admin/pages/PagesList'
 import { prisma } from '@/lib/db/client'
+import { getSettings } from '@/lib/settings'
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 
 export const metadata: Metadata = { title: 'Pages' }
 
-interface Props {
-  searchParams: Promise<{ siteId?: string }>
-}
-
-export default function PagesPage({ searchParams }: Props) {
+export default function PagesPage() {
   return (
     <Suspense>
-      <PagesContent searchParams={searchParams} />
+      <PagesContent />
     </Suspense>
   )
 }
 
-async function PagesContent({ searchParams }: Props) {
-  const { siteId } = await searchParams
-
-  const [rawSites, rawPages] = await Promise.all([
-    prisma.site.findMany({
-      orderBy: { name: 'asc' },
-      select: { id: true, name: true, locales: true, defaultLocale: true },
-    }),
+async function PagesContent() {
+  const [rawPages, settings] = await Promise.all([
     prisma.page.findMany({
-      where: siteId ? { siteId } : {},
       orderBy: { updatedAt: 'desc' },
       select: {
         id: true,
-        siteId: true,
         title: true,
         slug: true,
         locale: true,
         status: true,
         updatedAt: true,
-        site: { select: { name: true } },
       },
     }),
+    getSettings(),
   ])
-
-  const sites: SiteOption[] = rawSites.map((s) => ({
-    id: s.id,
-    name: s.name,
-    locales: s.locales as string[],
-    defaultLocale: s.defaultLocale,
-  }))
 
   const pages: PageRow[] = rawPages.map((p) => ({
     id: p.id,
-    siteId: p.siteId,
-    siteName: p.site.name,
     title: p.title,
     slug: p.slug,
     locale: p.locale,
@@ -66,25 +45,8 @@ async function PagesContent({ searchParams }: Props) {
     }),
   }))
 
-  // Compteur par site pour les onglets (toujours sur la totalité)
-  const allPages = await prisma.page.groupBy({
-    by: ['siteId'],
-    _count: { id: true },
-  })
-
-  const tabs: SiteTab[] = rawSites
-    .map((s) => ({
-      id: s.id,
-      name: s.name,
-      count: allPages.find((g) => g.siteId === s.id)?._count.id ?? 0,
-    }))
-    .filter((t) => t.count > 0 || !siteId)
-
-  const total = pages.length
-
   return (
     <div style={{ padding: 32, maxWidth: 1000 }}>
-      {/* En-tête */}
       <div
         style={{
           display: 'flex',
@@ -106,16 +68,13 @@ async function PagesContent({ searchParams }: Props) {
             Pages
           </h1>
           <p style={{ margin: '4px 0 0', fontSize: 13, color: '#5a5a78' }}>
-            {total} page{total !== 1 ? 's' : ''}
-            {siteId && rawSites.find((s) => s.id === siteId)
-              ? ` — ${rawSites.find((s) => s.id === siteId)?.name}`
-              : ''}
+            {pages.length} page{pages.length !== 1 ? 's' : ''}
           </p>
         </div>
-        {sites.length > 0 && <CreatePageDialog sites={sites} />}
+        <CreatePageDialog locales={settings.locales} defaultLocale={settings.defaultLocale} />
       </div>
 
-      <PagesList pages={pages} tabs={tabs} currentSiteId={siteId} />
+      <PagesList pages={pages} />
     </div>
   )
 }

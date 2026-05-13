@@ -20,10 +20,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
 // Async server component — only rendered after auth resolves.
 async function AuthenticatedShell({ children }: { children: React.ReactNode }) {
-  const { auth } = await import('@/lib/auth/config')
+  const { connection } = await import('next/server')
+  await connection()
+
+  const { prisma } = await import('@/lib/db/client')
+  const { redirect } = await import('next/navigation')
+
+  const userCount = await prisma.user.count()
+  if (userCount === 0) {
+    redirect('/setup')
+  }
+
+  const { getSession } = await import('@/lib/auth/session')
   const { default: AdminSidebar } = await import('@/components/admin/layout/AdminSidebar')
 
-  const session = await auth()
+  const session = await getSession()
 
   if (!session) {
     // Login page — no sidebar
@@ -32,10 +43,7 @@ async function AuthenticatedShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
-      <AdminSidebar
-        userName={session.user?.name ?? 'Admin'}
-        userEmail={session.user?.email ?? ''}
-      />
+      <AdminSidebar userName={session.user.name ?? 'Admin'} userEmail={session.user.email ?? ''} />
       <main
         style={{
           flex: 1,

@@ -1,5 +1,6 @@
 'use client'
 
+import MediaPickerField from '@/components/admin/media/MediaPickerField'
 import type { FieldType, SchemaField } from '@/lib/actions/collections'
 import type { EntryActionState } from '@/lib/actions/entries'
 import { updateEntryAction, updateEntryStatusAction } from '@/lib/actions/entries'
@@ -558,14 +559,10 @@ function FieldInput({
       )}
 
       {field.type === 'media' && (
-        <input
-          id={inputId}
-          type="url"
+        <MediaPickerField
           value={String(value ?? '')}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder={field.description ?? 'https://…'}
-          className="admin-input"
-          style={INPUT_S}
+          onChange={(url) => onChange(url)}
+          inputId={inputId}
         />
       )}
 

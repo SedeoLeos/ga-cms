@@ -31,27 +31,17 @@ export default function CollectionSchemaPage({ params }: Props) {
 async function CollectionSchemaContent({ params }: Props) {
   const { collectionId } = await params
 
-  const collection = await prisma.collection.findUnique({
-    where: { id: collectionId },
-    select: {
-      id: true,
-      name: true,
-      slug: true,
-      description: true,
-      schema: true,
-      site: {
-        select: {
-          id: true,
-          name: true,
-          collections: {
-            where: { id: { not: collectionId } },
-            select: { id: true, name: true },
-            orderBy: { name: 'asc' },
-          },
-        },
-      },
-    },
-  })
+  const [collection, siblings] = await Promise.all([
+    prisma.collection.findUnique({
+      where: { id: collectionId },
+      select: { id: true, name: true, slug: true, description: true, schema: true },
+    }),
+    prisma.collection.findMany({
+      where: { id: { not: collectionId } },
+      select: { id: true, name: true },
+      orderBy: { name: 'asc' },
+    }),
+  ])
 
   if (!collection) notFound()
 
@@ -88,7 +78,7 @@ async function CollectionSchemaContent({ params }: Props) {
       <SchemaBuilder
         saveAction={updateCollectionSchemaAction.bind(null, collection.id)}
         initialSchema={(collection.schema as unknown as SchemaField[]) ?? []}
-        siblingCollections={collection.site.collections}
+        siblingCollections={siblings}
       />
     </div>
   )

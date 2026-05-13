@@ -1,6 +1,7 @@
 import EntryForm from '@/components/admin/collections/EntryForm'
 import type { SchemaField } from '@/lib/actions/collections'
 import { prisma } from '@/lib/db/client'
+import { getSettings } from '@/lib/settings'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -45,12 +46,6 @@ async function EntryEditContent({ params }: Props) {
           name: true,
           slug: true,
           schema: true,
-          site: {
-            select: {
-              locales: true,
-              defaultLocale: true,
-            },
-          },
         },
       },
     },
@@ -58,8 +53,9 @@ async function EntryEditContent({ params }: Props) {
 
   if (!entry || entry.collection.id !== collectionId) notFound()
 
+  const settings = await getSettings()
   const schema = entry.collection.schema as unknown as SchemaField[]
-  const siteLocales = entry.collection.site.locales as string[]
+  const siteLocales = settings.locales
 
   const createdAt = entry.createdAt.toLocaleDateString('fr-FR', {
     day: '2-digit',

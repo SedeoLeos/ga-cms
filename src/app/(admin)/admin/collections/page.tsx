@@ -1,55 +1,35 @@
-import CreateCollectionDialog from '@/components/admin/collections/CreateCollectionDialog'
-import type { SiteOption } from '@/components/admin/collections/CreateCollectionDialog'
 import CollectionsList from '@/components/admin/collections/CollectionsList'
-import type { CollectionRow, SiteTab } from '@/components/admin/collections/CollectionsList'
+import type { CollectionRow } from '@/components/admin/collections/CollectionsList'
+import CreateCollectionDialog from '@/components/admin/collections/CreateCollectionDialog'
 import { prisma } from '@/lib/db/client'
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 
 export const metadata: Metadata = { title: 'Collections' }
 
-interface Props {
-  searchParams: Promise<{ siteId?: string }>
-}
-
-export default function CollectionsPage({ searchParams }: Props) {
+export default function CollectionsPage() {
   return (
     <Suspense>
-      <CollectionsContent searchParams={searchParams} />
+      <CollectionsContent />
     </Suspense>
   )
 }
 
-async function CollectionsContent({ searchParams }: Props) {
-  const { siteId } = await searchParams
-
-  const [rawSites, rawCollections] = await Promise.all([
-    prisma.site.findMany({
-      orderBy: { name: 'asc' },
-      select: { id: true, name: true },
-    }),
-    prisma.collection.findMany({
-      where: siteId ? { siteId } : {},
-      orderBy: { updatedAt: 'desc' },
-      select: {
-        id: true,
-        siteId: true,
-        name: true,
-        slug: true,
-        description: true,
-        updatedAt: true,
-        site: { select: { name: true } },
-        _count: { select: { entries: true } },
-      },
-    }),
-  ])
-
-  const sites: SiteOption[] = rawSites.map((s) => ({ id: s.id, name: s.name }))
+async function CollectionsContent() {
+  const rawCollections = await prisma.collection.findMany({
+    orderBy: { createdAt: 'desc' },
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+      description: true,
+      updatedAt: true,
+      _count: { select: { entries: true } },
+    },
+  })
 
   const collections: CollectionRow[] = rawCollections.map((c) => ({
     id: c.id,
-    siteId: c.siteId,
-    siteName: c.site.name,
     name: c.name,
     slug: c.slug,
     description: c.description,
@@ -60,19 +40,6 @@ async function CollectionsContent({ searchParams }: Props) {
       year: 'numeric',
     }),
   }))
-
-  const allCounts = await prisma.collection.groupBy({
-    by: ['siteId'],
-    _count: { id: true },
-  })
-
-  const tabs: SiteTab[] = rawSites
-    .map((s) => ({
-      id: s.id,
-      name: s.name,
-      count: allCounts.find((g) => g.siteId === s.id)?._count.id ?? 0,
-    }))
-    .filter((t) => t.count > 0 || !siteId)
 
   const total = collections.length
 
@@ -100,15 +67,12 @@ async function CollectionsContent({ searchParams }: Props) {
           </h1>
           <p style={{ margin: '4px 0 0', fontSize: 13, color: '#5a5a78' }}>
             {total} collection{total !== 1 ? 's' : ''}
-            {siteId && rawSites.find((s) => s.id === siteId)
-              ? ` — ${rawSites.find((s) => s.id === siteId)?.name}`
-              : ''}
           </p>
         </div>
-        {sites.length > 0 && <CreateCollectionDialog sites={sites} />}
+        <CreateCollectionDialog />
       </div>
 
-      <CollectionsList collections={collections} tabs={tabs} currentSiteId={siteId} />
+      <CollectionsList collections={collections} />
     </div>
   )
 }

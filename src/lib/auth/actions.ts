@@ -1,27 +1,30 @@
 'use server'
 
-import { AuthError } from 'next-auth'
-import { signIn, signOut } from './config'
+import { auth } from '@/lib/auth'
+import { headers } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 export type LoginState = { error: string } | null
 
 export async function loginAction(_prev: LoginState, formData: FormData): Promise<LoginState> {
+  const email = formData.get('email') as string
+  const password = formData.get('password') as string
+
   try {
-    await signIn('credentials', {
-      email: formData.get('email') as string,
-      password: formData.get('password') as string,
-      redirectTo: '/admin',
+    await auth.api.signInEmail({
+      body: { email, password },
+      headers: await headers(),
     })
-  } catch (error) {
-    if (error instanceof AuthError) {
-      return { error: 'Incorrect email or password.' }
-    }
-    // signIn throws a NEXT_REDIRECT on success — must re-throw
-    throw error
+  } catch {
+    return { error: 'Email ou mot de passe incorrect.' }
   }
-  return null
+
+  redirect('/admin')
 }
 
 export async function logoutAction(): Promise<void> {
-  await signOut({ redirectTo: '/admin/auth/login' })
+  await auth.api.signOut({
+    headers: await headers(),
+  })
+  redirect('/admin/auth/login')
 }

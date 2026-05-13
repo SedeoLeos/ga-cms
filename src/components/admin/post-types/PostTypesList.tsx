@@ -7,20 +7,12 @@ import { useTransition } from 'react'
 
 export type PostTypeRow = {
   id: string
-  siteId: string
-  siteName: string
   name: string
   slug: string
   description: string | null
   entryCount: number
   isBuiltIn: boolean
   updatedAt: string
-}
-
-export type SiteTab = {
-  id: string
-  name: string
-  count: number
 }
 
 function Row({ pt }: { pt: PostTypeRow }) {
@@ -43,7 +35,7 @@ function Row({ pt }: { pt: PostTypeRow }) {
       className="site-row"
       style={{
         display: 'grid',
-        gridTemplateColumns: '1fr 130px 70px 96px 68px',
+        gridTemplateColumns: '1fr 70px 96px 68px',
         alignItems: 'center',
         gap: 12,
         padding: '9px 16px',
@@ -93,18 +85,6 @@ function Row({ pt }: { pt: PostTypeRow }) {
         >
           {pt.description ?? `/${pt.slug}`}
         </div>
-      </div>
-
-      <div
-        style={{
-          fontSize: 11,
-          color: '#5a5a78',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          whiteSpace: 'nowrap',
-        }}
-      >
-        {pt.siteName}
       </div>
 
       <div style={{ fontSize: 12, color: '#5a5a78', textAlign: 'right' }}>
@@ -175,7 +155,6 @@ function Row({ pt }: { pt: PostTypeRow }) {
 
 const COL_HEADERS = [
   { key: 'name', label: 'Nom' },
-  { key: 'site', label: 'Site' },
   { key: 'entries', label: 'Entrées' },
   { key: 'updated', label: 'Modifié' },
   { key: 'actions', label: '' },
@@ -183,113 +162,59 @@ const COL_HEADERS = [
 
 interface Props {
   postTypes: PostTypeRow[]
-  tabs: SiteTab[]
-  currentSiteId: string | undefined
 }
 
-export default function PostTypesList({ postTypes, tabs, currentSiteId }: Props) {
+export default function PostTypesList({ postTypes }: Props) {
   return (
-    <div>
-      {tabs.length > 1 && (
-        <div
-          style={{
-            display: 'flex',
-            gap: 4,
-            marginBottom: 16,
-            borderBottom: '1px solid #1a1a24',
-          }}
-        >
-          {[{ id: '', name: 'Tous', count: tabs.reduce((a, t) => a + t.count, 0) }, ...tabs].map(
-            (tab) => {
-              const active = (tab.id === '' && !currentSiteId) || tab.id === currentSiteId
-              return (
-                <Link
-                  key={tab.id || 'all'}
-                  href={tab.id ? `/admin/post-types?siteId=${tab.id}` : '/admin/post-types'}
-                  style={{
-                    height: 32,
-                    padding: '0 12px',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 6,
-                    fontSize: 13,
-                    fontWeight: active ? 500 : 400,
-                    color: active ? '#ddddf0' : '#5a5a78',
-                    textDecoration: 'none',
-                    borderBottom: active ? '2px solid #4353ff' : '2px solid transparent',
-                    marginBottom: -1,
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {tab.name}
-                  <span
-                    style={{
-                      fontSize: 11,
-                      background: active ? '#2a2a4a' : '#1a1a24',
-                      color: active ? '#8090f0' : '#3e3e52',
-                      borderRadius: 3,
-                      padding: '1px 5px',
-                    }}
-                  >
-                    {tab.count}
-                  </span>
-                </Link>
-              )
-            },
-          )}
+    <div
+      style={{
+        background: '#13131c',
+        border: '1px solid #1f1f2e',
+        borderRadius: 10,
+        overflow: 'hidden',
+      }}
+    >
+      {postTypes.length === 0 ? (
+        <div style={{ padding: '60px 32px', textAlign: 'center' }}>
+          <p style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 500, color: '#5a5a78' }}>
+            Aucun post type pour l'instant
+          </p>
+          <p style={{ margin: 0, fontSize: 12, color: '#3a3a50' }}>
+            Créez un post type pour structurer vos contenus.
+          </p>
         </div>
-      )}
-
-      <div
-        style={{
-          background: '#13131c',
-          border: '1px solid #1f1f2e',
-          borderRadius: 10,
-          overflow: 'hidden',
-        }}
-      >
-        {postTypes.length === 0 ? (
-          <div style={{ padding: '60px 32px', textAlign: 'center' }}>
-            <p style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 500, color: '#5a5a78' }}>
-              Aucun post type pour l'instant
-            </p>
-            <p style={{ margin: 0, fontSize: 12, color: '#3a3a50' }}>
-              Créez un post type pour structurer vos contenus.
-            </p>
-          </div>
-        ) : (
-          <>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 130px 70px 96px 68px',
-                gap: 12,
-                padding: '8px 16px',
-                borderBottom: '1px solid #1f1f2e',
-              }}
-            >
-              {COL_HEADERS.map((col) => (
-                <span
-                  key={col.key}
-                  style={{
-                    fontSize: 11,
-                    fontWeight: 600,
-                    color: '#3e3e52',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                    textAlign: col.key === 'entries' ? 'right' : 'left',
-                  }}
-                >
-                  {col.label}
-                </span>
-              ))}
-            </div>
-            {postTypes.map((pt) => (
-              <Row key={pt.id} pt={pt} />
+      ) : (
+        <>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 70px 96px 68px',
+              gap: 12,
+              padding: '8px 16px',
+              borderBottom: '1px solid #1f1f2e',
+            }}
+          >
+            {COL_HEADERS.map((col) => (
+              <span
+                key={col.key}
+                style={{
+                  fontSize: 11,
+                  fontWeight: 600,
+                  color: '#3e3e52',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                  textAlign: col.key === 'entries' ? 'right' : 'left',
+                }}
+              >
+                {col.label}
+              </span>
             ))}
-          </>
-        )}
-      </div>
+          </div>
+          {postTypes.map((pt) => (
+            <Row key={pt.id} pt={pt} />
+          ))}
+        </>
+      )}
     </div>
   )
 }

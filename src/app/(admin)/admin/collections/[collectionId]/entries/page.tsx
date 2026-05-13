@@ -1,8 +1,10 @@
 import EntriesList from '@/components/admin/collections/EntriesList'
 import type { EntryRow } from '@/components/admin/collections/EntriesList'
+import AdminSearchBar from '@/components/admin/shared/AdminSearchBar'
 import type { SchemaField } from '@/lib/actions/collections'
 import { createEntryAndRedirect } from '@/lib/actions/entries'
 import { prisma } from '@/lib/db/client'
+import { getSettings } from '@/lib/settings'
 import { Plus } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -11,6 +13,7 @@ import { Suspense } from 'react'
 
 interface Props {
   params: Promise<{ collectionId: string }>
+  searchParams: Promise<{ search?: string; status?: string }>
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -22,51 +25,50 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: col ? `${col.name} — Entrées` : 'Entrées' }
 }
 
-export default function EntriesPage({ params }: Props) {
+export default function EntriesPage({ params, searchParams }: Props) {
   return (
     <Suspense>
-      <EntriesContent params={params} />
+      <EntriesContent params={params} searchParams={searchParams} />
     </Suspense>
   )
 }
 
-async function EntriesContent({ params }: Props) {
+async function EntriesContent({ params, searchParams }: Props) {
   const { collectionId } = await params
+  const { search, status } = await searchParams
 
-  const collection = await prisma.collection.findUnique({
-    where: { id: collectionId },
-    select: {
-      id: true,
-      name: true,
-      slug: true,
-      schema: true,
-      entries: {
-        orderBy: { updatedAt: 'desc' },
-        select: {
-          id: true,
-          locale: true,
-          status: true,
-          data: true,
-          updatedAt: true,
+  const [collection, settings] = await Promise.all([
+    prisma.collection.findUnique({
+      where: { id: collectionId },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        schema: true,
+        entries: {
+          orderBy: { updatedAt: 'desc' },
+          select: {
+            id: true,
+            locale: true,
+            status: true,
+            data: true,
+            updatedAt: true,
+          },
         },
       },
-      site: {
-        select: {
-          locales: true,
-          defaultLocale: true,
-        },
-      },
-    },
-  })
+    }),
+    getSettings(),
+  ])
 
   if (!collection) notFound()
 
   const schema = collection.schema as unknown as SchemaField[]
-  const siteLocales = collection.site.locales as string[]
   const firstTextField = schema.find((f) => f.type === 'text')
-  const defaultLocale = collection.site.defaultLocale
+  const defaultLocale = settings.defaultLocale
 
-  const rows: EntryRow[] = collection.entries.map((e, i) => {
+  const searchLower = search?.toLowerCase()
+
+  let allRows: EntryRow[] = collection.entries.map((e, i) => {
     const data = e.data as Record<string, unknown>
     const label =
       firstTextField && typeof data[firstTextField.key] === 'string' && data[firstTextField.key]
@@ -86,6 +88,10 @@ async function EntriesContent({ params }: Props) {
     }
   })
 
+  if (searchLower) allRows = allRows.filter((r) => r.label.toLowerCase().includes(searchLower))
+  if (status) allRows = allRows.filter((r) => r.status === status)
+
+  const rows = allRows
   const createAction = createEntryAndRedirect.bind(null, collectionId, defaultLocale)
 
   return (
@@ -130,6 +136,7 @@ async function EntriesContent({ params }: Props) {
           </h1>
           <p style={{ margin: '4px 0 0', fontSize: 13, color: '#5a5a78' }}>
             {rows.length} entrée{rows.length !== 1 ? 's' : ''}
+            {search ? ` pour "${search}"` : ''}
           </p>
         </div>
         <form action={createAction}>
@@ -156,7 +163,11 @@ async function EntriesContent({ params }: Props) {
         </form>
       </div>
 
-      <EntriesList entries={rows} showLocale={siteLocales.length > 1} />
+      <div style={{ marginBottom: 16 }}>
+        <AdminSearchBar placeholder="Rechercher une entrée…" showStatusFilter />
+      </div>
+
+      <EntriesList entries={rows} showLocale={settings.locales.length > 1} />
     </div>
   )
 }

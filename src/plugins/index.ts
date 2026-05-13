@@ -1,11 +1,11 @@
 import { resendEmailPlugin } from './built-in/email/resend'
-import { grapesjsPlugin } from './built-in/grapesjs'
+import { puckPlugin } from './built-in/puck'
 import { supabaseStoragePlugin } from './built-in/storage/supabase'
 import { uploadthingPlugin } from './built-in/storage/uploadthing'
 import { pluginRegistry } from './registry'
 
 export function registerBuiltInPlugins() {
-  pluginRegistry.register(grapesjsPlugin)
+  pluginRegistry.register(puckPlugin)
   pluginRegistry.register(uploadthingPlugin)
   pluginRegistry.register(supabaseStoragePlugin)
   pluginRegistry.register(resendEmailPlugin)
