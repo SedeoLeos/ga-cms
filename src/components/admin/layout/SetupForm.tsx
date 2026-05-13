@@ -61,7 +61,6 @@ export default function SetupForm() {
           type="text"
           required
           autoComplete="name"
-          autoFocus
           disabled={pending}
           placeholder="Jean Dupont"
           style={INPUT_S}

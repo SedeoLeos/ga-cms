@@ -32,9 +32,8 @@ export async function getSettings(): Promise<SiteSettings> {
     url: row.url,
     favicon: row.favicon,
     logo: row.logo,
-    locales: typeof row.locales === 'string'
-      ? (JSON.parse(row.locales) as string[])
-      : DEFAULTS.locales,
+    locales:
+      typeof row.locales === 'string' ? (JSON.parse(row.locales) as string[]) : DEFAULTS.locales,
     defaultLocale: row.defaultLocale,
   }
 }
