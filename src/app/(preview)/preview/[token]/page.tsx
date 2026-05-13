@@ -27,7 +27,7 @@ export default function PreviewPage({ params }: Props) {
 async function PreviewContent({ params }: Props) {
   const { token } = await params
 
-  const secret = process.env.NEXTAUTH_SECRET
+  const secret = process.env.BETTER_AUTH_SECRET
   if (!secret) notFound()
 
   let payload: PreviewToken

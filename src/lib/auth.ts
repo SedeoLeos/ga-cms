@@ -2,8 +2,12 @@ import { prisma } from '@/lib/db/client'
 import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
 
+type SupportedProvider = 'postgresql' | 'mysql' | 'sqlite'
+
+const DB_PROVIDER = (process.env.DATABASE_PROVIDER ?? 'postgresql') as SupportedProvider
+
 export const auth = betterAuth({
-  database: prismaAdapter(prisma, { provider: 'postgresql' }),
+  database: prismaAdapter(prisma, { provider: DB_PROVIDER }),
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: false,
@@ -16,5 +20,5 @@ export const auth = betterAuth({
       maxAge: 60 * 5,
     },
   },
-  trustedOrigins: [process.env.NEXTAUTH_URL ?? 'http://localhost:3000'],
+  trustedOrigins: [process.env.BETTER_AUTH_URL ?? 'http://localhost:3000'],
 })

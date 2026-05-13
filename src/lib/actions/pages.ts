@@ -101,8 +101,8 @@ export async function publishPageAction(
 export async function generatePreviewTokenAction(
   pageId: string,
 ): Promise<{ url: string } | { error: string }> {
-  const secret = process.env.NEXTAUTH_SECRET
-  if (!secret) return { error: 'NEXTAUTH_SECRET non configuré.' }
+  const secret = process.env.BETTER_AUTH_SECRET
+  if (!secret) return { error: 'BETTER_AUTH_SECRET non configuré.' }
 
   const page = await prisma.page.findUnique({
     where: { id: pageId },
@@ -115,6 +115,6 @@ export async function generatePreviewTokenAction(
     .setExpirationTime('24h')
     .sign(new TextEncoder().encode(secret))
 
-  const base = process.env.NEXTAUTH_URL ?? 'http://localhost:3000'
+  const base = process.env.BETTER_AUTH_URL ?? 'http://localhost:3000'
   return { url: `${base}/preview/${token}` }
 }
