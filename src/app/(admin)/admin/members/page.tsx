@@ -1,3 +1,4 @@
+import AdminPageHeader from '@/components/admin/layout/AdminPageHeader'
 import MembersList from '@/components/admin/sites/MembersList'
 import type { MemberRow } from '@/components/admin/sites/MembersList'
 import { prisma } from '@/lib/db/client'
@@ -49,34 +50,11 @@ async function MembersContent() {
   const total = members.length
 
   return (
-    <div style={{ padding: 32, maxWidth: 900 }}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginBottom: 24,
-        }}
-      >
-        <div>
-          <h1
-            style={{
-              margin: 0,
-              fontSize: 20,
-              fontWeight: 600,
-              color: '#e8e8f0',
-              letterSpacing: '-0.01em',
-            }}
-          >
-            Membres
-          </h1>
-          <p style={{ margin: '4px 0 0', fontSize: 13, color: '#5a5a78' }}>
-            {total} membre{total !== 1 ? 's' : ''}
-          </p>
-        </div>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <AdminPageHeader title="Membres" subtitle={`${total} membre${total !== 1 ? 's' : ''}`} />
+      <div style={{ padding: '20px 28px', flex: 1, maxWidth: 900 }}>
+        <MembersList members={members} />
       </div>
-
-      <MembersList members={members} />
     </div>
   )
 }

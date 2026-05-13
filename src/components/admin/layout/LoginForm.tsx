@@ -3,12 +3,35 @@
 import { loginAction } from '@/lib/auth/actions'
 import type { LoginState } from '@/lib/auth/actions'
 import { AlertCircle, Eye, EyeOff, Loader2 } from 'lucide-react'
-import { useActionState } from 'react'
-import { useState } from 'react'
+import { useActionState, useState } from 'react'
+
+const INPUT: React.CSSProperties = {
+  height: 34,
+  padding: '0 10px',
+  background: '#111118',
+  border: '1px solid #252535',
+  borderRadius: 7,
+  color: '#e8e8f0',
+  fontSize: 13,
+  outline: 'none',
+  width: '100%',
+  boxSizing: 'border-box',
+  letterSpacing: '-0.01em',
+}
+
+const LABEL: React.CSSProperties = {
+  display: 'block',
+  fontSize: 11,
+  fontWeight: 500,
+  color: '#4e4e70',
+  marginBottom: 5,
+  letterSpacing: '0.02em',
+  textTransform: 'uppercase',
+}
 
 export default function LoginForm() {
   const [state, action, pending] = useActionState<LoginState, FormData>(loginAction, null)
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPwd, setShowPwd] = useState(false)
 
   return (
     <form action={action} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -19,21 +42,20 @@ export default function LoginForm() {
             alignItems: 'center',
             gap: 8,
             padding: '9px 12px',
-            background: '#2a1212',
-            border: '1px solid #5a2020',
-            borderRadius: 6,
-            fontSize: 13,
+            background: '#1e0e0e',
+            border: '1px solid #4a1e1e',
+            borderRadius: 7,
+            fontSize: 12,
             color: '#ff7070',
           }}
         >
-          <AlertCircle size={14} strokeWidth={1.5} color="#ff7070" style={{ flexShrink: 0 }} />
+          <AlertCircle size={13} strokeWidth={1.5} style={{ flexShrink: 0 }} />
           {state.error}
         </div>
       )}
 
-      {/* Email */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-        <label htmlFor="email" style={{ fontSize: 12, fontWeight: 500, color: '#7070a0' }}>
+        <label htmlFor="email" style={LABEL}>
           Email
         </label>
         <input
@@ -43,52 +65,29 @@ export default function LoginForm() {
           required
           autoComplete="email"
           disabled={pending}
-          style={{
-            height: 34,
-            padding: '0 10px',
-            background: '#16161f',
-            border: '1px solid #2a2a3e',
-            borderRadius: 6,
-            color: '#e8e8f0',
-            fontSize: 13,
-            outline: 'none',
-            width: '100%',
-            boxSizing: 'border-box',
-          }}
           className="admin-input"
+          style={INPUT}
         />
       </div>
 
-      {/* Password */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-        <label htmlFor="password" style={{ fontSize: 12, fontWeight: 500, color: '#7070a0' }}>
-          Password
+        <label htmlFor="password" style={LABEL}>
+          Mot de passe
         </label>
         <div style={{ position: 'relative' }}>
           <input
             id="password"
             name="password"
-            type={showPassword ? 'text' : 'password'}
+            type={showPwd ? 'text' : 'password'}
             required
             autoComplete="current-password"
             disabled={pending}
-            style={{
-              height: 34,
-              padding: '0 36px 0 10px',
-              background: '#16161f',
-              border: '1px solid #2a2a3e',
-              borderRadius: 6,
-              color: '#e8e8f0',
-              fontSize: 13,
-              outline: 'none',
-              width: '100%',
-              boxSizing: 'border-box',
-            }}
             className="admin-input"
+            style={{ ...INPUT, paddingRight: 36 }}
           />
           <button
             type="button"
-            onClick={() => setShowPassword((v) => !v)}
+            onClick={() => setShowPwd((v) => !v)}
             style={{
               position: 'absolute',
               right: 0,
@@ -102,41 +101,38 @@ export default function LoginForm() {
               border: 'none',
               cursor: 'pointer',
               padding: 0,
+              color: '#3e3e58',
             }}
           >
-            {showPassword ? (
-              <EyeOff size={14} strokeWidth={1.5} color="#4a4a68" />
-            ) : (
-              <Eye size={14} strokeWidth={1.5} color="#4a4a68" />
-            )}
+            {showPwd ? <EyeOff size={13} strokeWidth={1.5} /> : <Eye size={13} strokeWidth={1.5} />}
           </button>
         </div>
       </div>
 
-      {/* Submit */}
       <button
         type="submit"
         disabled={pending}
+        className={pending ? '' : 'wf-btn-primary'}
         style={{
           height: 34,
-          marginTop: 4,
-          background: pending ? '#2d3580' : '#4353ff',
+          marginTop: 6,
+          background: pending ? '#1e204a' : '#4353ff',
           border: 'none',
-          borderRadius: 6,
-          color: '#fff',
+          borderRadius: 7,
+          color: pending ? '#5060a0' : '#fff',
           fontSize: 13,
           fontWeight: 600,
           cursor: pending ? 'not-allowed' : 'pointer',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: 6,
-          transition: 'background 0.15s',
+          gap: 7,
+          letterSpacing: '-0.01em',
+          fontFamily: 'inherit',
         }}
-        className={pending ? '' : 'admin-btn-primary'}
       >
-        {pending && <Loader2 size={13} strokeWidth={2} color="#fff" className="spin" />}
-        {pending ? 'Signing in…' : 'Sign in'}
+        {pending && <Loader2 size={13} strokeWidth={2} className="spin" />}
+        {pending ? 'Connexion…' : 'Se connecter'}
       </button>
     </form>
   )

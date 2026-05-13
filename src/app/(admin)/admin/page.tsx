@@ -1,5 +1,6 @@
+import AdminPageHeader from '@/components/admin/layout/AdminPageHeader'
 import { prisma } from '@/lib/db/client'
-import { FileText, Image, Layers, Tag } from 'lucide-react'
+import { ArrowRight, Database, FileText, Image, Layers } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Suspense } from 'react'
@@ -27,137 +28,132 @@ async function DashboardContent() {
     {
       label: 'Collections',
       value: collectionCount,
-      icon: Layers,
+      icon: Database,
       color: '#22c55e',
       href: '/admin/collections',
     },
     {
       label: 'Post Types',
       value: postTypeCount,
-      icon: Tag,
+      icon: Layers,
       color: '#f59e0b',
       href: '/admin/post-types',
     },
-    {
-      label: 'Médias',
-      value: mediaCount,
-      icon: Image,
-      color: '#a855f7',
-      href: '/admin/media',
-    },
+    { label: 'Médias', value: mediaCount, icon: Image, color: '#a855f7', href: '/admin/media' },
+  ]
+
+  const QUICK: { label: string; href: string }[] = [
+    { label: 'Nouvelle page', href: '/admin/pages' },
+    { label: 'Ajouter un média', href: '/admin/media' },
+    { label: 'Nouveau post type', href: '/admin/post-types' },
   ]
 
   return (
-    <div style={{ padding: 32, maxWidth: 900 }}>
-      {/* En-tête */}
-      <div style={{ marginBottom: 28 }}>
-        <h1
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <AdminPageHeader title="Dashboard" subtitle="Vue d'ensemble de votre espace de travail" />
+
+      <div style={{ padding: '24px 28px', flex: 1 }}>
+        {/* Stats */}
+        <div
           style={{
-            margin: 0,
-            fontSize: 20,
-            fontWeight: 600,
-            color: '#e8e8f0',
-            letterSpacing: '-0.01em',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+            gap: 10,
+            marginBottom: 28,
           }}
         >
-          Dashboard
-        </h1>
-        <p style={{ margin: '4px 0 0', fontSize: 13, color: '#5a5a78' }}>
-          Bienvenue. Voici un aperçu de votre espace de travail.
-        </p>
-      </div>
-
-      {/* Stats */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
-          gap: 12,
-          marginBottom: 32,
-        }}
-      >
-        {STATS.map((stat) => {
-          const Icon = stat.icon
-          return (
-            <Link key={stat.label} href={stat.href} style={{ textDecoration: 'none' }}>
-              <div
-                className="stat-card"
-                style={{
-                  background: '#13131c',
-                  border: '1px solid #1f1f2e',
-                  borderRadius: 8,
-                  padding: '16px 18px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 12,
-                  transition: 'border-color 0.15s',
-                }}
-              >
+          {STATS.map((stat) => {
+            const Icon = stat.icon
+            return (
+              <Link key={stat.label} href={stat.href} style={{ textDecoration: 'none' }}>
                 <div
+                  className="stat-card"
                   style={{
-                    width: 32,
-                    height: 32,
-                    borderRadius: 8,
-                    background: `${stat.color}18`,
+                    background: '#10101a',
+                    border: '1px solid #1c1c28',
+                    borderRadius: 10,
+                    padding: '16px 18px',
                     display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    alignItems: 'flex-start',
+                    justifyContent: 'space-between',
+                    gap: 12,
                   }}
                 >
-                  <Icon size={16} strokeWidth={1.5} color={stat.color} />
-                </div>
-                <div>
-                  <div style={{ fontSize: 22, fontWeight: 700, color: '#e8e8f0', lineHeight: 1 }}>
-                    {stat.value}
+                  <div>
+                    <div
+                      style={{
+                        fontSize: 26,
+                        fontWeight: 700,
+                        color: '#e8e8f0',
+                        lineHeight: 1,
+                        letterSpacing: '-0.03em',
+                        marginBottom: 6,
+                      }}
+                    >
+                      {stat.value}
+                    </div>
+                    <div style={{ fontSize: 12, color: '#4e4e68' }}>{stat.label}</div>
                   </div>
-                  <div style={{ fontSize: 12, color: '#5a5a78', marginTop: 4 }}>{stat.label}</div>
+                  <div
+                    style={{
+                      width: 34,
+                      height: 34,
+                      borderRadius: 8,
+                      background: `${stat.color}16`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Icon size={16} strokeWidth={1.5} color={stat.color} />
+                  </div>
                 </div>
-              </div>
-            </Link>
-          )
-        })}
-      </div>
+              </Link>
+            )
+          })}
+        </div>
 
-      {/* Actions rapides */}
-      <div>
-        <h2
-          style={{
-            margin: '0 0 12px',
-            fontSize: 13,
-            fontWeight: 600,
-            color: '#5a5a78',
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-          }}
-        >
-          Actions rapides
-        </h2>
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          {[
-            { label: 'Nouvelle page', href: '/admin/pages' },
-            { label: 'Ajouter un média', href: '/admin/media' },
-            { label: 'Nouveau post type', href: '/admin/post-types' },
-          ].map((action) => (
-            <Link
-              key={action.href}
-              href={action.href}
-              className="admin-quick-action"
-              style={{
-                height: 32,
-                padding: '0 14px',
-                background: '#1a1a28',
-                border: '1px solid #2a2a3e',
-                borderRadius: 6,
-                fontSize: 13,
-                color: '#b0b0d0',
-                textDecoration: 'none',
-                display: 'inline-flex',
-                alignItems: 'center',
-              }}
-            >
-              {action.label}
-            </Link>
-          ))}
+        {/* Actions rapides */}
+        <div>
+          <p
+            style={{
+              margin: '0 0 10px',
+              fontSize: 11,
+              fontWeight: 600,
+              color: '#35354e',
+              textTransform: 'uppercase',
+              letterSpacing: '0.07em',
+            }}
+          >
+            Actions rapides
+          </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+            {QUICK.map((a) => (
+              <Link
+                key={a.href}
+                href={a.href}
+                className="admin-quick-action"
+                style={{
+                  height: 32,
+                  padding: '0 14px',
+                  background: '#10101a',
+                  border: '1px solid #1c1c28',
+                  borderRadius: 7,
+                  fontSize: 12,
+                  color: '#8a8aaa',
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 7,
+                  letterSpacing: '-0.01em',
+                }}
+              >
+                {a.label}
+                <ArrowRight size={12} strokeWidth={1.5} />
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </div>

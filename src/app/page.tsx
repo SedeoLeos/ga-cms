@@ -42,7 +42,6 @@ async function RootContent() {
     return <SetupScreen />
   }
 
-  // Résoudre la page d'accueil (slug = 'index')
   const locale = await detectLocale()
   const homePage = await prisma.page.findFirst({
     where: { slug: 'index', locale, status: 'PUBLISHED' },
@@ -53,7 +52,6 @@ async function RootContent() {
     return <PuckRenderer data={homePage.publishedJson} />
   }
 
-  // Page d'accueil non encore créée
   return (
     <div
       style={{
@@ -81,7 +79,7 @@ function SetupScreen() {
     <div
       style={{
         minHeight: '100vh',
-        background: '#0e0e14',
+        background: '#0d0d12',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -89,19 +87,20 @@ function SetupScreen() {
       }}
     >
       <div style={{ width: '100%', maxWidth: 360 }}>
+        {/* Logo */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             gap: 10,
-            marginBottom: 32,
+            marginBottom: 36,
           }}
         >
           <div
             style={{
-              width: 32,
-              height: 32,
+              width: 34,
+              height: 34,
               background: '#4353ff',
               borderRadius: 9,
               display: 'flex',
@@ -112,39 +111,46 @@ function SetupScreen() {
             <Shapes size={17} strokeWidth={2} color="#fff" />
           </div>
           <span
-            style={{ fontSize: 18, fontWeight: 700, color: '#e8e8f0', letterSpacing: '-0.02em' }}
+            style={{
+              fontSize: 18,
+              fontWeight: 700,
+              color: '#e0e0ec',
+              letterSpacing: '-0.03em',
+            }}
           >
             tatomir
           </span>
         </div>
 
+        {/* Card */}
         <div
           style={{
-            background: '#13131c',
-            border: '1px solid #1f1f2e',
-            borderRadius: 10,
-            padding: 28,
+            background: '#0f0f18',
+            border: '1px solid #1c1c28',
+            borderRadius: 12,
+            padding: '28px 28px 24px',
+            boxShadow: '0 24px 64px rgba(0,0,0,0.5)',
           }}
         >
           <h1
             style={{
-              margin: '0 0 4px',
-              fontSize: 16,
+              margin: '0 0 2px',
+              fontSize: 15,
               fontWeight: 600,
               color: '#e8e8f0',
-              letterSpacing: '-0.01em',
+              letterSpacing: '-0.02em',
             }}
           >
             Bienvenue sur Tatomir
           </h1>
-          <p style={{ margin: '0 0 22px', fontSize: 13, color: '#5a5a78' }}>
+          <p style={{ margin: '0 0 24px', fontSize: 12, color: '#3e3e58' }}>
             Créez votre compte administrateur pour commencer.
           </p>
           <SetupForm />
         </div>
 
-        <p style={{ marginTop: 20, textAlign: 'center', fontSize: 12, color: '#3a3a50' }}>
-          Cette page disparaîtra une fois le compte créé.
+        <p style={{ marginTop: 20, textAlign: 'center', fontSize: 11, color: '#2a2a3e' }}>
+          Cette page disparaît une fois le compte créé.
         </p>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import AdminPageHeader from '@/components/admin/layout/AdminPageHeader'
 import SettingsForm from '@/components/admin/settings/SettingsForm'
 import { getSettings } from '@/lib/settings'
 import type { Metadata } from 'next'
@@ -17,26 +18,11 @@ async function SettingsContent() {
   const settings = await getSettings()
 
   return (
-    <div style={{ padding: '28px 32px', maxWidth: 860 }}>
-      {/* Header */}
-      <div style={{ marginBottom: 28 }}>
-        <h1
-          style={{
-            margin: 0,
-            fontSize: 20,
-            fontWeight: 700,
-            color: '#e8e8f0',
-            letterSpacing: '-0.02em',
-          }}
-        >
-          Paramètres
-        </h1>
-        <p style={{ margin: '4px 0 0', fontSize: 13, color: '#5a5a78' }}>
-          Configuration générale de votre site.
-        </p>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <AdminPageHeader title="Paramètres" subtitle="Configuration générale de votre site" />
+      <div style={{ padding: '24px 28px', maxWidth: 860 }}>
+        <SettingsForm initial={settings} />
       </div>
-
-      <SettingsForm initial={settings} />
     </div>
   )
 }

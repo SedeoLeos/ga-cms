@@ -237,7 +237,6 @@ function LocalesEditor({
             defaultValue=""
             onChange={(e) => addLocale(e.target.value)}
             onBlur={() => setAdding(false)}
-            autoFocus
             style={{
               height: 28,
               padding: '0 6px',
@@ -262,8 +261,8 @@ function LocalesEditor({
         )}
       </div>
       <p style={HINT_S}>
-        Cliquez sur <Check size={9} strokeWidth={2} style={{ display: 'inline' }} /> pour définir
-        la langue par défaut. La langue par défaut ne peut pas être retirée.
+        Cliquez sur <Check size={9} strokeWidth={2} style={{ display: 'inline' }} /> pour définir la
+        langue par défaut. La langue par défaut ne peut pas être retirée.
       </p>
     </div>
   )
@@ -375,7 +374,7 @@ export default function SettingsForm({ initial }: Props) {
         <div style={SECTION_BODY_S}>
           <div style={ROW_S}>
             <div>
-              <label style={LABEL_S}>Langues actives</label>
+              <p style={{ ...LABEL_S, margin: 0 }}>Langues actives</p>
               <p style={HINT_S}>
                 Langues disponibles pour le contenu. Les URLs de vos pages seront préfixées par le
                 code de langue.

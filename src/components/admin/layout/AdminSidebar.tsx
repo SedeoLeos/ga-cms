@@ -2,10 +2,13 @@
 
 import { logoutAction } from '@/lib/auth/actions'
 import {
+  ChevronDown,
   Database,
   FileText,
+  Globe,
   Image,
   Layers,
+  LayoutGrid,
   LogOut,
   Palette,
   Settings2,
@@ -25,8 +28,9 @@ interface NavItem {
 
 const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
   {
-    label: 'Content',
+    label: 'Contenu',
     items: [
+      { href: '/admin', label: 'Dashboard', icon: LayoutGrid },
       { href: '/admin/pages', label: 'Pages', icon: FileText },
       { href: '/admin/collections', label: 'Collections', icon: Database },
       { href: '/admin/post-types', label: 'Post Types', icon: Layers },
@@ -34,12 +38,15 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
     ],
   },
   {
-    label: 'Assets',
-    items: [{ href: '/admin/media', label: 'Media', icon: Image }],
+    label: 'Médias',
+    items: [{ href: '/admin/media', label: 'Médiathèque', icon: Image }],
   },
   {
-    label: 'Design',
-    items: [{ href: '/admin/design-system', label: 'Design System', icon: Palette }],
+    label: 'Apparence',
+    items: [
+      { href: '/admin/design-system', label: 'Design System', icon: Palette },
+      { href: '/admin/global-blocks', label: 'Blocs globaux', icon: Globe },
+    ],
   },
   {
     label: 'Accès',
@@ -47,25 +54,29 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
   },
 ]
 
-const BOTTOM_NAV: NavItem[] = [{ href: '/admin/settings', label: 'Settings', icon: Settings2 }]
-
 interface Props {
   userName: string
   userEmail: string
+  siteName?: string
 }
 
-export default function AdminSidebar({ userName, userEmail }: Props) {
+export default function AdminSidebar({ userName, userEmail, siteName = 'Tatomir' }: Props) {
   const pathname = usePathname()
-  const isActive = (href: string) => pathname.startsWith(href)
+
+  function isActive(href: string) {
+    if (href === '/admin') return pathname === '/admin'
+    return pathname.startsWith(href)
+  }
+
   const initials = (userName[0] ?? 'A').toUpperCase()
 
   return (
     <aside
       style={{
-        width: 220,
+        width: 224,
         height: '100vh',
-        background: '#111118',
-        borderRight: '1px solid #1f1f2e',
+        background: '#0a0a10',
+        borderRight: '1px solid #1c1c28',
         display: 'flex',
         flexDirection: 'column',
         flexShrink: 0,
@@ -73,48 +84,87 @@ export default function AdminSidebar({ userName, userEmail }: Props) {
         top: 0,
       }}
     >
-      {/* Logo */}
+      {/* Workspace selector */}
       <div
         style={{
-          height: 48,
+          height: 52,
           display: 'flex',
           alignItems: 'center',
-          gap: 8,
-          padding: '0 14px',
-          borderBottom: '1px solid #1f1f2e',
+          padding: '0 12px',
+          borderBottom: '1px solid #1c1c28',
           flexShrink: 0,
         }}
       >
-        <div
+        <button
+          type="button"
+          className="wf-sidebar-ws"
           style={{
-            width: 24,
-            height: 24,
-            background: '#4353ff',
-            borderRadius: 6,
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
+            gap: 9,
+            width: '100%',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '5px 8px',
+            borderRadius: 7,
+            textAlign: 'left',
           }}
         >
-          <Shapes size={13} strokeWidth={2} color="#fff" />
-        </div>
-        <span style={{ fontSize: 14, fontWeight: 600, color: '#e8e8f0', letterSpacing: '-0.01em' }}>
-          tatomir
-        </span>
+          <div
+            style={{
+              width: 28,
+              height: 28,
+              background: '#4353ff',
+              borderRadius: 7,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+            }}
+          >
+            <Shapes size={14} strokeWidth={2} color="#fff" />
+          </div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                color: '#e0e0ec',
+                letterSpacing: '-0.01em',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {siteName}
+            </div>
+            <div style={{ fontSize: 10, color: '#404058', marginTop: 1 }}>CMS Workspace</div>
+          </div>
+          <ChevronDown size={13} strokeWidth={2} color="#383852" />
+        </button>
       </div>
 
-      {/* Nav */}
-      <nav style={{ flex: 1, padding: '6px 0', overflowY: 'auto' }} className="panel-scroll">
+      {/* Navigation */}
+      <nav style={{ flex: 1, padding: '8px 0', overflowY: 'auto' }} className="panel-scroll">
         {NAV_SECTIONS.map((section, i) => (
-          <div key={section.label}>
-            {i > 0 && <div style={{ height: 1, background: '#1a1a24', margin: '4px 0' }} />}
+          <div key={section.label} style={{ marginBottom: 4 }}>
+            {i > 0 && (
+              <div
+                style={{
+                  height: 1,
+                  background: '#14141e',
+                  margin: '6px 12px',
+                }}
+              />
+            )}
             <p
               style={{
-                margin: '6px 14px 2px',
+                margin: '8px 16px 3px',
                 fontSize: 10,
                 fontWeight: 600,
-                color: '#3e3e52',
-                letterSpacing: '0.07em',
+                color: '#35354e',
+                letterSpacing: '0.08em',
                 textTransform: 'uppercase',
               }}
             >
@@ -127,36 +177,39 @@ export default function AdminSidebar({ userName, userEmail }: Props) {
         ))}
       </nav>
 
-      {/* Bottom */}
-      <div style={{ flexShrink: 0, borderTop: '1px solid #1a1a24' }}>
-        <div style={{ padding: '4px 0' }}>
-          {BOTTOM_NAV.map((item) => (
-            <SidebarItem key={item.href} item={item} active={isActive(item.href)} />
-          ))}
-        </div>
+      {/* Bottom zone */}
+      <div style={{ flexShrink: 0, borderTop: '1px solid #14141e', paddingTop: 4 }}>
+        <SidebarItem
+          item={{ href: '/admin/settings', label: 'Paramètres', icon: Settings2 }}
+          active={isActive('/admin/settings')}
+        />
+
+        {/* User footer */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: 8,
+            gap: 9,
             padding: '8px 14px',
-            borderTop: '1px solid #1a1a24',
+            marginTop: 2,
+            borderTop: '1px solid #12121c',
           }}
         >
           <div
             style={{
-              width: 26,
-              height: 26,
+              width: 28,
+              height: 28,
               borderRadius: '50%',
               background: '#1a1f4a',
-              border: '1px solid #2d3580',
+              border: '1px solid #272d6a',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: 11,
               fontWeight: 700,
-              color: '#7080ff',
+              color: '#6878ff',
               flexShrink: 0,
+              letterSpacing: '-0.02em',
             }}
           >
             {initials}
@@ -166,7 +219,7 @@ export default function AdminSidebar({ userName, userEmail }: Props) {
               style={{
                 fontSize: 12,
                 fontWeight: 500,
-                color: '#c8c8da',
+                color: '#c0c0d8',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
@@ -177,7 +230,7 @@ export default function AdminSidebar({ userName, userEmail }: Props) {
             <div
               style={{
                 fontSize: 11,
-                color: '#4a4a60',
+                color: '#3e3e56',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
@@ -189,8 +242,8 @@ export default function AdminSidebar({ userName, userEmail }: Props) {
           <form action={logoutAction}>
             <button
               type="submit"
-              title="Sign out"
-              className="sidebar-logout-btn"
+              title="Déconnexion"
+              className="wf-btn-icon wf-sidebar-logout"
               style={{
                 width: 28,
                 height: 28,
@@ -200,12 +253,13 @@ export default function AdminSidebar({ userName, userEmail }: Props) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                borderRadius: 5,
+                borderRadius: 6,
                 flexShrink: 0,
                 padding: 0,
+                color: '#3e3e56',
               }}
             >
-              <LogOut size={14} strokeWidth={1.5} color="#4a4a60" />
+              <LogOut size={14} strokeWidth={1.5} />
             </button>
           </form>
         </div>
@@ -219,26 +273,31 @@ function SidebarItem({ item, active }: { item: NavItem; active: boolean }) {
   return (
     <Link
       href={item.href}
-      className={active ? '' : 'sidebar-item'}
+      className={active ? 'wf-sidebar-item--active' : 'wf-sidebar-item'}
       style={{
         display: 'flex',
         alignItems: 'center',
-        gap: 8,
-        height: 30,
+        gap: 9,
+        height: 32,
         padding: '0 10px',
-        margin: '1px 6px',
-        borderRadius: 5,
+        margin: '1px 8px',
+        borderRadius: 6,
         textDecoration: 'none',
-        background: active ? '#1e1e30' : 'transparent',
         outline: 'none',
       }}
     >
-      <Icon size={15} strokeWidth={1.5} color={active ? '#8090f0' : '#4a4a68'} />
+      <Icon
+        size={15}
+        strokeWidth={1.6}
+        className="wf-sidebar-icon"
+        style={{ color: active ? '#7888ff' : '#45455e', flexShrink: 0 }}
+      />
       <span
         style={{
           fontSize: 13,
           fontWeight: active ? 500 : 400,
-          color: active ? '#ddddf0' : '#8a8aa8',
+          color: active ? '#c8ceff' : undefined,
+          letterSpacing: '-0.01em',
         }}
       >
         {item.label}

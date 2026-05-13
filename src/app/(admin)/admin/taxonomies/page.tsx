@@ -1,3 +1,4 @@
+import AdminPageHeader from '@/components/admin/layout/AdminPageHeader'
 import { createTaxonomyAction } from '@/lib/actions/taxonomies'
 import { prisma } from '@/lib/db/client'
 import type { Metadata } from 'next'
@@ -29,99 +30,94 @@ async function TaxonomiesContent() {
   })
 
   return (
-    <div style={{ padding: 32, maxWidth: 820 }}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginBottom: 24,
-        }}
-      >
-        <div>
-          <h1
-            style={{
-              margin: 0,
-              fontSize: 20,
-              fontWeight: 600,
-              color: '#e8e8f0',
-              letterSpacing: '-0.01em',
-            }}
-          >
-            Taxonomies
-          </h1>
-          <p style={{ margin: '4px 0 0', fontSize: 13, color: '#5a5a78' }}>
-            {taxonomies.length} taxonomie{taxonomies.length !== 1 ? 's' : ''}
-          </p>
-        </div>
-      </div>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <AdminPageHeader
+        title="Taxonomies"
+        subtitle={`${taxonomies.length} taxonomie${taxonomies.length !== 1 ? 's' : ''}`}
+      />
+      <div style={{ padding: '20px 28px', maxWidth: 820 }}>
+        <TaxonomyCreateForm action={createTaxonomyAction} />
 
-      {/* Create form */}
-      <TaxonomyCreateForm action={createTaxonomyAction} />
-
-      {/* List */}
-      {taxonomies.length > 0 && (
-        <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 2 }}>
-          {/* Header */}
+        {taxonomies.length > 0 && (
           <div
             style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 80px 120px 56px',
-              padding: '6px 12px',
-              fontSize: 11,
-              fontWeight: 600,
-              color: '#3e3e52',
-              letterSpacing: '0.05em',
-              textTransform: 'uppercase',
+              marginTop: 20,
+              background: '#0f0f18',
+              border: '1px solid #1c1c28',
+              borderRadius: 10,
+              overflow: 'hidden',
             }}
           >
-            <span>Nom</span>
-            <span>Termes</span>
-            <span>Post Types</span>
-            <span />
-          </div>
-          {taxonomies.map((tax) => (
-            <Link
-              key={tax.id}
-              href={`/admin/taxonomies/${tax.id}`}
+            {/* Header */}
+            <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: '1fr 80px 120px 56px',
+                gridTemplateColumns: '1fr 80px 140px 64px',
+                padding: '0 16px',
+                height: 34,
                 alignItems: 'center',
-                padding: '10px 12px',
-                background: '#13131c',
-                border: '1px solid #1f1f2e',
-                borderRadius: 8,
-                textDecoration: 'none',
+                borderBottom: '1px solid #1c1c28',
+                background: '#0c0c14',
               }}
             >
-              <div>
-                <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: '#e8e8f0' }}>
-                  {tax.name}
-                </p>
-                <p
+              {['Nom', 'Termes', 'Post Types', ''].map((h) => (
+                <span
+                  key={h}
                   style={{
-                    margin: '1px 0 0',
-                    fontSize: 11,
-                    color: '#4a4a68',
-                    fontFamily: 'ui-monospace, monospace',
+                    fontSize: 10,
+                    fontWeight: 600,
+                    color: '#30304a',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.07em',
                   }}
                 >
-                  /{tax.slug}
-                  {tax.hierarchical && (
-                    <span style={{ marginLeft: 6, color: '#3e3e52' }}>hiérarchique</span>
-                  )}
-                </p>
-              </div>
-              <span style={{ fontSize: 13, color: '#5a5a78' }}>{tax._count.terms}</span>
-              <span style={{ fontSize: 12, color: '#4a4a68' }}>
-                {tax.postTypes.map((pt) => pt.postType.name).join(', ') || '—'}
-              </span>
-              <span style={{ fontSize: 12, color: '#4353ff' }}>Gérer →</span>
-            </Link>
-          ))}
-        </div>
-      )}
+                  {h}
+                </span>
+              ))}
+            </div>
+            {taxonomies.map((tax) => (
+              <Link
+                key={tax.id}
+                href={`/admin/taxonomies/${tax.id}`}
+                className="wf-table-row"
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 80px 140px 64px',
+                  alignItems: 'center',
+                  padding: '0 16px',
+                  height: 42,
+                  borderBottom: '1px solid #161620',
+                  textDecoration: 'none',
+                }}
+              >
+                <div>
+                  <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: '#d8d8ec' }}>
+                    {tax.name}
+                  </p>
+                  <p
+                    style={{
+                      margin: '1px 0 0',
+                      fontSize: 11,
+                      color: '#3a3a58',
+                      fontFamily: 'ui-monospace, monospace',
+                    }}
+                  >
+                    /{tax.slug}
+                    {tax.hierarchical && (
+                      <span style={{ marginLeft: 6, color: '#2e2e48' }}>hiérarchique</span>
+                    )}
+                  </p>
+                </div>
+                <span style={{ fontSize: 12, color: '#4a4a68' }}>{tax._count.terms}</span>
+                <span style={{ fontSize: 12, color: '#3e3e58' }}>
+                  {tax.postTypes.map((pt) => pt.postType.name).join(', ') || '—'}
+                </span>
+                <span style={{ fontSize: 12, color: '#4353ff' }}>Gérer →</span>
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   )
 }

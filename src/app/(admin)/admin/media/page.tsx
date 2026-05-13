@@ -1,3 +1,4 @@
+import AdminPageHeader from '@/components/admin/layout/AdminPageHeader'
 import MediaLibrary from '@/components/admin/media/MediaLibrary'
 import type { MediaFileItem, MediaFolderItem } from '@/components/admin/media/MediaLibrary'
 import { prisma } from '@/lib/db/client'
@@ -20,7 +21,6 @@ export default function MediaPage({ searchParams }: Props) {
 
 async function MediaContent({ searchParams }: Props) {
   const { folderId: rawFolderId } = await searchParams
-
   const folderId = rawFolderId ?? null
 
   const [folders, files] = await Promise.all([
@@ -53,35 +53,12 @@ async function MediaContent({ searchParams }: Props) {
   }))
 
   return (
-    <div style={{ padding: 32, height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginBottom: 20,
-          flexShrink: 0,
-        }}
-      >
-        <div>
-          <h1
-            style={{
-              margin: 0,
-              fontSize: 20,
-              fontWeight: 600,
-              color: '#e8e8f0',
-              letterSpacing: '-0.01em',
-            }}
-          >
-            Médiathèque
-          </h1>
-          <p style={{ margin: '4px 0 0', fontSize: 13, color: '#5a5a78' }}>
-            {initialFiles.length} fichier{initialFiles.length !== 1 ? 's' : ''}
-          </p>
-        </div>
-      </div>
-
-      <div style={{ flex: 1, minHeight: 0 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <AdminPageHeader
+        title="Médiathèque"
+        subtitle={`${initialFiles.length} fichier${initialFiles.length !== 1 ? 's' : ''}`}
+      />
+      <div style={{ flex: 1, minHeight: 0, padding: '20px 28px' }}>
         <MediaLibrary initialFiles={initialFiles} initialFolders={initialFolders} mode="page" />
       </div>
     </div>

@@ -5,12 +5,9 @@ export const metadata: Metadata = {
   title: { template: '%s — Tatomir', default: 'Tatomir' },
 }
 
-// Synchronous outer shell required by PPR (cacheComponents: true).
-// The auth check + sidebar live inside Suspense so the static skeleton
-// can render immediately while the session resolves.
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ minHeight: '100vh', background: '#0e0e14' }}>
+    <div style={{ minHeight: '100vh', background: '#0d0d12' }}>
       <Suspense fallback={children}>
         <AuthenticatedShell>{children}</AuthenticatedShell>
       </Suspense>
@@ -18,7 +15,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   )
 }
 
-// Async server component — only rendered after auth resolves.
 async function AuthenticatedShell({ children }: { children: React.ReactNode }) {
   const { connection } = await import('next/server')
   await connection()
@@ -33,17 +29,21 @@ async function AuthenticatedShell({ children }: { children: React.ReactNode }) {
 
   const { getSession } = await import('@/lib/auth/session')
   const { default: AdminSidebar } = await import('@/components/admin/layout/AdminSidebar')
+  const { getSettings } = await import('@/lib/settings')
 
-  const session = await getSession()
+  const [session, settings] = await Promise.all([getSession(), getSettings()])
 
   if (!session) {
-    // Login page — no sidebar
     return <>{children}</>
   }
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
-      <AdminSidebar userName={session.user.name ?? 'Admin'} userEmail={session.user.email ?? ''} />
+      <AdminSidebar
+        userName={session.user.name ?? 'Admin'}
+        userEmail={session.user.email ?? ''}
+        siteName={settings.name}
+      />
       <main
         style={{
           flex: 1,

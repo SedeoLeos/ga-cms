@@ -1,28 +1,44 @@
 @import "tailwindcss";
 
-/* ─── Editor chrome tokens ─────────────────────────────────────────── */
+/* ─── Design tokens ─────────────────────────────────────────────────── */
 @theme {
-  --color-editor-bg: #1a1a2a;
-  --color-panel-bg: #1e1e2e;
-  --color-panel-bg-hover: #252538;
-  --color-panel-border: #2e2e42;
-  --color-panel-section-bg: #16161f;
+  /* Backgrounds */
+  --color-admin-bg: #0d0d12;
+  --color-admin-sidebar: #0a0a10;
+  --color-admin-border: #1c1c28;
+  --color-panel-bg: #131319;
+  --color-panel-bg-hover: #17171f;
+  --color-panel-border: #222230;
+  --color-panel-section-bg: #0f0f16;
+  --color-row-hover: #141420;
+
+  /* Canvas */
   --color-canvas-bg: #d9d9d9;
-  --color-select-blue: #4353ff;
+  --color-editor-bg: #1a1a2a;
+
+  /* Text */
   --color-text-primary: #e8e8f0;
   --color-text-secondary: #9191a8;
-  --color-text-disabled: #4e4e60;
+  --color-text-muted: #5a5a78;
+  --color-text-disabled: #3a3a50;
+
+  /* Accent */
   --color-accent: #4353ff;
   --color-accent-hover: #5563ff;
-  --color-destructive: #ff4444;
-  --color-input-bg: #2a2a3e;
-  --color-input-border: #3a3a52;
-  --color-input-border-focus: #4353ff;
+  --color-accent-active: #3342ee;
+  --color-accent-subtle: rgba(67, 83, 255, 0.12);
 
-  /* Admin sidebar */
-  --color-admin-sidebar: #111118;
-  --color-admin-bg: #0e0e14;
-  --color-admin-border: #1f1f2e;
+  /* Status */
+  --color-success: #34c759;
+  --color-warning: #f5a623;
+  --color-destructive: #ff4444;
+  --color-destructive-hover: #cc2222;
+
+  /* Inputs */
+  --color-input-bg: #111118;
+  --color-input-border: #252535;
+  --color-input-border-focus: #4353ff;
+  --color-select-blue: #4353ff;
 
   --font-ui: "Inter", system-ui, sans-serif;
 }
@@ -45,103 +61,127 @@ body {
   font-family: var(--font-ui);
 }
 
-/* Remove default focus outline — components define their own */
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
-/* Custom scrollbar for editor panels */
+/* ─── Scrollbars ────────────────────────────────────────────────────── */
 .panel-scroll::-webkit-scrollbar {
   width: 4px;
   height: 4px;
 }
-
 .panel-scroll::-webkit-scrollbar-track {
   background: transparent;
 }
-
 .panel-scroll::-webkit-scrollbar-thumb {
-  background: var(--color-panel-border);
+  background: #2a2a3e;
   border-radius: 2px;
 }
-
 .panel-scroll::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-disabled);
+  background: #3a3a54;
 }
 
-/* ─── Admin sidebar ─────────────────────────────────────────────────── */
-.sidebar-item:hover {
-  background: #1a1a24 !important;
+/* ─── Sidebar ───────────────────────────────────────────────────────── */
+.wf-sidebar-item {
+  color: #6a6a88;
+  transition: background 0.1s, color 0.1s;
 }
-
-.sidebar-logout-btn:hover {
-  background: #1f1f2e !important;
+.wf-sidebar-item:hover {
+  background: #14141e !important;
+  color: #b0b0cc !important;
+}
+.wf-sidebar-item:hover .wf-sidebar-icon {
+  color: #7070a8 !important;
+}
+.wf-sidebar-item--active {
+  background: #1a1c35 !important;
+  color: #c8ceff !important;
+}
+.wf-sidebar-ws:hover {
+  background: #13131e !important;
+}
+.wf-sidebar-logout:hover {
+  background: #16161f !important;
 }
 
 /* ─── Admin inputs ──────────────────────────────────────────────────── */
+.admin-input {
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
 .admin-input:focus {
   border-color: #4353ff !important;
-  box-shadow: 0 0 0 2px rgb(67 83 255 / 0.15);
+  box-shadow: 0 0 0 3px rgba(67, 83, 255, 0.15) !important;
 }
-
 .admin-input:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
 /* ─── Admin buttons ─────────────────────────────────────────────────── */
-.admin-btn-primary:hover {
+.wf-btn-primary {
+  transition: background 0.12s, transform 0.08s;
+}
+.wf-btn-primary:hover {
   background: #5563ff !important;
 }
-
-.admin-quick-action:hover {
-  background: #202030 !important;
-  border-color: #3a3a52 !important;
-  color: #d0d0f0 !important;
+.wf-btn-primary:active {
+  background: #3342ee !important;
+  transform: translateY(1px);
+}
+.wf-btn-ghost {
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+.wf-btn-ghost:hover {
+  background: #1a1a28 !important;
+  border-color: #35354c !important;
+  color: #c8c8e0 !important;
+}
+.wf-btn-icon {
+  transition: background 0.1s, color 0.1s;
+}
+.wf-btn-icon:hover {
+  background: #1e1e2e !important;
+  color: #9090b8 !important;
+}
+.wf-btn-icon--danger:hover {
+  background: #2a1818 !important;
+  color: #ff6060 !important;
 }
 
-/* ─── Site settings ─────────────────────────────────────────────────── */
+/* ─── Tables / Lists ─────────────────────────────────────────────────── */
+.wf-table-row {
+  transition: background 0.1s;
+}
+.wf-table-row:hover {
+  background: #141420;
+}
+
+/* ─── Dialog ────────────────────────────────────────────────────────── */
+.wf-dialog-overlay {
+  backdrop-filter: blur(3px);
+}
+
+/* ─── Quick actions / misc ──────────────────────────────────────────── */
+.admin-quick-action {
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+.admin-quick-action:hover {
+  background: #1a1a28 !important;
+  border-color: #353550 !important;
+  color: #d0d0f0 !important;
+}
+.stat-card {
+  transition: border-color 0.15s, background 0.15s;
+}
+.stat-card:hover {
+  border-color: #2d2d45 !important;
+  background: #161620 !important;
+}
 .delete-site-confirm-btn:hover {
   background: #2a1010 !important;
   border-color: #6a2020 !important;
   color: #ff8080 !important;
-}
-
-/* ─── Sites list ────────────────────────────────────────────────────── */
-.site-row:hover {
-  background: #161620;
-}
-
-.site-action-btn:hover {
-  background: #1e1e2e !important;
-  color: #8a8aac !important;
-}
-
-.site-delete-btn:hover {
-  background: #2a1a1a !important;
-  color: #ff6060 !important;
-}
-
-/* ─── Dialog ────────────────────────────────────────────────────────── */
-.dialog-close-btn:hover {
-  background: #1e1e2e !important;
-  color: #8a8aac !important;
-}
-
-.dialog-cancel-btn:hover {
-  background: #1a1a28 !important;
-  color: #c0c0d8 !important;
-  border-color: #3a3a52 !important;
-}
-
-.create-site-btn:hover {
-  background: #5563ff !important;
-}
-
-/* ─── Stat cards ────────────────────────────────────────────────────── */
-.stat-card:hover {
-  border-color: #2a2a3e !important;
 }
 
 /* ─── Spinner ───────────────────────────────────────────────────────── */
@@ -151,5 +191,20 @@ body {
   }
 }
 .spin {
-  animation: spin 0.8s linear infinite;
+  animation: spin 0.7s linear infinite;
+}
+
+/* ─── Fade in ───────────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-in {
+  animation: fadeIn 0.18s ease-out both;
 }

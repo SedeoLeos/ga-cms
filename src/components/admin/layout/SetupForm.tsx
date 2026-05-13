@@ -5,108 +5,110 @@ import type { SetupActionState } from '@/lib/actions/setup'
 import { AlertCircle, Eye, EyeOff, Loader2 } from 'lucide-react'
 import { useActionState, useState } from 'react'
 
-const INPUT_S: React.CSSProperties = {
+const INPUT: React.CSSProperties = {
   height: 34,
   padding: '0 10px',
-  background: '#16161f',
-  border: '1px solid #2a2a3e',
-  borderRadius: 6,
+  background: '#111118',
+  border: '1px solid #252535',
+  borderRadius: 7,
   color: '#e8e8f0',
   fontSize: 13,
   outline: 'none',
   width: '100%',
   boxSizing: 'border-box',
+  letterSpacing: '-0.01em',
 }
 
-const LABEL_S: React.CSSProperties = {
-  fontSize: 12,
+const LABEL: React.CSSProperties = {
+  display: 'block',
+  fontSize: 11,
   fontWeight: 500,
-  color: '#7070a0',
+  color: '#4e4e70',
+  marginBottom: 5,
+  letterSpacing: '0.02em',
+  textTransform: 'uppercase',
 }
 
 export default function SetupForm() {
   const [state, action, pending] = useActionState<SetupActionState, FormData>(setupAction, null)
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPwd, setShowPwd] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
 
   return (
     <form action={action} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-      {state?.error && (
+      {state && 'error' in state && (
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: 8,
             padding: '9px 12px',
-            background: '#2a1212',
-            border: '1px solid #5a2020',
-            borderRadius: 6,
-            fontSize: 13,
+            background: '#1e0e0e',
+            border: '1px solid #4a1e1e',
+            borderRadius: 7,
+            fontSize: 12,
             color: '#ff7070',
           }}
         >
-          <AlertCircle size={14} strokeWidth={1.5} color="#ff7070" style={{ flexShrink: 0 }} />
+          <AlertCircle size={13} strokeWidth={1.5} style={{ flexShrink: 0 }} />
           {state.error}
         </div>
       )}
 
-      {/* Nom */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-        <label htmlFor="name" style={LABEL_S}>
+        <label htmlFor="setup-name" style={LABEL}>
           Nom
         </label>
         <input
-          id="name"
+          id="setup-name"
           name="name"
           type="text"
           required
           autoComplete="name"
           disabled={pending}
           placeholder="Jean Dupont"
-          style={INPUT_S}
           className="admin-input"
+          style={INPUT}
         />
       </div>
 
-      {/* Email */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-        <label htmlFor="email" style={LABEL_S}>
+        <label htmlFor="setup-email" style={LABEL}>
           Email
         </label>
         <input
-          id="email"
+          id="setup-email"
           name="email"
           type="email"
           required
           autoComplete="email"
           disabled={pending}
-          placeholder="admin@exemple.com"
-          style={INPUT_S}
+          placeholder="admin@monsite.com"
           className="admin-input"
+          style={INPUT}
         />
       </div>
 
-      {/* Mot de passe */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-        <label htmlFor="password" style={LABEL_S}>
+        <label htmlFor="setup-password" style={LABEL}>
           Mot de passe
         </label>
         <div style={{ position: 'relative' }}>
           <input
-            id="password"
+            id="setup-password"
             name="password"
-            type={showPassword ? 'text' : 'password'}
+            type={showPwd ? 'text' : 'password'}
             required
             minLength={8}
             autoComplete="new-password"
             disabled={pending}
             placeholder="8 caractères minimum"
-            style={{ ...INPUT_S, padding: '0 36px 0 10px' }}
             className="admin-input"
+            style={{ ...INPUT, paddingRight: 36 }}
           />
           <button
             type="button"
-            onClick={() => setShowPassword((v) => !v)}
+            onClick={() => setShowPwd((v) => !v)}
             style={{
               position: 'absolute',
               right: 0,
@@ -120,32 +122,28 @@ export default function SetupForm() {
               border: 'none',
               cursor: 'pointer',
               padding: 0,
+              color: '#3e3e58',
             }}
           >
-            {showPassword ? (
-              <EyeOff size={14} strokeWidth={1.5} color="#4a4a68" />
-            ) : (
-              <Eye size={14} strokeWidth={1.5} color="#4a4a68" />
-            )}
+            {showPwd ? <EyeOff size={13} strokeWidth={1.5} /> : <Eye size={13} strokeWidth={1.5} />}
           </button>
         </div>
       </div>
 
-      {/* Confirmer le mot de passe */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-        <label htmlFor="confirmPassword" style={LABEL_S}>
+        <label htmlFor="setup-confirm" style={LABEL}>
           Confirmer le mot de passe
         </label>
         <div style={{ position: 'relative' }}>
           <input
-            id="confirmPassword"
+            id="setup-confirm"
             name="confirmPassword"
             type={showConfirm ? 'text' : 'password'}
             required
             autoComplete="new-password"
             disabled={pending}
-            style={{ ...INPUT_S, padding: '0 36px 0 10px' }}
             className="admin-input"
+            style={{ ...INPUT, paddingRight: 36 }}
           />
           <button
             type="button"
@@ -163,41 +161,42 @@ export default function SetupForm() {
               border: 'none',
               cursor: 'pointer',
               padding: 0,
+              color: '#3e3e58',
             }}
           >
             {showConfirm ? (
-              <EyeOff size={14} strokeWidth={1.5} color="#4a4a68" />
+              <EyeOff size={13} strokeWidth={1.5} />
             ) : (
-              <Eye size={14} strokeWidth={1.5} color="#4a4a68" />
+              <Eye size={13} strokeWidth={1.5} />
             )}
           </button>
         </div>
       </div>
 
-      {/* Submit */}
       <button
         type="submit"
         disabled={pending}
+        className={pending ? '' : 'wf-btn-primary'}
         style={{
           height: 34,
-          marginTop: 4,
-          background: pending ? '#2d3580' : '#4353ff',
+          marginTop: 6,
+          background: pending ? '#1e204a' : '#4353ff',
           border: 'none',
-          borderRadius: 6,
-          color: '#fff',
+          borderRadius: 7,
+          color: pending ? '#5060a0' : '#fff',
           fontSize: 13,
           fontWeight: 600,
           cursor: pending ? 'not-allowed' : 'pointer',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: 6,
-          transition: 'background 0.15s',
+          gap: 7,
+          letterSpacing: '-0.01em',
+          fontFamily: 'inherit',
         }}
-        className={pending ? '' : 'admin-btn-primary'}
       >
-        {pending && <Loader2 size={13} strokeWidth={2} color="#fff" className="spin" />}
-        {pending ? 'Création en cours…' : 'Créer le compte admin'}
+        {pending && <Loader2 size={13} strokeWidth={2} className="spin" />}
+        {pending ? 'Création…' : 'Créer le compte'}
       </button>
     </form>
   )

@@ -1,6 +1,7 @@
 import CollectionsList from '@/components/admin/collections/CollectionsList'
 import type { CollectionRow } from '@/components/admin/collections/CollectionsList'
 import CreateCollectionDialog from '@/components/admin/collections/CreateCollectionDialog'
+import AdminPageHeader from '@/components/admin/layout/AdminPageHeader'
 import { prisma } from '@/lib/db/client'
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
@@ -44,35 +45,15 @@ async function CollectionsContent() {
   const total = collections.length
 
   return (
-    <div style={{ padding: 32, maxWidth: 1000 }}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginBottom: 24,
-        }}
-      >
-        <div>
-          <h1
-            style={{
-              margin: 0,
-              fontSize: 20,
-              fontWeight: 600,
-              color: '#e8e8f0',
-              letterSpacing: '-0.01em',
-            }}
-          >
-            Collections
-          </h1>
-          <p style={{ margin: '4px 0 0', fontSize: 13, color: '#5a5a78' }}>
-            {total} collection{total !== 1 ? 's' : ''}
-          </p>
-        </div>
-        <CreateCollectionDialog />
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <AdminPageHeader
+        title="Collections"
+        subtitle={`${total} collection${total !== 1 ? 's' : ''}`}
+        action={<CreateCollectionDialog />}
+      />
+      <div style={{ padding: '20px 28px', flex: 1 }}>
+        <CollectionsList collections={collections} />
       </div>
-
-      <CollectionsList collections={collections} />
     </div>
   )
 }

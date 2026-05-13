@@ -9,7 +9,7 @@ export default function LoginPage() {
     <div
       style={{
         minHeight: '100vh',
-        background: '#0e0e14',
+        background: '#0d0d12',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -17,20 +17,20 @@ export default function LoginPage() {
       }}
     >
       <div style={{ width: '100%', maxWidth: 360 }}>
-        {/* Logo */}
+        {/* Logo mark */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             gap: 10,
-            marginBottom: 32,
+            marginBottom: 36,
           }}
         >
           <div
             style={{
-              width: 32,
-              height: 32,
+              width: 34,
+              height: 34,
               background: '#4353ff',
               borderRadius: 9,
               display: 'flex',
@@ -41,7 +41,12 @@ export default function LoginPage() {
             <Shapes size={17} strokeWidth={2} color="#fff" />
           </div>
           <span
-            style={{ fontSize: 18, fontWeight: 700, color: '#e8e8f0', letterSpacing: '-0.02em' }}
+            style={{
+              fontSize: 18,
+              fontWeight: 700,
+              color: '#e0e0ec',
+              letterSpacing: '-0.03em',
+            }}
           >
             tatomir
           </span>
@@ -50,25 +55,26 @@ export default function LoginPage() {
         {/* Card */}
         <div
           style={{
-            background: '#13131c',
-            border: '1px solid #1f1f2e',
-            borderRadius: 10,
-            padding: 28,
+            background: '#0f0f18',
+            border: '1px solid #1c1c28',
+            borderRadius: 12,
+            padding: '28px 28px 24px',
+            boxShadow: '0 24px 64px rgba(0,0,0,0.5)',
           }}
         >
           <h1
             style={{
-              margin: '0 0 4px',
-              fontSize: 16,
+              margin: '0 0 2px',
+              fontSize: 15,
               fontWeight: 600,
               color: '#e8e8f0',
-              letterSpacing: '-0.01em',
+              letterSpacing: '-0.02em',
             }}
           >
-            Sign in to your workspace
+            Connexion à votre espace
           </h1>
-          <p style={{ margin: '0 0 22px', fontSize: 13, color: '#5a5a78' }}>
-            Enter your admin credentials to continue.
+          <p style={{ margin: '0 0 24px', fontSize: 12, color: '#3e3e58' }}>
+            Entrez vos identifiants administrateur pour continuer.
           </p>
 
           <LoginForm />
