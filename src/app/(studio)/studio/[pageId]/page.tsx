@@ -23,9 +23,8 @@ export default function StudioPage({ params }: Props) {
 async function StudioContent({ params }: Props) {
   await connection()
   const session = await getSession()
-  if (!session) redirect('/admin/auth/login')
-
   const { pageId } = await params
+  if (!session) redirect(`/admin/auth/login?callbackUrl=${encodeURIComponent(`/studio/${pageId}`)}`)
 
   const page = await prisma.page.findUnique({
     where: { id: pageId },
