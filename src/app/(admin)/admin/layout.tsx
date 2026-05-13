@@ -28,7 +28,7 @@ async function AuthenticatedShell({ children }: { children: React.ReactNode }) {
 
   const userCount = await prisma.user.count()
   if (userCount === 0) {
-    redirect('/setup')
+    redirect('/')
   }
 
   const { getSession } = await import('@/lib/auth/session')

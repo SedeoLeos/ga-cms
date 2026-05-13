@@ -46,7 +46,8 @@ function handleLocale(request: NextRequest) {
     return NextResponse.next()
   }
 
-  if (pathname.startsWith('/api/') || pathname.includes('.')) {
+  // Root path and setup path handled by their own pages
+  if (pathname === '/' || pathname.startsWith('/api/') || pathname.includes('.')) {
     return NextResponse.next()
   }
 
