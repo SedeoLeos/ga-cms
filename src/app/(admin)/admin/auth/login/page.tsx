@@ -4,7 +4,13 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = { title: 'Sign in' }
 
-export default function LoginPage() {
+interface Props {
+  searchParams: Promise<{ callbackUrl?: string }>
+}
+
+export default async function LoginPage({ searchParams }: Props) {
+  const { callbackUrl } = await searchParams
+
   return (
     <div
       style={{
@@ -77,7 +83,7 @@ export default function LoginPage() {
             Entrez vos identifiants administrateur pour continuer.
           </p>
 
-          <LoginForm />
+          <LoginForm callbackUrl={callbackUrl} />
         </div>
       </div>
     </div>

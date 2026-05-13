@@ -2,7 +2,6 @@
 
 import { logoutAction } from '@/lib/auth/actions'
 import {
-  ChevronDown,
   Database,
   FileText,
   Globe,
@@ -26,32 +25,20 @@ interface NavItem {
   icon: React.ComponentType<any>
 }
 
-const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
-  {
-    label: 'Contenu',
-    items: [
-      { href: '/admin', label: 'Dashboard', icon: LayoutGrid },
-      { href: '/admin/pages', label: 'Pages', icon: FileText },
-      { href: '/admin/collections', label: 'Collections', icon: Database },
-      { href: '/admin/post-types', label: 'Post Types', icon: Layers },
-      { href: '/admin/taxonomies', label: 'Taxonomies', icon: Tag },
-    ],
-  },
-  {
-    label: 'Médias',
-    items: [{ href: '/admin/media', label: 'Médiathèque', icon: Image }],
-  },
-  {
-    label: 'Apparence',
-    items: [
-      { href: '/admin/design-system', label: 'Design System', icon: Palette },
-      { href: '/admin/global-blocks', label: 'Blocs globaux', icon: Globe },
-    ],
-  },
-  {
-    label: 'Accès',
-    items: [{ href: '/admin/members', label: 'Membres', icon: Users }],
-  },
+const NAV_ITEMS: NavItem[] = [
+  { href: '/admin', label: 'Dashboard', icon: LayoutGrid },
+  { href: '/admin/pages', label: 'Pages', icon: FileText },
+  { href: '/admin/collections', label: 'Collections', icon: Database },
+  { href: '/admin/post-types', label: 'Post Types', icon: Layers },
+  { href: '/admin/taxonomies', label: 'Taxonomies', icon: Tag },
+  { href: '/admin/media', label: 'Médiathèque', icon: Image },
+  { href: '/admin/global-blocks', label: 'Blocs globaux', icon: Globe },
+  { href: '/admin/design-system', label: 'Design System', icon: Palette },
+]
+
+const BOTTOM_ITEMS: NavItem[] = [
+  { href: '/admin/members', label: 'Membres', icon: Users },
+  { href: '/admin/settings', label: 'Paramètres', icon: Settings2 },
 ]
 
 interface Props {
@@ -60,7 +47,7 @@ interface Props {
   siteName?: string
 }
 
-export default function AdminSidebar({ userName, userEmail, siteName = 'Tatomir' }: Props) {
+export default function AdminSidebar({ userName, userEmail, siteName = 'Mon Site' }: Props) {
   const pathname = usePathname()
 
   function isActive(href: string) {
@@ -68,140 +55,102 @@ export default function AdminSidebar({ userName, userEmail, siteName = 'Tatomir'
     return pathname.startsWith(href)
   }
 
-  const initials = (userName[0] ?? 'A').toUpperCase()
+  const initial = (userName[0] ?? 'A').toUpperCase()
 
   return (
     <aside
       style={{
-        width: 224,
+        width: 232,
         height: '100vh',
-        background: '#0a0a10',
-        borderRight: '1px solid #1c1c28',
+        background: '#0a0a0f',
+        borderRight: '1px solid rgba(255,255,255,0.05)',
         display: 'flex',
         flexDirection: 'column',
         flexShrink: 0,
         position: 'sticky',
         top: 0,
+        fontFamily: 'Inter, system-ui, sans-serif',
       }}
     >
-      {/* Workspace selector */}
+      {/* ── Logo / site header ─────────────────────────────────────── */}
       <div
         style={{
           height: 52,
           display: 'flex',
           alignItems: 'center',
-          padding: '0 12px',
-          borderBottom: '1px solid #1c1c28',
+          gap: 10,
+          padding: '0 16px',
+          borderBottom: '1px solid rgba(255,255,255,0.04)',
           flexShrink: 0,
         }}
       >
-        <button
-          type="button"
-          className="wf-sidebar-ws"
+        <div
           style={{
+            width: 26,
+            height: 26,
+            background: '#4353ff',
+            borderRadius: 7,
             display: 'flex',
             alignItems: 'center',
-            gap: 9,
-            width: '100%',
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '5px 8px',
-            borderRadius: 7,
-            textAlign: 'left',
+            justifyContent: 'center',
+            flexShrink: 0,
           }}
         >
-          <div
-            style={{
-              width: 28,
-              height: 28,
-              background: '#4353ff',
-              borderRadius: 7,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-            }}
-          >
-            <Shapes size={14} strokeWidth={2} color="#fff" />
-          </div>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div
-              style={{
-                fontSize: 13,
-                fontWeight: 600,
-                color: '#e0e0ec',
-                letterSpacing: '-0.01em',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {siteName}
-            </div>
-            <div style={{ fontSize: 10, color: '#404058', marginTop: 1 }}>CMS Workspace</div>
-          </div>
-          <ChevronDown size={13} strokeWidth={2} color="#383852" />
-        </button>
+          <Shapes size={13} strokeWidth={2} color="#fff" />
+        </div>
+        <span
+          style={{
+            fontSize: 13,
+            fontWeight: 600,
+            color: '#d8d8ec',
+            letterSpacing: '-0.02em',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            flex: 1,
+          }}
+        >
+          {siteName}
+        </span>
       </div>
 
-      {/* Navigation */}
-      <nav style={{ flex: 1, padding: '8px 0', overflowY: 'auto' }} className="panel-scroll">
-        {NAV_SECTIONS.map((section, i) => (
-          <div key={section.label} style={{ marginBottom: 4 }}>
-            {i > 0 && (
-              <div
-                style={{
-                  height: 1,
-                  background: '#14141e',
-                  margin: '6px 12px',
-                }}
-              />
-            )}
-            <p
-              style={{
-                margin: '8px 16px 3px',
-                fontSize: 10,
-                fontWeight: 600,
-                color: '#35354e',
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-              }}
-            >
-              {section.label}
-            </p>
-            {section.items.map((item) => (
-              <SidebarItem key={item.href} item={item} active={isActive(item.href)} />
-            ))}
-          </div>
+      {/* ── Navigation ─────────────────────────────────────────────── */}
+      <nav style={{ flex: 1, padding: '10px 8px 8px', overflowY: 'auto' }} className="panel-scroll">
+        {NAV_ITEMS.map((item) => (
+          <NavLink key={item.href} item={item} active={isActive(item.href)} />
         ))}
       </nav>
 
-      {/* Bottom zone */}
-      <div style={{ flexShrink: 0, borderTop: '1px solid #14141e', paddingTop: 4 }}>
-        <SidebarItem
-          item={{ href: '/admin/settings', label: 'Paramètres', icon: Settings2 }}
-          active={isActive('/admin/settings')}
-        />
+      {/* ── Bottom section ─────────────────────────────────────────── */}
+      <div
+        style={{
+          flexShrink: 0,
+          padding: '8px 8px 0',
+          borderTop: '1px solid rgba(255,255,255,0.04)',
+        }}
+      >
+        {BOTTOM_ITEMS.map((item) => (
+          <NavLink key={item.href} item={item} active={isActive(item.href)} />
+        ))}
 
-        {/* User footer */}
+        {/* User row */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: 9,
-            padding: '8px 14px',
-            marginTop: 2,
-            borderTop: '1px solid #12121c',
+            padding: '8px 10px',
+            marginTop: 4,
+            borderTop: '1px solid rgba(255,255,255,0.03)',
           }}
         >
+          {/* Avatar */}
           <div
             style={{
-              width: 28,
-              height: 28,
+              width: 26,
+              height: 26,
               borderRadius: '50%',
-              background: '#1a1f4a',
-              border: '1px solid #272d6a',
+              background: 'rgba(67,83,255,0.2)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -209,17 +158,19 @@ export default function AdminSidebar({ userName, userEmail, siteName = 'Tatomir'
               fontWeight: 700,
               color: '#6878ff',
               flexShrink: 0,
-              letterSpacing: '-0.02em',
+              letterSpacing: 0,
             }}
           >
-            {initials}
+            {initial}
           </div>
+
+          {/* Name / email */}
           <div style={{ flex: 1, minWidth: 0 }}>
             <div
               style={{
                 fontSize: 12,
                 fontWeight: 500,
-                color: '#c0c0d8',
+                color: '#9898b8',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
@@ -229,75 +180,89 @@ export default function AdminSidebar({ userName, userEmail, siteName = 'Tatomir'
             </div>
             <div
               style={{
-                fontSize: 11,
-                color: '#3e3e56',
+                fontSize: 10,
+                color: '#3a3a5a',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
+                marginTop: 1,
               }}
             >
               {userEmail}
             </div>
           </div>
+
+          {/* Logout */}
           <form action={logoutAction}>
             <button
               type="submit"
               title="Déconnexion"
-              className="wf-btn-icon wf-sidebar-logout"
+              className="wf-sidebar-logout"
               style={{
-                width: 28,
-                height: 28,
+                width: 26,
+                height: 26,
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                borderRadius: 6,
+                borderRadius: 5,
                 flexShrink: 0,
                 padding: 0,
-                color: '#3e3e56',
               }}
             >
-              <LogOut size={14} strokeWidth={1.5} />
+              <LogOut size={13} strokeWidth={1.5} color="#3a3a5a" />
             </button>
           </form>
         </div>
+
+        <div style={{ height: 8 }} />
       </div>
     </aside>
   )
 }
 
-function SidebarItem({ item, active }: { item: NavItem; active: boolean }) {
+function NavLink({ item, active }: { item: NavItem; active: boolean }) {
   const Icon = item.icon
   return (
     <Link
       href={item.href}
-      className={active ? 'wf-sidebar-item--active' : 'wf-sidebar-item'}
       style={{
         display: 'flex',
         alignItems: 'center',
         gap: 9,
-        height: 32,
+        height: 34,
         padding: '0 10px',
-        margin: '1px 8px',
         borderRadius: 6,
         textDecoration: 'none',
+        marginBottom: 1,
         outline: 'none',
+        position: 'relative',
+        // Active: left border + subtle blue bg
+        background: active ? 'rgba(67,83,255,0.1)' : 'transparent',
+        borderLeft: active ? '2px solid #4353ff' : '2px solid transparent',
+        paddingLeft: active ? 8 : 10,
+        transition: 'background 0.1s',
       }}
+      className={active ? '' : 'wf-nav-link'}
     >
       <Icon
-        size={15}
+        size={14}
         strokeWidth={1.6}
-        className="wf-sidebar-icon"
-        style={{ color: active ? '#7888ff' : '#45455e', flexShrink: 0 }}
+        style={{
+          color: active ? '#6878ff' : '#3a3a5e',
+          flexShrink: 0,
+          transition: 'color 0.1s',
+        }}
       />
       <span
         style={{
           fontSize: 13,
           fontWeight: active ? 500 : 400,
-          color: active ? '#c8ceff' : undefined,
-          letterSpacing: '-0.01em',
+          color: active ? '#b8bcff' : '#5a5a80',
+          letterSpacing: active ? '-0.01em' : '0',
+          transition: 'color 0.1s',
         }}
       >
         {item.label}

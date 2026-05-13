@@ -83,23 +83,17 @@ body {
 }
 
 /* ─── Sidebar ───────────────────────────────────────────────────────── */
-.wf-sidebar-item {
-  color: #6a6a88;
-  transition: background 0.1s, color 0.1s;
+.wf-nav-link:hover {
+  background: rgba(255, 255, 255, 0.025) !important;
 }
-.wf-sidebar-item:hover {
-  background: #14141e !important;
-  color: #b0b0cc !important;
+.wf-nav-link:hover span {
+  color: #8888a8 !important;
 }
-.wf-sidebar-item:hover .wf-sidebar-icon {
-  color: #7070a8 !important;
-}
-.wf-sidebar-item--active {
-  background: #1a1c35 !important;
-  color: #c8ceff !important;
+.wf-nav-link:hover svg {
+  color: #55557a !important;
 }
 .wf-sidebar-ws:hover {
-  background: #13131e !important;
+  background: rgba(255, 255, 255, 0.03) !important;
 }
 .wf-sidebar-logout:hover {
   background: #16161f !important;

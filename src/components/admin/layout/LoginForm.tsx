@@ -29,12 +29,19 @@ const LABEL: React.CSSProperties = {
   textTransform: 'uppercase',
 }
 
-export default function LoginForm() {
+interface Props {
+  callbackUrl?: string
+}
+
+export default function LoginForm({ callbackUrl }: Props) {
   const [state, action, pending] = useActionState<LoginState, FormData>(loginAction, null)
   const [showPwd, setShowPwd] = useState(false)
 
   return (
     <form action={action} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+      {/* Pass callbackUrl through the form */}
+      {callbackUrl && <input type="hidden" name="callbackUrl" value={callbackUrl} />}
+
       {state?.error && (
         <div
           style={{
@@ -55,11 +62,11 @@ export default function LoginForm() {
       )}
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-        <label htmlFor="email" style={LABEL}>
+        <label htmlFor="login-email" style={LABEL}>
           Email
         </label>
         <input
-          id="email"
+          id="login-email"
           name="email"
           type="email"
           required
@@ -71,12 +78,12 @@ export default function LoginForm() {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-        <label htmlFor="password" style={LABEL}>
+        <label htmlFor="login-password" style={LABEL}>
           Mot de passe
         </label>
         <div style={{ position: 'relative' }}>
           <input
-            id="password"
+            id="login-password"
             name="password"
             type={showPwd ? 'text' : 'password'}
             required

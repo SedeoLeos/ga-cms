@@ -9,6 +9,7 @@ export type LoginState = { error: string } | null
 export async function loginAction(_prev: LoginState, formData: FormData): Promise<LoginState> {
   const email = formData.get('email') as string
   const password = formData.get('password') as string
+  const callbackUrl = (formData.get('callbackUrl') as string) || '/admin'
 
   try {
     await auth.api.signInEmail({
@@ -19,12 +20,14 @@ export async function loginAction(_prev: LoginState, formData: FormData): Promis
     return { error: 'Email ou mot de passe incorrect.' }
   }
 
-  redirect('/admin')
+  redirect(callbackUrl.startsWith('/') ? callbackUrl : '/admin')
 }
 
 export async function logoutAction(): Promise<void> {
-  await auth.api.signOut({
-    headers: await headers(),
-  })
+  try {
+    await auth.api.signOut({ headers: await headers() })
+  } catch {
+    // ignore
+  }
   redirect('/admin/auth/login')
 }

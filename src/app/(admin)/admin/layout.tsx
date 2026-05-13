@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <div style={{ minHeight: '100vh', background: '#0d0d12' }}>
-      <Suspense fallback={children}>
+      <Suspense fallback={<div style={{ minHeight: '100vh', background: '#0d0d12' }} />}>
         <AuthenticatedShell>{children}</AuthenticatedShell>
       </Suspense>
     </div>
@@ -31,11 +31,20 @@ async function AuthenticatedShell({ children }: { children: React.ReactNode }) {
   const { default: AdminSidebar } = await import('@/components/admin/layout/AdminSidebar')
   const { getSettings } = await import('@/lib/settings')
 
-  const [session, settings] = await Promise.all([getSession(), getSettings()])
+  let session = null
+  try {
+    session = await getSession()
+  } catch {
+    // session check failed
+  }
 
+  // The middleware already guards non-public admin paths.
+  // If we reach here with no session, it's the login/auth page.
   if (!session) {
     return <>{children}</>
   }
+
+  const settings = await getSettings()
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
