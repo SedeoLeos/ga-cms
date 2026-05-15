@@ -40,8 +40,12 @@ async function StudioContent({ params }: Props) {
     select: {
       id: true,
       title: true,
+      slug: true,
       draftJson: true,
       publishedJson: true,
+      metaTitle: true,
+      metaDesc: true,
+      ogImage: true,
     },
   })
 
@@ -54,6 +58,12 @@ async function StudioContent({ params }: Props) {
       pageId={page.id}
       pageTitle={page.title}
       initialData={initialData as Record<string, unknown> | null}
+      initialSeo={{
+        metaTitle: page.metaTitle,
+        metaDesc: page.metaDesc,
+        ogImage: page.ogImage,
+        slug: page.slug,
+      }}
     />
   )
 }

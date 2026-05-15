@@ -98,6 +98,26 @@ export async function publishPageAction(
   }
 }
 
+export async function saveSeoAction(
+  pageId: string,
+  seo: { metaTitle: string | null; metaDesc: string | null; ogImage: string | null },
+): Promise<{ success: true } | { error: string }> {
+  try {
+    await prisma.page.update({
+      where: { id: pageId },
+      data: {
+        metaTitle: seo.metaTitle || null,
+        metaDesc: seo.metaDesc || null,
+        ogImage: seo.ogImage || null,
+      },
+    })
+    revalidatePath('/', 'layout')
+    return { success: true }
+  } catch {
+    return { error: 'Erreur lors de la sauvegarde SEO.' }
+  }
+}
+
 export async function generatePreviewTokenAction(
   pageId: string,
 ): Promise<{ url: string } | { error: string }> {
