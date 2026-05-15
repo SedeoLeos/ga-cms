@@ -26,6 +26,9 @@ const PADDING_OPTIONS = [
   { value: '96px 20px', label: 'XL' },
 ]
 
+// Accent cohérent avec l'admin (#2563eb / blue-600)
+const ACCENT = '#2563eb'
+
 // ─── Config ───────────────────────────────────────────────────────────────────
 
 export const puckConfig: Config = {
@@ -178,10 +181,10 @@ export const puckConfig: Config = {
               margin: '0 0 16px',
               fontSize: size,
               fontWeight: 700,
-              letterSpacing: '-0.02em',
-              lineHeight: 1.2,
+              letterSpacing: '-0.025em',
+              lineHeight: 1.15,
               textAlign: align as 'left' | 'center' | 'right',
-              color: color || undefined,
+              color: color || '#111827',
             }}
           >
             {text}
@@ -211,9 +214,9 @@ export const puckConfig: Config = {
           style={{
             margin: '0 0 16px',
             fontSize: size,
-            lineHeight: 1.7,
+            lineHeight: 1.75,
             textAlign: align as 'left' | 'center' | 'right',
-            color: color || undefined,
+            color: color || '#4b5563',
             maxWidth: maxWidth || undefined,
           }}
         >
@@ -249,9 +252,9 @@ export const puckConfig: Config = {
             <div
               style={{
                 width,
-                height: 160,
+                height: 200,
                 background: '#f3f4f6',
-                border: '2px dashed #d1d5db',
+                border: '2px dashed #e5e7eb',
                 borderRadius,
                 display: 'flex',
                 alignItems: 'center',
@@ -309,7 +312,7 @@ export const puckConfig: Config = {
               paddingBottom: ratio,
               height: 0,
               overflow: 'hidden',
-              borderRadius: 8,
+              borderRadius: 12,
             }}
           >
             {url ? (
@@ -340,8 +343,8 @@ export const puckConfig: Config = {
                   justifyContent: 'center',
                   color: '#9ca3af',
                   fontSize: 13,
-                  border: '2px dashed #d1d5db',
-                  borderRadius: 8,
+                  border: '2px dashed #e5e7eb',
+                  borderRadius: 12,
                 }}
               >
                 Vidéo
@@ -388,12 +391,12 @@ export const puckConfig: Config = {
       },
       render: ({ label: text, href, variant, size, align }) => {
         const heights: Record<string, number> = { sm: 34, md: 42, lg: 50 }
-        const sizes: Record<string, number> = { sm: 13, md: 15, lg: 16 }
+        const fontSizes: Record<string, number> = { sm: 13, md: 15, lg: 16 }
         const pads: Record<string, string> = { sm: '0 16px', md: '0 24px', lg: '0 32px' }
         const styles: Record<string, React.CSSProperties> = {
-          primary: { background: 'var(--color-primary, #4353ff)', color: '#fff', border: 'none' },
+          primary: { background: ACCENT, color: '#fff', border: 'none' },
           secondary: { background: '#111827', color: '#fff', border: 'none' },
-          outline: { background: 'transparent', color: '#111827', border: '2px solid #111827' },
+          outline: { background: 'transparent', color: '#111827', border: '1.5px solid #d1d5db' },
         }
         return (
           <div style={{ textAlign: align as 'left' | 'center' | 'right' }}>
@@ -405,12 +408,13 @@ export const puckConfig: Config = {
                 justifyContent: 'center',
                 height: heights[size],
                 padding: pads[size],
-                borderRadius: 6,
-                fontSize: sizes[size],
+                borderRadius: 7,
+                fontSize: fontSizes[size],
                 fontWeight: 600,
                 textDecoration: 'none',
                 cursor: 'pointer',
                 fontFamily: 'inherit',
+                letterSpacing: '-0.01em',
                 ...styles[variant],
               }}
             >
@@ -465,7 +469,7 @@ export const puckConfig: Config = {
         ctaSecondHref: '#',
         background: '#ffffff',
         align: 'center',
-        minHeight: '480px',
+        minHeight: '520px',
       },
       render: ({
         title,
@@ -484,12 +488,12 @@ export const puckConfig: Config = {
             minHeight,
             display: 'flex',
             alignItems: 'center',
-            padding: '80px 24px',
+            padding: '96px 24px',
           }}
         >
           <div
             style={{
-              maxWidth: 720,
+              maxWidth: 760,
               margin: '0 auto',
               textAlign: align as 'left' | 'center' | 'right',
               width: '100%',
@@ -497,18 +501,27 @@ export const puckConfig: Config = {
           >
             <h1
               style={{
-                margin: '0 0 20px',
-                fontSize: 'clamp(32px, 5vw, 56px)',
+                margin: '0 0 24px',
+                fontSize: 'clamp(36px, 5.5vw, 64px)',
                 fontWeight: 800,
-                lineHeight: 1.1,
-                letterSpacing: '-0.03em',
-                color: '#111827',
+                lineHeight: 1.05,
+                letterSpacing: '-0.04em',
+                color: '#0f172a',
               }}
             >
               {title}
             </h1>
             {subtitle && (
-              <p style={{ margin: '0 0 32px', fontSize: 19, color: '#6b7280', lineHeight: 1.6 }}>
+              <p
+                style={{
+                  margin: '0 0 40px',
+                  fontSize: 19,
+                  color: '#4b5563',
+                  lineHeight: 1.65,
+                  maxWidth: 600,
+                  ...(align === 'center' ? { marginLeft: 'auto', marginRight: 'auto' } : {}),
+                }}
+              >
                 {subtitle}
               </p>
             )}
@@ -526,14 +539,15 @@ export const puckConfig: Config = {
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    height: 48,
-                    padding: '0 28px',
-                    background: 'var(--color-primary, #4353ff)',
+                    height: 50,
+                    padding: '0 32px',
+                    background: ACCENT,
                     color: '#fff',
                     borderRadius: 8,
                     fontSize: 16,
                     fontWeight: 600,
                     textDecoration: 'none',
+                    letterSpacing: '-0.01em',
                   }}
                 >
                   {ctaLabel}
@@ -545,15 +559,16 @@ export const puckConfig: Config = {
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    height: 48,
-                    padding: '0 28px',
+                    height: 50,
+                    padding: '0 32px',
                     background: 'transparent',
                     color: '#374151',
-                    border: '2px solid #d1d5db',
+                    border: '1.5px solid #d1d5db',
                     borderRadius: 8,
                     fontSize: 16,
                     fontWeight: 600,
                     textDecoration: 'none',
+                    letterSpacing: '-0.01em',
                   }}
                 >
                   {ctaSecondLabel}
@@ -599,7 +614,7 @@ export const puckConfig: Config = {
         title: 'Nos fonctionnalités',
         subtitle: 'Tout ce dont vous avez besoin.',
         columns: '3',
-        background: '#f9fafb',
+        background: '#f8fafc',
         items: [
           {
             icon: '⚡',
@@ -619,25 +634,36 @@ export const puckConfig: Config = {
         ],
       },
       render: ({ title, subtitle, columns, items, background }) => (
-        <section style={{ padding: '72px 24px', background }}>
+        <section style={{ padding: '88px 24px', background }}>
           <div style={{ maxWidth: 1100, margin: '0 auto' }}>
             {(title || subtitle) && (
-              <div style={{ textAlign: 'center', marginBottom: 48 }}>
+              <div style={{ textAlign: 'center', marginBottom: 56 }}>
                 {title && (
                   <h2
                     style={{
-                      margin: '0 0 12px',
-                      fontSize: 32,
+                      margin: '0 0 14px',
+                      fontSize: 'clamp(26px, 4vw, 36px)',
                       fontWeight: 700,
-                      letterSpacing: '-0.02em',
-                      color: '#111827',
+                      letterSpacing: '-0.03em',
+                      color: '#0f172a',
+                      lineHeight: 1.15,
                     }}
                   >
                     {title}
                   </h2>
                 )}
                 {subtitle && (
-                  <p style={{ margin: 0, fontSize: 17, color: '#6b7280' }}>{subtitle}</p>
+                  <p
+                    style={{
+                      margin: '0 auto',
+                      fontSize: 17,
+                      color: '#6b7280',
+                      maxWidth: 560,
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    {subtitle}
+                  </p>
                 )}
               </div>
             )}
@@ -645,26 +671,35 @@ export const puckConfig: Config = {
               style={{
                 display: 'grid',
                 gridTemplateColumns: `repeat(${columns}, 1fr)`,
-                gap: 24,
+                gap: 20,
               }}
             >
               {(items as { icon: string; title: string; description: string }[]).map((item) => (
                 <div
-                  key={item.title}
+                  key={`${item.icon}-${item.title}`}
                   style={{
-                    padding: 24,
+                    padding: '28px 24px',
                     background: '#fff',
-                    borderRadius: 12,
+                    borderRadius: 14,
                     border: '1px solid #e5e7eb',
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
                   }}
                 >
-                  {item.icon && <div style={{ fontSize: 28, marginBottom: 12 }}>{item.icon}</div>}
+                  {item.icon && (
+                    <div style={{ fontSize: 30, marginBottom: 14, lineHeight: 1 }}>{item.icon}</div>
+                  )}
                   <h3
-                    style={{ margin: '0 0 8px', fontSize: 18, fontWeight: 600, color: '#111827' }}
+                    style={{
+                      margin: '0 0 8px',
+                      fontSize: 16,
+                      fontWeight: 650,
+                      color: '#0f172a',
+                      letterSpacing: '-0.01em',
+                    }}
                   >
                     {item.title}
                   </h3>
-                  <p style={{ margin: 0, fontSize: 14, color: '#6b7280', lineHeight: 1.6 }}>
+                  <p style={{ margin: 0, fontSize: 14, color: '#6b7280', lineHeight: 1.65 }}>
                     {item.description}
                   </p>
                 </div>

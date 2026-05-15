@@ -39,7 +39,7 @@
     }
   },
   "files": {
-    "ignore": ["node_modules", ".next", "dist", "prisma/migrations"]
+    "ignore": ["node_modules", ".next", "dist", "prisma/migrations", "next-env.d.ts"]
   },
   "overrides": [
     {
